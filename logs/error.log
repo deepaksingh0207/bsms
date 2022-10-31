@@ -29107,3 +29107,80 @@ Cake\Http\ResponseEmitter::emit() /Users/deepaksingh/source_code/htdocs/jbm-bsms
 Cake\Http\Server::emit() /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Http/Server.php, line 128
 [main] /Users/deepaksingh/source_code/htdocs/jbm-bsms/webroot/index.php, line 40
 
+2022-10-31 14:55:59 error: [Cake\Database\Exception\MissingConnectionException] Connection to Mysql could not be established: SQLSTATE[HY000] [1049] Unknown database 'bsms' in C:\wamp64\www\bsms\vendor\cakephp\cakephp\src\Database\Driver.php on line 133
+Exception Attributes: array (
+  'driver' => 'Mysql',
+  'reason' => 'SQLSTATE[HY000] [1049] Unknown database \'bsms\'',
+)
+Stack Trace:
+- C:\wamp64\www\bsms\vendor\cakephp\cakephp\src\Database\Driver\Mysql.php:164
+- C:\wamp64\www\bsms\vendor\cakephp\cakephp\src\Database\Schema\SchemaDialect.php:51
+- C:\wamp64\www\bsms\vendor\cakephp\cakephp\src\Database\Driver\Mysql.php:216
+- C:\wamp64\www\bsms\vendor\cakephp\cakephp\src\Database\Schema\Collection.php:53
+- C:\wamp64\www\bsms\vendor\cakephp\cakephp\src\Database\Connection.php:417
+- C:\wamp64\www\bsms\vendor\cakephp\cakephp\src\ORM\Table.php:512
+- C:\wamp64\www\bsms\vendor\cakephp\cakephp\src\ORM\Query.php:290
+- C:\wamp64\www\bsms\vendor\cakephp\cakephp\src\ORM\Query.php:184
+- C:\wamp64\www\bsms\vendor\cakephp\cakephp\src\ORM\Table.php:1706
+- C:\wamp64\www\bsms\vendor\cakephp\cakephp\src\ORM\Table.php:1261
+- C:\wamp64\www\bsms\src\Controller\DealerController.php:24
+- C:\wamp64\www\bsms\vendor\cakephp\cakephp\src\Controller\Controller.php:547
+- C:\wamp64\www\bsms\vendor\cakephp\cakephp\src\Controller\ControllerFactory.php:139
+- C:\wamp64\www\bsms\vendor\cakephp\cakephp\src\Controller\ControllerFactory.php:114
+- C:\wamp64\www\bsms\vendor\cakephp\cakephp\src\Http\BaseApplication.php:320
+- C:\wamp64\www\bsms\vendor\cakephp\cakephp\src\Http\Runner.php:77
+- C:\wamp64\www\bsms\vendor\cakephp\cakephp\src\Http\Middleware\CsrfProtectionMiddleware.php:174
+- C:\wamp64\www\bsms\vendor\cakephp\cakephp\src\Http\Runner.php:73
+- C:\wamp64\www\bsms\vendor\cakephp\cakephp\src\Http\Middleware\BodyParserMiddleware.php:162
+- C:\wamp64\www\bsms\vendor\cakephp\cakephp\src\Http\Runner.php:73
+- C:\wamp64\www\bsms\vendor\cakephp\cakephp\src\Routing\Middleware\RoutingMiddleware.php:186
+- C:\wamp64\www\bsms\vendor\cakephp\cakephp\src\Http\Runner.php:73
+- C:\wamp64\www\bsms\vendor\cakephp\cakephp\src\Routing\Middleware\AssetMiddleware.php:68
+- C:\wamp64\www\bsms\vendor\cakephp\cakephp\src\Http\Runner.php:73
+- C:\wamp64\www\bsms\vendor\cakephp\cakephp\src\Error\Middleware\ErrorHandlerMiddleware.php:131
+- C:\wamp64\www\bsms\vendor\cakephp\cakephp\src\Http\Runner.php:73
+- C:\wamp64\www\bsms\vendor\cakephp\debug_kit\src\Middleware\DebugKitMiddleware.php:60
+- C:\wamp64\www\bsms\vendor\cakephp\cakephp\src\Http\Runner.php:73
+- C:\wamp64\www\bsms\vendor\cakephp\cakephp\src\Http\Runner.php:58
+- C:\wamp64\www\bsms\vendor\cakephp\cakephp\src\Http\Server.php:90
+- C:\wamp64\www\bsms\webroot\index.php:40
+
+Caused by: [PDOException] SQLSTATE[HY000] [1049] Unknown database 'bsms' in C:\wamp64\www\bsms\vendor\cakephp\cakephp\src\Database\Driver.php on line 125
+Stack Trace:
+- C:\wamp64\www\bsms\vendor\cakephp\cakephp\src\Database\Driver.php:125
+- C:\wamp64\www\bsms\vendor\cakephp\cakephp\src\Core\Retry\CommandRetry.php:70
+- C:\wamp64\www\bsms\vendor\cakephp\cakephp\src\Database\Driver.php:131
+- C:\wamp64\www\bsms\vendor\cakephp\cakephp\src\Database\Driver\Mysql.php:164
+- C:\wamp64\www\bsms\vendor\cakephp\cakephp\src\Database\Schema\SchemaDialect.php:51
+- C:\wamp64\www\bsms\vendor\cakephp\cakephp\src\Database\Driver\Mysql.php:216
+- C:\wamp64\www\bsms\vendor\cakephp\cakephp\src\Database\Schema\Collection.php:53
+- C:\wamp64\www\bsms\vendor\cakephp\cakephp\src\Database\Connection.php:417
+- C:\wamp64\www\bsms\vendor\cakephp\cakephp\src\ORM\Table.php:512
+- C:\wamp64\www\bsms\vendor\cakephp\cakephp\src\ORM\Query.php:290
+- C:\wamp64\www\bsms\vendor\cakephp\cakephp\src\ORM\Query.php:184
+- C:\wamp64\www\bsms\vendor\cakephp\cakephp\src\ORM\Table.php:1706
+- C:\wamp64\www\bsms\vendor\cakephp\cakephp\src\ORM\Table.php:1261
+- C:\wamp64\www\bsms\src\Controller\DealerController.php:24
+- C:\wamp64\www\bsms\vendor\cakephp\cakephp\src\Controller\Controller.php:547
+- C:\wamp64\www\bsms\vendor\cakephp\cakephp\src\Controller\ControllerFactory.php:139
+- C:\wamp64\www\bsms\vendor\cakephp\cakephp\src\Controller\ControllerFactory.php:114
+- C:\wamp64\www\bsms\vendor\cakephp\cakephp\src\Http\BaseApplication.php:320
+- C:\wamp64\www\bsms\vendor\cakephp\cakephp\src\Http\Runner.php:77
+- C:\wamp64\www\bsms\vendor\cakephp\cakephp\src\Http\Middleware\CsrfProtectionMiddleware.php:174
+- C:\wamp64\www\bsms\vendor\cakephp\cakephp\src\Http\Runner.php:73
+- C:\wamp64\www\bsms\vendor\cakephp\cakephp\src\Http\Middleware\BodyParserMiddleware.php:162
+- C:\wamp64\www\bsms\vendor\cakephp\cakephp\src\Http\Runner.php:73
+- C:\wamp64\www\bsms\vendor\cakephp\cakephp\src\Routing\Middleware\RoutingMiddleware.php:186
+- C:\wamp64\www\bsms\vendor\cakephp\cakephp\src\Http\Runner.php:73
+- C:\wamp64\www\bsms\vendor\cakephp\cakephp\src\Routing\Middleware\AssetMiddleware.php:68
+- C:\wamp64\www\bsms\vendor\cakephp\cakephp\src\Http\Runner.php:73
+- C:\wamp64\www\bsms\vendor\cakephp\cakephp\src\Error\Middleware\ErrorHandlerMiddleware.php:131
+- C:\wamp64\www\bsms\vendor\cakephp\cakephp\src\Http\Runner.php:73
+- C:\wamp64\www\bsms\vendor\cakephp\debug_kit\src\Middleware\DebugKitMiddleware.php:60
+- C:\wamp64\www\bsms\vendor\cakephp\cakephp\src\Http\Runner.php:73
+- C:\wamp64\www\bsms\vendor\cakephp\cakephp\src\Http\Runner.php:58
+- C:\wamp64\www\bsms\vendor\cakephp\cakephp\src\Http\Server.php:90
+- C:\wamp64\www\bsms\webroot\index.php:40
+
+Request URL: /dealer/login
+Referer URL: http://localhost/bsms/dealer/login
