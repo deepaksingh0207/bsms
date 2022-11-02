@@ -4,10 +4,8 @@
  * @var \App\Model\Entity\BuyerSellerUser $buyerSellerUser
  */
 ?>
+
 <div class="row">
-    <aside class="column">
-        <?php echo $this->element('left_menu'); ?>
-    </aside>
     <div class="column-responsive column-80">
 
         <div class="buyerSellerUsers view content">
