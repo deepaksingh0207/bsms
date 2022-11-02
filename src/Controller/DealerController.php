@@ -14,7 +14,10 @@ class DealerController extends AppController
 
     public function login() {
         $this->loadModel('BuyerSellerUsers');
-        
+
+        $this->loadModel('Products');
+        $products = $this->Products->find('list')->toArray();
+        $this->set(compact('buyerSellerUser', 'products'));
         $session = $this->getRequest()->getSession();
         if($session->read('user.id')) {
             $this->redirect(array('action' => 'dashboard'));
@@ -137,7 +140,7 @@ class DealerController extends AppController
             $data['rfq_id'] = $id;
             $data['seller_id'] = $session->read('user.id');
             $RfqInquiry = $this->RfqInquiries->patchEntity($RfqInquiry, $data);
-            $this->RfqInquiries->save($RfqInquiry);
+            $results = $this->RfqInquiries->save($RfqInquiry);
         }  else if($userType == 'buyer')  {
                 $results = $this->RfqInquiries->find()->where(['rfq_id' => $id])->contain('BuyerSellerUsers')->toArray();
 
