@@ -5,32 +5,124 @@
  */
 ?>
 <div class="row">
-    
-    <div class="column-responsive column-80">
-        <div class="buyerSellerUsers form content">
+    <div class="col-12">
+        <div class="card">
             <?= $this->Form->create($buyerSellerUser) ?>
-            <fieldset>
-                <legend><?= __('NEW USER ! REGISTER HERE') ?></legend>
-                <?php
-
-                    $option = array('' => 'Type', 'buyer' => 'Buyer', 'seller' => 'Seller');
-                    echo $this->Form->control('user_type', array('type' => 'select', 'options' => $option,'empty' => 'Select', 'id' => 'user_type'));
-                    echo $this->Form->control('username');
-                    echo $this->Form->control('password');
-                    echo $this->Form->control('re_password');
-                    echo $this->Form->control('company_name');
-                    echo $this->Form->control('address');
-                    echo $this->Form->control('cities');
-                    echo $this->Form->control('email');
-                    echo $this->Form->control('contact');
-                    echo $this->Form->control('alt_contact');
-                    echo $this->Form->control('business_type');
-                    echo $this->Form->control('product_deals', array('type' => 'select','options' => $products,'empty' => 'Select', 'id' => 'product'));
-                    echo $this->Form->control('TIN');
-                    echo $this->Form->control('GST');
-                ?>
-            </fieldset>
-            <?= $this->Form->button(__('Submit')) ?>
+            <div class="card-body">
+                <?php $option = array('' => 'Type', 'buyer' => 'Buyer', 'seller' => 'Seller'); ?>
+                <div class="row">
+                    <div class="col-3 mt-3">
+                        <?= $this->Form->control('user_type', [
+                                                'type' => 'select',
+                                                'options' => $option,
+                                                'empty' => 'Select',
+                                                'id' => 'product',
+                                                'label' => 'User Type',
+                                                'class' => 'form-control',
+                                            ]) ?>
+                    </div>
+                    <div class="col-3 mt-3">
+                        <?= $this->Form->control('username', [
+                                                'label' => 'Username',
+                                                'type' => 'text',
+                                                'class' => 'form-control',
+                                            ]) ?>
+                    </div>
+                    <div class="col-3 mt-3">
+                        <?= $this->Form->control('password', [
+                                                'label' => 'Password',
+                                                'type' => 'password',
+                                                'class' => 'form-control',
+                                            ]) ?>
+                    </div>
+                    <div class="col-3 mt-3">
+                        <?= $this->Form->control('re_password', [
+                                                'label' => 'Confirm Password',
+                                                'type' => 'password',
+                                                'class' => 'form-control',
+                                            ]) ?>
+                    </div>
+                    <div class="col-3 mt-3">
+                        <?= $this->Form->control('company_name', [
+                                                'label' => 'Company',
+                                                'type' => 'text',
+                                                'class' => 'form-control',
+                                            ]) ?>
+                    </div>
+                    <div class="col-3 mt-3">
+                        <?= $this->Form->control('address', [
+                                                    'label' => 'text',
+                                                    'type' => 'text',
+                                                    'class' => 'form-control',
+                                                ]) ?>
+                    </div>
+                    <div class="col-3 mt-3">
+                        <?= $this->Form->control('cities', [
+                                                    'label' => 'Cities',
+                                                    'type' => 'text',
+                                                    'class' => 'form-control',
+                                                ]) ?>
+                    </div>
+                    <div class="col-3 mt-3">
+                        <?= $this->Form->control('email', [
+                                                    'label' => 'Email',
+                                                    'type' => 'email',
+                                                    'class' => 'form-control',
+                                                ]) ?>
+                    </div>
+                    <div class="col-3 mt-3">
+                        <?= $this->Form->control('contact', [
+                                                    'label' => 'Contact',
+                                                    'type' => 'number',
+                                                    'class' => 'form-control',
+                                                ]) ?>
+                    </div>
+                    <div class="col-3 mt-3">
+                        <?= $this->Form->control('alt_contact', [
+                                                    'label' => 'Alt. Contact',
+                                                    'type' => 'number',
+                                                    'class' => 'form-control',
+                                                ]) ?>
+                    </div>
+                    <div class="col-3 mt-3">
+                        <?= $this->Form->control('business_type', [
+                                                    'label' => 'Business',
+                                                    'type' => 'text',
+                                                    'class' => 'form-control',
+                                                ]) ?>
+                    </div>
+                    <div class="col-3 mt-3">
+                        <?= $this->Form->control('product_deals', [
+                                                    'type' => 'select',
+                                                    'options' => $products,
+                                                    'empty' => 'Select',
+                                                    'id' => 'product',
+                                                    'label' => 'Product Deals',
+                                                    'class' => 'form-control',
+                                                ]) ?>
+                    </div>
+                    <div class="col-3 mt-3">
+                        <?= $this->Form->control('TIN', [
+                                                    'label' => 'TIN',
+                                                    'type' => 'text',
+                                                    'class' => 'form-control',
+                                                ]) ?>
+                    </div>
+                    <div class="col-3 mt-3">
+                        <?= $this->Form->control('GST', [
+                                                    'label' => 'GST',
+                                                    'type' => 'text',
+                                                    'class' => 'form-control',
+                                                ]) ?>
+                    </div>
+                    <div class="col-3 mt-4 pt-4">
+                        <?= $this->Form->button(__('Submit'), [
+                                            'label' => 'Signup',
+                                            'class' => 'btn btn-danger',
+                                        ]); ?>
+                    </div>
+                </div>
+            </div>
             <?= $this->Form->end() ?>
         </div>
     </div>
