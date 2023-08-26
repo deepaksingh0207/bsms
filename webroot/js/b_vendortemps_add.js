@@ -96,12 +96,6 @@ $('#addvendorform').validate({
   unhighlight: function (element, errorClass, validClass) { $(element).removeClass('is-invalid'); },
 });
 
-function getRemote(remote_url, method = "GET", type = "json", convertapi = true) {
-  var resp = $.ajax({ type: method, dataType: type, url: remote_url, async: false }).responseText;
-  if (convertapi) { return JSON.parse(resp); }
-  return resp;
-}
-
 $(document).on("change", "#company-code-id", function () {
   var companycode = $(this).val();
   var resp = getRemote(baseurl + "buyer/vendor-temps/master-by-company-code/" + companycode);

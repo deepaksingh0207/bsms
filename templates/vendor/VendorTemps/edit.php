@@ -57,7 +57,7 @@
         </div>
     </div>
     <div class="col-sm-12 col-md-9 col-lg-9">
-        <?= $this->Form->create($vendorTemp, ['type' => 'file', 'id' => 'onbordingSubmit', 'class' => 'mb-0']) ?>
+        
         <div class="row">
             <div class="col-sm-12 col-md-12 col-lg-12">
                 <div class="card">
@@ -155,7 +155,8 @@
                     <div class="card-body">
                         <div class="tab-content" id="custom-tabs-four-tabContent">
                             <div class="tab-pane fade active show" id="custom-tabs-four-profile" role="tabpanel"
-                                aria-labelledby="tab_address" style="background-color: white;">
+                            aria-labelledby="tab_address" style="background-color: white;">
+                                <?= $this->Form->create($vendorTemp, ['type' => 'file', 'enctype'=>'multipart/form-data', 'id' => 'id_form_address', 'class' => 'mb-0']) ?>
                                 <h5>Permanent Address</h5>
                                 <div class="row">
                                     <div class="col-3 mt-3 col-md-3">
@@ -244,10 +245,13 @@
                                         </div>
                                     </div>
                                 </div>
+                                <?php echo $this->Form->button('Save', array('class' => 'btn bg-gradient-submit mt-4 profile_submit', 'type' => 'button', 'data-id' => 'address')); ?>
+                                <?= $this->Form->end() ?>
                             </div>
 
                             <div class="tab-pane fade" id="custom-tabs-four-branch" role="tabpanel"
-                                aria-labelledby="tab_branchoffice" style="background-color: white;">
+                            aria-labelledby="tab_branchoffice" style="background-color: white;">
+                                <?= $this->Form->create($vendorTemp, ['type' => 'file', 'enctype'=>'multipart/form-data', 'id' => 'id_form_branch_office', 'class' => 'mb-0']) ?>
                                 <div class="card card-primary card-outline">
                                     <div class="card-header">
                                         <h5>Branch Office Address</h5>
@@ -359,13 +363,14 @@
                                         </div>
                                     </div>
                                 </div>
+                                <?php echo $this->Form->button('Save', array('class' => 'btn bg-gradient-submit mt-4 profile_submit', 'type' => 'button', 'data-id' => 'branch_office')); ?>
+                                <?= $this->Form->end() ?>
                             </div>
 
                             <div class="tab-pane fade" id="custom-tabs-four-productionfaculty" role="tabpanel"
-                                aria-labelledby="tab_productionfaculty" style="background-color: white;">
-                                <h5>
-                                    Facility Details
-                                </h5>
+                            aria-labelledby="tab_productionfaculty" style="background-color: white;">
+                                <?= $this->Form->create($vendorTemp, ['type' => 'file', 'enctype'=>'multipart/form-data', 'id' => 'id_form_production_facility', 'class' => 'mb-0']) ?>
+                                <h5>Facility Details</h5>
                                 <div class="row">
                                     <div class="col-sm-12 col-md-4 col-lg-4 mb-5">
                                         <label>Laboratory facilities available:</label><br>
@@ -482,6 +487,7 @@
                                         </div>
                                     </div>
                                 </div>
+
                                 <div class="row mb-3">
                                     <div class="col-sm-12 col-md-12 col-lg-12">
                                         <label>Annual turn over in last 3 years (In Rupee):</label>
@@ -508,6 +514,7 @@
                                             name="annual_turnover[third_year_turnover]">
                                     </div>
                                 </div>
+                                
                                 <div class="card card-primary card-outline">
                                     <div class="card-header">
                                         Income tax cleaning certificate
@@ -786,10 +793,13 @@
                                         <!-- <hr class="factory_office_0" > -->
                                     </div>
                                 </div>
+                                <?php echo $this->Form->button('Save', array('class' => 'btn bg-gradient-submit mt-4 profile_submit', 'type' => 'button', 'data-id' => 'production_facility')); ?>
+                                <?= $this->Form->end() ?>
                             </div>
 
                             <div class="tab-pane fade" id="custom-tabs-four-contactperson" role="tabpanel"
-                                aria-labelledby="tab_contactperson" style="background-color: white;">
+                            aria-labelledby="tab_contactperson" style="background-color: white;">
+                                <?= $this->Form->create($vendorTemp, ['type' => 'file', 'enctype'=>'multipart/form-data', 'id' => 'id_form_contact_person', 'class' => 'mb-0']) ?>
                                 <div class="row">
                                     <div class="col-sm-12 col-md-4 col-lg-4 mt-1">
                                         <div class="form-group">
@@ -908,10 +918,13 @@
                                         <!-- <hr class="other_address_0" style="border: revert;"> -->
                                     </div>
                                 </div>
+                                <?php echo $this->Form->button('Save', array('class' => 'btn bg-gradient-submit mt-4 profile_submit', 'type' => 'button', 'id' => 'contact_person')); ?>
+                                <?= $this->Form->end() ?>
                             </div>
 
                             <div class="tab-pane fade" id="custom-tabs-four-home" role="tabpanel"
-                                aria-labelledby="tab_paymentdetails" style="background-color: white;">
+                            aria-labelledby="tab_paymentdetails" style="background-color: white;">
+                                <?= $this->Form->create($vendorTemp, ['type' => 'file', 'enctype'=>'multipart/form-data', 'id' => 'id_form_payment_details', 'class' => 'mb-0']) ?>
                                 <div class="card card-primary card-outline">
                                     <div class="card-header">
                                         Bank Details
@@ -984,6 +997,7 @@
                                         </div>
                                     </div>
                                 </div>
+
                                 <div class="row mt-3">
                                     <div class="col-4 mt-3">
                                         <div class="card card-primary card-outline">
@@ -1031,10 +1045,13 @@
                                         </div>
                                     </div>
                                 </div>
+                                <?php echo $this->Form->button('Save', array('class' => 'btn bg-gradient-submit mt-4 profile_submit', 'type' => 'button', 'data-id' => 'payment_details')); ?>
+                                <?= $this->Form->end() ?>
                             </div>
-
+                            
                             <div class="tab-pane fade" id="custom-tabs-four-certificate" role="tabpanel"
-                                aria-labelledby="tab_certificate" style="background-color: white;">
+                            aria-labelledby="tab_certificate" style="background-color: white;">
+                                <?= $this->Form->create($vendorTemp, ['type' => 'file', 'enctype'=>'multipart/form-data', 'id' => 'id_form_certificate', 'class' => 'mb-0']) ?>
                                 <div class="row">
                                     <div class="col-sm-12 col-md-3 col-lg-3 mt-3">
                                         <div class="form-group">
@@ -1118,10 +1135,14 @@
                                         </div>
                                     </div>
                                 </div>
+
+                                <?php echo $this->Form->button('Save', array('class' => 'btn bg-gradient-submit mt-4 profile_submit', 'type' => 'button', 'data-id' => 'certificate')); ?>
+                                <?= $this->Form->end() ?>
                             </div>
 
                             <div class="tab-pane fade" id="custom-tabs-four-questionnaire" role="tabpanel"
-                                aria-labelledby="tab_questionnaire" style="background-color: white;">
+                            aria-labelledby="tab_questionnaire" style="background-color: white;">
+                                <?= $this->Form->create($vendorTemp, ['type' => 'file', 'enctype'=>'multipart/form-data', 'id' => 'id_form_questionnaire', 'class' => 'mb-0']) ?>
                                 <h5>Other information considered relevent to be furnished by supplier</h5>
                                 <div class="row questionnaire">
                                     <div class="col-lg-12 mt-3">
@@ -1163,10 +1184,13 @@
                                             cols="30" rows="3"></textarea>
                                     </div>
                                 </div>
+                                <?php echo $this->Form->button('Save', array('class' => 'btn bg-gradient-submit mt-4 profile_submit', 'type' => 'button', 'id' => 'questionnaire')); ?>
+                                <?= $this->Form->end() ?>
                             </div>
 
                             <div class="tab-pane fade" id="custom-tabs-four-customerAddress" role="tabpanel"
-                                aria-labelledby="tab_customerAddress" style="background-color: white;">
+                            aria-labelledby="tab_customerAddress" style="background-color: white;">
+                                <?= $this->Form->create($vendorTemp, ['type' => 'file', 'enctype'=>'multipart/form-data', 'id' => 'id_form_reputed_customer', 'class' => 'mb-0']) ?>
                                 <div class="card card-primary card-outline">
                                     <div class="card-header">
                                         <h5 class="modal-title" style="text-transform: inherit;">
@@ -1237,14 +1261,13 @@
                                         <!-- <hr class="customer_0" style="border: revert;"> -->
                                     </div>
                                 </div>
+                                <?php echo $this->Form->button('Save', array('class' => 'btn bg-gradient-submit mt-4 profile_submit', 'type' => 'button', 'data-id' => 'reputed_customer')); ?>
+                                <?= $this->Form->end() ?>
                             </div>
                         </div>
                     </div>
-                    <div class="card-footer p-3" style="background-color: whitesmoke;">
-                        <?php echo $this->Form->button('Submit', array('class' => 'btn bg-gradient-submit mb-0', 'type' => 'button', 'id' => 'id_fksubmit')); ?>
-                    </div>
                 </div>
-                <div class="modal fade" id="modal-sm" style="display: none;" aria-hidden="true">
+                <!-- <div class="modal fade" id="modal-sm" style="display: none;" aria-hidden="true">
                     <div class="modal-dialog modal-sm">
                         <div class="modal-content">
                             <div class="modal-body text-center">
@@ -1254,14 +1277,13 @@
                                 <button type="button" class="btn cancelButton" style="border:1px solid #6610f2"
                                     data-dismiss="modal">Cancel</button>
                                 <?php echo $this->Form->button('Ok', array('class' => 'btn mt-3', 'style' => "border:1px solid #28a745", 'type'=>'submit', 'id' => 'id_ogsubmit')); ?>
-
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> -->
             </div>
         </div>
-        <?= $this->Form->end() ?>
+        
     </div>
 </div>
 <script>

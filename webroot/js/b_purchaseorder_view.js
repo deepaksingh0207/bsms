@@ -38,12 +38,6 @@ function poform(search = "") {
 
 poform();
 
-function getRemote(remote_url, method = "GET", type = "json", convertapi = true) {
-    var resp = $.ajax({ type: method, dataType: type, url: remote_url, async: false }).responseText;
-    if (convertapi) { return JSON.parse(resp); }
-    return resp;
-}
-
 $(".btnSub").on("click", function (e) {
     e.preventDefault();
 });

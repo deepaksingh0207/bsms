@@ -59,11 +59,11 @@ $(document).on("click", ".add", function () {
     str = str.replaceAll('disabled="disabled"', ""); // Remove Disabled
     str = str.replaceAll("[" + clas + "]" + "[" + lastid + "]", "[" + clas + "]" + "[" + nextid + "]"); // Change name
     str = str.replaceAll('data-id="' + lastid + '"', 'data-id="' + nextid + '"'); // Change data-id
+    str = str.replaceAll('value="', 'value=""'); // Set Value Empty
 
     if (sub == 1) { str = str.replaceAll('data-sub_id="' + lastid + '"', 'data-sub_id="' + nextid + '"'); }
     else { str = str.replaceAll('data-id="' + lastid + '"', 'data-id="' + nextid + '"'); }
-    $("." + clas + "_card_body").append(`<div class="row ` + clas + ` ` + clas + `_` + nextid + `" data-id="` + nextid + `" id="` + clas + `_` + nextid + `">` + str + `</div>
-    <hr class="` + clas + `_` + nextid + `" style="border: revert;">`);
+    $("." + clas + "_card_body").append(`<div class="row ` + clas + ` ` + clas + `_` + nextid + `" data-id="` + nextid + `" id="` + clas + `_` + nextid + `">` + str + `</div><hr class="` + clas + `_` + nextid + `" style="border: revert;">`);
 
     if (havesub == 1) {
         var subclass = $(this).data("subclass");
@@ -138,12 +138,6 @@ $(document).on("click", ".delete", function () {
     if (getarray.length != 1) { $("." + clas + "_" + nextid).remove(); }
 });
 
-
-function getRemote(remote_url, method = "GET", type = "json", convertapi = true) {
-    var resp = $.ajax({ type: method, dataType: type, url: remote_url, async: false }).responseText;
-    if (convertapi) { return JSON.parse(resp); }
-    return resp;
-}
 
 $(document).on("change", ".my-country", function () {
     var r = getRemote(stateByCountry + '/' + $(this).val());
@@ -601,4 +595,12 @@ $.ajax({
             else { $(".id_" + i).val(v) }
         });
     },
+});
+
+
+$(document).on("click", ".profile_submit", function () {
+    var profile_form = new FormData($("#id_form_" + $(this).data('id'))[0]);
+    var resp = getRemote(window.location.href, "POST", profile_form, 'json', false, false, false);
+    if (resp.status == 1) { Toast.fire({ icon: "success", title: resp.msg }); }
+    else { Toast.fire({ icon: "error", title: resp.msg }); }
 });

@@ -72,6 +72,7 @@
 
     <!-- toastr -->
     <?= $this->Html->script('CakeLte./AdminLTE/plugins/toastr/toastr.min.js') ?>
+    <?= $this->Html->script('/js/common.js') ?>
     <script>var baseurl = "<?= $this->Url->build('/') ?>";</script>
 </head>
 
@@ -114,7 +115,6 @@
     <!-- DataTables  & Plugins -->
     <?= $this->Html->script('CakeLte./AdminLTE/plugins/summernote/summernote.min.js') ?>
     <?= $this->Html->script('CakeLte./AdminLTE/plugins/bs-custom-file-input/bs-custom-file-input.min.js') ?>
-    <?= $this->Html->script('/js/common.js') ?>
     <?= $this->Html->script('/js/cscript.js') ?>
     <script>
         var Toast = Swal.mixin({
