@@ -44,9 +44,8 @@
                                         <h6>Are you sure you want to mark entry ?</h6>
                                     </div>
                                     <div class="modal-footer p-1 justify-content-between">
-                                        <button type="button" class="btn btn-sm btn-link"
-                                            data-dismiss="modal">Cancel</button>
-                                        <button class="btn btn-success btnOk mark_entry btn-sm mb-0" data-id="<?= h($deliveryDetails->toArray()[0]->id) ?>">OK</button>
+                                        <button type="button" class="mark_entry_cancel addCancel btn btn-sm btn-link" data-dismiss="modal">Cancel</button>
+                                        <button class="mark_entry_ok addSubmit btn btn-success btnOk mark_entry btn-sm mb-0" data-id="<?= h($deliveryDetails->toArray()[0]->id) ?>">OK</button>
                                     </div>
                                 </div>
                             </div>

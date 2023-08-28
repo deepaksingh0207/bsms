@@ -71,22 +71,22 @@
 <?= $this->Form->end() ?>
 
 <div class="card-footer" id="id_pohead">
-                <table class="table table-hover" id="example1">
-                    <thead>
-                        <tr>
-                            
-                            <th>Factory Code</th>
-                            <th>Line Name</th>
-                            <th>Opening Stock</th>
-                            <th>Uom</th>
-                            <th>Status</th>
-                        </tr>
-                    </thead>
-                    <tbody>
+    <table class="table table-hover" id="example1">
+        <thead>
+            <tr>
+                
+                <th>Factory Code</th>
+                <th>Line Name</th>
+                <th>Opening Stock</th>
+                <th>Uom</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
 
-                    </tbody>
-                </table>
-            </div>
+        </tbody>
+    </table>
+</div>
 
 <script>
     $('#OpenImgUpload').click(function() {

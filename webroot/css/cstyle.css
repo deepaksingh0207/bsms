@@ -8510,7 +8510,7 @@
   background-position-x: 25%;
   position: relative;
   overflow: hidden;
-  -webkit-appearance: none;
+  /* -webkit-appearance: none; */
 }
 
 .btn:not([class*="btn-outline-"]) {
@@ -8531,7 +8531,7 @@
 
 .btn.btn-link {
   box-shadow: none;
-  font-weight: 700;
+  /* font-weight: 700; */
 }
 
 .btn.btn-link:hover,
@@ -9153,9 +9153,6 @@
   transform: translate3d(0, -50px, 0);
 }
 
-
-
-}
 
 /* .card .card-body {
     font-family: "Roboto", Helvetica, Arial, sans-serif;
@@ -13688,13 +13685,13 @@ body:not(.dark-version) .sidenav.bg-transparent .collapse .nav-item .nav-link.ac
   }
 
 
-  .table> :not(:last-child)> :last-child>* {
+  /* .table> :not(:last-child)> :last-child>* {
     border-bottom-color: #f0f2f5;
   }
 
   .table> :not(:first-child) {
     border-top: 1px solid currentColor;
-  }
+  } */
 
   .timeline {
     position: relative;

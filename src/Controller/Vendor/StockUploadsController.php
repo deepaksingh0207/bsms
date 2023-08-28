@@ -266,12 +266,12 @@ class StockUploadsController extends VendorAppController
                                 ->select(['id', 'code'])
                                 ->where(['code IN' => $value])->first();
     
-                               $tmp['material_id'] = $materials['id'] ? $materials['id'] : null;
-                               $datas['material'] = $value;
-                               if(!$materials['id']) {
-                                $matError = true;
-                                $datas['error'] = 'Invalid material';
-                            }
+                                $tmp['material_id'] = $materials['id'] ? $materials['id'] : null;
+                                $datas['material'] = $value;
+                                if(!$materials['id']) {
+                                    $matError = true;
+                                    $datas['error'] = 'Invalid material';
+                                }
                             }
                             else if($col == 3) {
                             

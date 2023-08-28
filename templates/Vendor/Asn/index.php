@@ -10,8 +10,7 @@
     <div class="col-12">
         <div class="deliveryDetails index content card">
             <div class="card-body">
-                <table class="table table-hover" id="example1"
-                    style="border-left: .5px solid lightgray;border-right: .5px solid lightgray; border-bottom: .5px solid lightgray;">
+                <table class="table table-hover" id="example1">
                     <thead>
                         <tr>
                             <th>Factory</th>
@@ -19,7 +18,7 @@
                             <th>Purchase Order</th>
                             <th>Invoice No</th>
                             <th>Invoice Date</th>
-                            <th>States</th>
+                            <th>Status</th>
 
                         </tr>
                     </thead>
@@ -27,13 +26,13 @@
                         <?php foreach ($deliveryDetails as $deliveryDetail): 
                              switch ($deliveryDetail->status) {
                                 case 2:
-                                    $status = '<a class="btn btn-light text-primary" style="border: 1px solid lightblue;"><i class="fas fa-truck" data-toggle="tooltip" title="In Transit" data-widget="chat-pane-toggle"></i></a>';
+                                    $status = '<a class="btn btn-light text-primary asn_status_icon"><i class="fas fa-truck" data-toggle="tooltip" title="In Transit" data-widget="chat-pane-toggle"></i></a>';
                                     break;
                                 case 3:
-                                    $status = '<a class="btn btn-light text-success" style="border: 1px solid lightblue;"><i class="fas fa-truck-loading" data-toggle="tooltip" title="Received" data-widget="chat-pane-toggle"></i></a>';
+                                    $status = '<a class="btn btn-light text-success asn_status_icon"><i class="fas fa-truck-loading" data-toggle="tooltip" title="Received" data-widget="chat-pane-toggle"></i></a>';
                                     break;
                                 default:
-                                    $status = '<a class="btn btn-light text-dark" style="border: 1px solid lightblue;"><i class="far fa-clock" data-toggle="tooltip" title="Created" data-widget="chat-pane-toggle"></i></a>';
+                                    $status = '<a class="btn btn-light text-dark asn_status_icon"><i class="far fa-clock" data-toggle="tooltip" title="Created" data-widget="chat-pane-toggle"></i></a>';
                                     break;
                         }?>
                         <tr class="redirect"

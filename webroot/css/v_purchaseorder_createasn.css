@@ -4,12 +4,12 @@ table{
 
 thead {
     background-color: #F79E33 !important;
-    color: white;
+    color: #000;
 
 }
 
 .table>tbody {
-    background-color: #f5f7fd !important;
+    background-color: #fff !important;
     vertical-align: inherit;
 }
 
@@ -19,7 +19,7 @@ td {
 }
 
 th {
-    font-weight: 100;
+    font-weight: 500;
 }
 p.po-no {
     color: #444;

@@ -21,7 +21,7 @@
 
 <div class="row">
     <div class="col-12 add-vendor">
-        <div class="card m-2">
+        <div class="card m-2 card_box_shadow">
             <div class="card-body fm">
                 <?= $this->Form->create(null, ['id' => 'addvendorform']) ?>
                 <div class="row">
@@ -122,7 +122,7 @@
 
     <div class="col-12">
         <?= $this->Form->create(null, ['type' => 'file']); ?>
-        <div class="card mx-2">
+        <div class="card mx-2 card_box_shadow">
             <div class="card-header p-3">
                 <h5>
                     Recently Added Vendor

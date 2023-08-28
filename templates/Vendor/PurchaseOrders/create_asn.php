@@ -56,6 +56,7 @@
                     </div>
                 </div>
             </div>
+            <div class="card-header p-2" id="id_pohead"></div>
             <div class="t2 mt-2 mb-1">
                 <div class="right-side">
                     <table class="table table-bordered material-list" id="example2">
@@ -129,8 +130,26 @@
             $(".continue_btn").removeClass('btn-success').attr('disabled', 'disabled');
             $(".right-side").html(format($(this).attr('header-id')));
             $("#po_header_id").val($(this).attr('header-id'));
+            poHeaders($(this).attr('header-id'));
         });
 
+
+        function poHeaders(rowDatas) {
+    console.log("ID-" + rowDatas);
+    $.ajax({
+      type: "GET",
+      url: "<?php echo \Cake\Routing\Router::url(array('controller' => '/purchase-orders', 'action' => 'poDetails')); ?>/" + rowDatas,
+      contentType: "application/x-www-form-urlencoded; charset=utf-8",
+      dataType: "json",
+      beforeSend: function () { $("#loaderss").show(); },
+      success: function (response) {
+        if (response.status) { 
+          $(".card-header").html(response.html);
+         }
+      },
+      complete: function () { $("#loaderss").hide(); }
+    });
+  }
 
         function format(rowData) {
             var div = $('<div/>').addClass('loading').text('Loading...');

@@ -11,7 +11,7 @@
 <?= $this->Html->css('listing.css') ?>
 <?= $this->Html->css('v_index.css') ?>
 <?= $this->Form->create($productionline) ?>
-<div class="card ">
+<div class="card card_box_shadow">
     <div class="card-header pb-1 pt-2">
         <div class="row">
             <div class="col-lg-6 d-flex justify-content-start">
@@ -21,7 +21,7 @@
     </div>
 
 
-    <div class="card mb-0">
+    <div class="card mb-0 card_box_shadow">
         <div class="card-body  pb-0">
             <div class="row">
                 <div class="col-sm-8 col-md-3">
@@ -48,7 +48,7 @@
                     <?php echo $this->Form->control('capacity', ['class' => 'form-control mb-3', 'label' => 'Production Line Capacity']); ?>
                 </div>
                 <div class="col-sm-4 col-md-4 col-lg-4 mt-4">
-                    <button type="button" class="btn btn-custom mt-1" onclick="showConfirmationModal()">Submit</button>
+                    <button type="button" class="production_line_submitbtn btn btn-custom mt-1" onclick="showConfirmationModal()">Submit</button>
                 </div>
             </div>
         </div>

@@ -14,7 +14,7 @@
 
 <div class="row">
     <div class="col-12">
-        <div class="card">
+        <div class="card card_box_shadow">
             <div class="card-body vendor-list">
                 <div class="table-responsive">
                     <table class="table table-hover" id="example1">

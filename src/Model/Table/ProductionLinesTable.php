@@ -11,8 +11,8 @@ use Cake\Validation\Validator;
 /**
  * ProductionLines Model
  *
- * @property \App\Model\Table\MaterialsTable&\Cake\ORM\Association\BelongsTo $Materials
  * @property \App\Model\Table\LineMastersTable&\Cake\ORM\Association\BelongsTo $LineMasters
+ * @property \App\Model\Table\MaterialsTable&\Cake\ORM\Association\BelongsTo $Materials
  * @property \App\Model\Table\DailymonitorTable&\Cake\ORM\Association\HasMany $Dailymonitor
  *
  * @method \App\Model\Entity\ProductionLine newEmptyEntity()
@@ -45,12 +45,16 @@ class ProductionLinesTable extends Table
         $this->setDisplayField('id');
         $this->setPrimaryKey('id');
 
-        $this->belongsTo('Materials', [
-            'foreignKey' => 'material_id',
+        $this->belongsTo('VendorFactories', [
+            'foreignKey' => 'vendor_factory_id',
             'joinType' => 'INNER',
         ]);
         $this->belongsTo('LineMasters', [
             'foreignKey' => 'line_master_id',
+            'joinType' => 'INNER',
+        ]);
+        $this->belongsTo('Materials', [
+            'foreignKey' => 'material_id',
             'joinType' => 'INNER',
         ]);
         $this->hasMany('Dailymonitor', [
@@ -73,12 +77,16 @@ class ProductionLinesTable extends Table
             ->notEmptyString('sap_vendor_code');
 
         $validator
-            ->integer('material_id')
-            ->notEmptyString('material_id');
+            ->integer('vendor_factory_id')
+            ->notEmptyString('vendor_factory_id');
 
         $validator
             ->integer('line_master_id')
             ->notEmptyString('line_master_id');
+
+        $validator
+            ->integer('material_id')
+            ->notEmptyString('material_id');
 
         $validator
             ->decimal('capacity')
@@ -109,8 +117,10 @@ class ProductionLinesTable extends Table
      */
     public function buildRules(RulesChecker $rules): RulesChecker
     {
-        $rules->add($rules->existsIn('material_id', 'Materials'), ['errorField' => 'material_id']);
+        $rules->add($rules->isUnique(['sap_vendor_code', 'material_id', 'line_master_id', 'vendor_factory_id']), ['errorField' => 'sap_vendor_code']);
+        $rules->add($rules->existsIn('vendor_factory_id', 'VendorFactories'), ['errorField' => 'vendor_factory_id']);
         $rules->add($rules->existsIn('line_master_id', 'LineMasters'), ['errorField' => 'line_master_id']);
+        $rules->add($rules->existsIn('material_id', 'Materials'), ['errorField' => 'material_id']);
 
         return $rules;
     }

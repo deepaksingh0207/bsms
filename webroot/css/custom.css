@@ -125,10 +125,10 @@ table#example1 span.material-symbols-outlined.flu {
     cursor: pointer;
 }
 
-#example1,
+/* #example1,
 #example2 {
     border: 1px solid #eee;
-}
+} */
 
 div#scheduleModal .btn,div#modal-sm .btn {
     padding: 6px 20px;
@@ -451,7 +451,7 @@ div#past_messages .past-msg:last-child {
     right: 6px;
     border-radius: 30px;
     background-color: #F7941D !important;
-    color: #fff !important;
+    color: #000 !important;
 }
 
 /* .gate-entry .content-box input[type="text"]::placeholder {
@@ -488,8 +488,8 @@ a.back-btn {
     padding: 10px 25px;
     margin-left: 25px;
     line-height: 22px;
-    color: #112A68 !important;
-    border: 1px solid #112A68;
+    color: #F7941D !important;
+    border: 1px solid #F7941D;
     font-size: 14px;
     border-radius: 5px;
 }
@@ -580,7 +580,7 @@ td.ponum {
 
 .btn-custom {
     background-color: #F7941D !important;
-    color: #fff !important;
+    color: #000 !important;
     font-size: 14px;
     line-height: 1.1rem;
     padding: 10px 20px;
@@ -588,7 +588,7 @@ td.ponum {
 
 .modal-footer .btn-custom-2 {
     background-color: #F7941D !important;
-    color: #fff !important;
+    color: #000 !important;
     font-size: 14px;
     line-height: 1.1rem;
     padding: 10px 20px;
@@ -600,15 +600,19 @@ td.ponum {
 }
 
 a.back-btn:hover {
-    background-color: #112A68 !important;
+    background-color: #F7941D !important;
     color: #fff !important;
 }
 
-.btn-custom:hover {
+/* .btn-custom:hover {
     color: #fff !important;
     box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+} */
+.production_line_submitbtn:hover {
+    transition: all ease .3s;
+    background-color: #fff !important;
+    border: 1px solid #F7941D !important;
 }
-
 .text-info {
     color: #F7941D !important;
 }
@@ -934,7 +938,7 @@ p.po-no {
 
 .btn:hover{ color: #F7941D!important;}
 /* .btn { color: #F7941D!important;} */
-#OpenImgUpload { color: #fff !important;}
+/* #OpenImgUpload { color: #fff !important;} */
 #OpenImgUpload:hover {
     color: #F7941D !important;
 }
@@ -944,8 +948,8 @@ p.po-no {
     background-color: #F7941D;
 }
 
-#id_addvendor { color: #fff !important;}
-#id_addvendor:hover { color: #F7941D !important;}
+#id_addvendor { color: #000 !important;}
+#id_addvendor:hover { color: #000 !important; border-color: #000 !important;}
 
 #actionfooter a {
     border: none !important;
@@ -955,10 +959,11 @@ p.po-no {
 span.otp-send-email { color: #121212 !important;}
 
 .h legend { color: #F7941D !important;}
-#needButton { border: 1px solid #F7941D !important;}
+#needButton { border: 1px solid #F7941D !important; color: #000 !important;}
+#needButton .badge-info { background-color: #F7941D !important;}
 #needButton:hover {
-    background-color: #F7941D !important;
-    color: #fff !important;
+    background-color: #fff !important;
+    /* color: #fff !important; */
 }
 #unread27 { background-color: #F7941D !important;}
 
@@ -970,6 +975,10 @@ span.otp-send-email { color: #121212 !important;}
 }
 
 .filter-option-inner-inner { color: #999 !important;}
+
+.mrk:hover { color: #fff !important;}
+
+.card_box_shadow  { box-shadow: none !important;}
 
 
 

@@ -10,6 +10,16 @@ body {
     font-family: 'Source Sans Pro', sans-serif;
 }
 
+.create_asn_btn {
+    background-color: #F7941D !important;
+}
+
+.create_asn_btn:hover {
+    color: #F7941D !important;
+    background-color: #fff !important;
+    border: 1px solid #F7941D !important;
+}
+
 .loader-container {
     position: fixed;
     top: 0;
@@ -222,3 +232,8 @@ body {
 }
 
 /* Reject Button */
+
+.card_border {
+    box-shadow: none !important;
+    border: 1px solid #e2e2e2 !important;
+}

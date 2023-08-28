@@ -13,7 +13,7 @@
 <div class="row">
     <div class="col-12">
         <?= $this->Form->create($dailymonitor) ?>
-        <div class="card">
+        <div class="card card_box_shadow">
             <div class="card-header pb-1 pt-2">
                 <div class="row">
                     <div class="col-lg-6 d-flex justify-content-start">

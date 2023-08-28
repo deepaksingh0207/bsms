@@ -42,29 +42,16 @@ class PurchaseOrdersController extends BuyerAppController
 
     public function view()
     {
+        $session = $this->getRequest()->getSession();
         $this->set('headTitle', 'PO Detail');
         $this->loadModel('PoHeaders');
         $poHeaders = $this->PoHeaders->find()
             ->select(['id', 'po_no', 'sap_vendor_code'])->toArray();
 
-        $session = $this->getRequest()->getSession();
-
-
         $this->set(compact('poHeaders'));
     }
 
-    // public function view()
-    // {
-    //     $this->set('headTitle', 'PO Detail');
-    //     $this->loadModel('PoHeaders');
-    //     $poHeaders = $this->PoHeaders->find()
-    //         ->select(['id', 'po_no', 'sap_vendor_code'])->toArray();
-
-    //     $session = $this->getRequest()->getSession();
-
-
-    //     $this->set(compact('poHeaders'));
-    // }
+    
 
 
     public function poApi($search = null)

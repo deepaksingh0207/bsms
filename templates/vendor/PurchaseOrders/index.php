@@ -20,27 +20,6 @@
         </div>
         <div class="po-list">
           <div class="d-flex" id="poItes">
-            <!-- <?php foreach ($poHeaders as $poHeader) : ?>
-              <div class="po-box details-control" data-id="<?= $poHeader->id ?>">
-                <div class="pono">
-                  <small class="mb-0">
-                    <?= h('PO No ') ?>
-                    <br>
-                  </small>
-                  <b>
-                    <?= h($poHeader->po_no) ?>
-                  </b>
-                </div>
-                <div class="po-code">
-                  <small class="mb-0">
-                    <?= h('Vendor Code:') ?>
-                  </small>
-                  <br> <small><b>
-                      <?= h($poHeader->sap_vendor_code) ?>
-                    </b></small>
-                </div>
-              </div>
-            <?php endforeach; ?> -->
           </div>
         </div>
       </div>
@@ -117,8 +96,10 @@
       $('.flagButton').empty().append('<button type="button" data-id="" class="btn bg-gradient-button notify mb-0"><i class="fa fa-envelope"></i> Acknowledge</button>');
       $('.notify').attr('data-id', poHeaderID);
     } else { $('.flagButton').empty(); }
+
     $(".right-side").html(format($(this).attr('data-id')));
     $(".card-header").html(poHeaders($(this).attr('data-id')));
+      poHeaders($(this).attr('data-id'));
   });
 
   function poform(search = "") {
@@ -156,21 +137,17 @@
   }
 
   function poHeaders(rowDatas) {
-    var div = $('<div/>')
-      .addClass('loading')
-      .text('Loading...');
-
-    if (!rowDatas) { rowDatas = $('div.details-control:first').attr('data-id'); }
+    console.log("ID-" + rowDatas);
     $.ajax({
       type: "GET",
-      url: "<?php echo \Cake\Routing\Router::url(array('controller' => '/purchase-orders', 'action' => 'poDetails')); ?> /" + rowDatas,
+      url: "<?php echo \Cake\Routing\Router::url(array('controller' => '/purchase-orders', 'action' => 'poDetails')); ?>/" + rowDatas,
       contentType: "application/x-www-form-urlencoded; charset=utf-8",
       dataType: "json",
-      //async: false,
       beforeSend: function () { $("#loaderss").show(); },
       success: function (response) {
-        if (response.status == 'success') { $("#id_pohead").empty().html(response.html); }
-        else { div.html(response.message).removeClass('loading'); }
+        if (response.status) { 
+          $(".card-header").html(response.html);
+         }
       },
       complete: function () { $("#loaderss").hide(); }
     });
@@ -184,7 +161,7 @@
     $.ajax({
       type: "GET",
       //url: '../getDeliveryDetails/' + rowData,
-      url: "<?php echo \Cake\Routing\Router::url(array('controller' => '/purchase-orders', 'action' => 'getPurchaseItem')); ?> /" + rowData,
+      url: "<?php echo \Cake\Routing\Router::url(array('controller' => '/purchase-orders', 'action' => 'getPurchaseItem')); ?>/" + rowData,
       contentType: "application/x-www-form-urlencoded; charset=utf-8",
       dataType: "json",
       //async: false,

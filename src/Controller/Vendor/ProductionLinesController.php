@@ -232,4 +232,135 @@ class ProductionLinesController extends VendorAppController
 
         echo json_encode($response);
     }
+
+    public function upload()
+    {
+        $response['status'] = 0;
+        $response['message'] = 'upload fail';
+        $this->autoRender = false;
+        $session = $this->getRequest()->getSession();
+        
+        if ($this->request->is(['patch', 'post', 'put', 'ajax'])) {
+            try {
+            
+                $uploadData = [];
+                if (isset($_FILES['upload_file']) && $_FILES['upload_file']['name'] != "" && isset($_FILES['upload_file']['name'])) {
+                    $inputFileType = \PhpOffice\PhpSpreadsheet\IOFactory::identify($_FILES['upload_file']['tmp_name']);
+                    $reader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader($inputFileType);
+                    $spreadsheet = $reader->load($_FILES['upload_file']['tmp_name']);
+                    $worksheet = $spreadsheet->getActiveSheet();
+                    $highestRow = $worksheet->getHighestRow(); 
+                    $highestColumn = $worksheet->getHighestColumn();
+                    $highestColumnIndex = \PhpOffice\PhpSpreadsheet\Cell\Coordinate::columnIndexFromString($highestColumn); // e.g. 5
+
+                    $tmp = [];
+                    $this->loadModel("VendorFactories");
+                    $this->loadModel("LineMasters");
+                    $this->loadModel('Materials');
+
+                    for ($row = 2; $row <= $highestRow; ++$row) {
+                        
+                        $facError = false;
+                        $lineError = false;
+                        $matError = false;
+                        
+                        $tmp['sap_vendor_code']  = $session->read('vendor_code');
+                        
+                        $datas = [];
+                        for ($col = 1; $col <= $highestColumnIndex; ++$col) {
+                            $value = $worksheet->getCellByColumnAndRow($col, $row)->getValue();
+                            if($col == 1) {
+                                $factory = $this->VendorFactories->find('list')
+                                ->select(['id'])
+                                ->where(['factory_code' => $value])
+                                ->first();
+                                $tmp['vendor_factory_id'] = $factory ? $factory : null;
+                                $datas['factory_code'] = $value;
+                                if(!$factory) {
+                                    $facError = true;
+                                }
+
+                            } else if($col == 2) {
+                                if(!$facError){
+                                    $lineData = $this->LineMasters->find()
+                                    ->where(['vendor_factory_id' => $tmp['vendor_factory_id'], 'name' => trim($value)])
+                                    ->first();
+
+                                    //echo '<pre>'; print_r($lineData); exit;
+                                    $tmp['line_master_id'] = $lineData ? $lineData->id : null;
+                                    if(!$lineData) {
+                                        $lineError = true;
+                                    }
+                                }
+
+                                $datas['line'] = $value;
+
+                            }else if($col == 3) {
+                                $materials = $this->Materials->find('all')
+                                ->select(['id', 'code'])
+                                ->where(['code IN' => $value])->first();
+    
+                                $tmp['material_id'] = $materials['id'] ? $materials['id'] : null;
+                                $datas['material'] = $value;
+                                if(!$materials['id']) {
+                                    $matError = true;
+                                    $datas['error'] = 'Invalid material';
+                                }
+                            }else if($col == 4) {
+                                $tmp['capacity'] = $value;
+                                $datas['capacity'] = $value;
+                            }
+                            
+                        }
+
+                        $datas['error'] = '';
+                        if($facError) {
+                            $datas['error'] = 'Invalid factory code';
+                        } 
+                        if($matError) {
+                            $datas['error'] = 'Invalid material code';
+                        } 
+                        if($lineError) {
+                            $datas['error'] = 'Invalid Line';
+                        } 
+
+                        $stockData[] = $datas;
+                        if(empty($datas['error'])) {
+                            $uploadData[] = $tmp;   
+                        }
+                    }
+
+                   //echo '<pre>'; print_r($uploadData);exit;
+                   if(!empty($uploadData)) {
+                        $columns = array_keys($uploadData[0]);
+                        $upsertQuery = $this->ProductionLines->query();
+                        $upsertQuery->insert($columns);
+
+                        foreach($uploadData as $row) {
+                            $upsertQuery->values($row);
+                        }
+                        $upsertQuery->epilog('ON DUPLICATE KEY UPDATE `capacity`=VALUES(`capacity`)')
+                            ->execute();
+                    }
+
+                    $response['status'] = 1;
+                    $response['message'] = 'uploaded Successfully';
+                    $response['data'] = $stockData;
+                } else {
+                    $response['status'] = 0;
+                    $response['message'] = 'file not uploaded';
+                }
+
+                
+            } catch (\PDOException $e) {
+                $response['status'] = 0;
+                $response['message'] = $e->getMessage();
+            } catch (\Exception $e) {
+                $response['status'] = 0;
+                $response['message'] = $e->getMessage();
+            }
+        }
+
+        echo json_encode($response); exit;
+    }
 }

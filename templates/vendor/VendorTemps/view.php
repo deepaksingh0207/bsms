@@ -166,7 +166,7 @@
     <div class="col-sm-12 col-md-9 col-lg-9">
         <div class="card">
             <div class="card-header">
-                <span class="text-info">USER DETAILS
+                <span class="User_head text-info d-flex justify-content-between align-items-center">USER DETAILS
                     <div class="float-right">
                         <?php if ($updatecount == 0) : ?>
                             <?= $this->Html->link(__('Edit'), ['action' => 'edit', $vendorTemp->id], ['class' => 'btn btn-info mb-0']) ?>
@@ -227,8 +227,8 @@
                             <div class="tab-content" id="custom-tabs-one-tabContent">
                                 <div class="tab-pane fade show active" id="custom-tabs-one-home" role="tabpanel" aria-labelledby="custom-tabs-one-home-tab">
                                     <div class="row">
-                                        <div class="col-sm-12 col-md-4 col-lg-4">
-                                            <div class="card">
+                                        <div class="col-sm-12 col-md-4 col-lg-6">
+                                            <div class="card card_border">
                                                 <div class="card-header">Primary Details</div>
                                                 <div class="card-body p-0">
                                                     <table class="table table-hover table-striped table-bordered">
@@ -257,8 +257,8 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-sm-12 col-md-4 col-lg-4">
-                                            <div class="card">
+                                        <div class="col-sm-12 col-md-4 col-lg-6">
+                                            <div class="card card_border">
                                                 <div class="card-header">Contact Person</div>
                                                 <div class="card-body p-0">
                                                     <table class="table table-hover table-striped table-bordered">
@@ -286,9 +286,9 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-sm-12 col-md-4 col-lg-4"></div>
-                                        <div class="col-sm-12 col-md-4 col-lg-4">
-                                            <div class="card">
+                                        <!-- <div class="col-sm-12 col-md-4 col-lg-4"></div> -->
+                                        <div class="col-sm-12 col-md-4 col-lg-6">
+                                            <div class="card card_border">
                                                 <div class="card-header">Address</div>
                                                 <div class="card-body p-0">
                                                     <table class="table table-hover table-striped table-bordered">
@@ -320,8 +320,8 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-sm-12 col-md-4 col-lg-4">
-                                            <div class="card">
+                                        <div class="col-sm-12 col-md-4 col-lg-6">
+                                            <div class="card card_border">
                                                 <div class="card-header">Permenant Address</div>
                                                 <div class="card-body p-0">
                                                     <table class="table table-hover table-striped table-bordered">
@@ -353,8 +353,8 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-sm-12 col-md-4 col-lg-4">
-                                            <div class="card">
+                                        <div class="col-sm-12 col-md-4 col-lg-6">
+                                            <div class="card card_border">
                                                 <div class="card-header">Other Details</div>
                                                 <div class="card-body p-0">
                                                     <table class="table table-hover table-striped table-bordered">
@@ -396,7 +396,7 @@
                                             </div>
                                         </div>
                                         <div class="col-sm-12 col-md-12 col-lg-12">
-                                            <div class="card">
+                                            <div class="card card_border">
                                                 <div class="card-header">
                                                     Small Scale Industry
                                                 </div>
@@ -434,7 +434,7 @@
                                             <a class="btn btn-block bg-gradient-cancel" target="_blank" id="qualityControl" href="">Quality control procedure adopted</a>
                                         </div>
                                         <div class="col-sm-12 col-md-12 col-lg-12 mb-3">
-                                            <div class="card">
+                                            <div class="card card_border">
                                                 <div class="card-header">Annual turn over in last 3 years (In Rupee)</div>
                                                 <div class="card-body">
                                                     <div class="row">
@@ -452,7 +452,7 @@
                                             </div>
                                         </div>
                                         <div class="col-sm-12 col-md-12 col-lg-12 mb-3">
-                                            <div class="card">
+                                            <div class="card card_border">
                                                 <div class="card-header">
                                                     Income Tax Cleaning Certificate
                                                 </div>
@@ -600,7 +600,7 @@
                                 <div class="tab-pane fade" id="custom-tabs-four-home" role="tabpanel" aria-labelledby="tab_paymentdetails" style="background-color: white;">
                                     <div class="row">
                                         <div class="col-sm-12 col-md-12 col-lg-12">
-                                            <div class="card">
+                                            <div class="card card_border">
                                                 <div class="card-header">
                                                     Bank Details
                                                 </div>
@@ -655,7 +655,7 @@
                                             </div>
                                         </div>
                                         <div class="col-sm-12 col-md-12 col-lg-12">
-                                            <div class="card">
+                                            <div class="card card_border">
                                                 <div class="card-header">
                                                     Other Payment Details
                                                 </div>
@@ -683,7 +683,7 @@
                                 </div>
 
                                 <div class="tab-pane fade" id="custom-tabs-four-certificate" role="tabpanel" aria-labelledby="tab_certificate" style="background-color: white;">
-                                    <div class="card">
+                                    <div class="card card_border">
                                         <div class="card-body">
                                             <div class="row">
                                                 <div class="col-4">
@@ -700,7 +700,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="card">
+                                    <div class="card card_border">
                                         <div class="card-body">
                                             <div class="row">
                                                 <div class="col-4">
@@ -714,7 +714,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="card">
+                                    <div class="card card_border">
                                         <div class="card-body">
                                             <div class="col-4">
                                                 Other Quality Certification:
@@ -725,7 +725,7 @@
                                 </div>
 
                                 <div class="tab-pane fade" id="custom-tabs-four-questionnaire" role="tabpanel" aria-labelledby="tab_questionnaire" style="background-color: white;">
-                                    <div class="card">
+                                    <div class="card card_border">
                                         <div class="card-header">
                                             <h5>Other information considered relevent to be furnished by supplier</h5>
                                         </div>

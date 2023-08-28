@@ -10,8 +10,9 @@ use Cake\ORM\Entity;
  *
  * @property int $id
  * @property string $sap_vendor_code
- * @property int $material_id
+ * @property int $vendor_factory_id
  * @property int $line_master_id
+ * @property int $material_id
  * @property string $capacity
  * @property bool $status
  * @property \Cake\I18n\FrozenTime|null $added_date
@@ -34,8 +35,9 @@ class ProductionLine extends Entity
      */
     protected $_accessible = [
         'sap_vendor_code' => true,
-        'material_id' => true,
+        'vendor_factory_id' => true,
         'line_master_id' => true,
+        'material_id' => true,
         'capacity' => true,
         'status' => true,
         'added_date' => true,

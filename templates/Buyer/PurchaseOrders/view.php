@@ -18,7 +18,7 @@
 
 <div class="row purchase-order">
   <div class="col-12">
-    <div class="poHeaders view content card" id="">
+    <div class="poHeaders view content card card_box_shadow" id="">
       <div class="table-responsive p-2" id="purViewId">
         <div class="search-bar mb-2">
           <input type="search" placeholder="Search all orders, meterials" class="form-control search-box">
@@ -29,7 +29,7 @@
       </div>
     </div>
 
-    <div class="related card">
+    <div class="related card card_box_shadow">
       <div class="card-header">
         <span id="res_message"></span>
         <button type="button" disabled class="btn bg-gradient-button" id="action_schedule" onclick="prepare()" data-toggle="modal" data-backdrop="static" data-keyboard="false" data-target="#scheduleModal">Schedule</button>

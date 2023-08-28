@@ -16,7 +16,7 @@
     <div class="col-12">
         <div class="card p-1">
             <div class="card m-1">
-                <div class="card-header" style="background-color: #d4ddf7  !important;">
+                <div class="card-header asn_header_bg">
                     <div class="row align-items-center">
                         <div class="col-sm-12">
                             Factory : <b>
@@ -91,27 +91,27 @@
                     </div>
                     <div class="row tracking-dt">
                         <div class="col-sm-12 col-lg-2 mt-2">
-                            Invoice No. :<br>
+                            <span class="tracking_details">Invoice No. :</span><br>
                             <b><?= h($deliveryDetails[0]->invoice_no) ?></b>
                         </div>
                         <div class="col-sm-12 col-lg-2 mt-2">
-                            Invoice Date :<br>
+                        <span class="tracking_details">Invoice Date :</span><br>
                             <b><?= h($deliveryDetails[0]->invoice_date) ?></b>
                         </div>
                         <div class="col-sm-12 col-lg-2 mt-2">
-                            Invoice Value :<br>
+                        <span class="tracking_details">Invoice Value :</span><br>
                             <b><?= h($deliveryDetails[0]->invoice_value) ?></b>
                         </div>
                         <div class="col-sm-12 col-lg-2 mt-2">
-                            Vehicle No. :<br>
+                        <span class="tracking_details">Vehicle No. :</span><br>
                             <b> <?= h($deliveryDetails[0]->vehicle_no) ?> </b>
                         </div>
                         <div class="col-sm-12 col-lg-2 mt-2">
-                            Driver Name :<br>
+                        <span class="tracking_details">Driver Name :</span><br>
                             <b><?= h($deliveryDetails[0]->driver_name) ?></b>
                         </div>
                         <div class="col-sm-12 col-lg-2 mt-2">
-                            Driver Contact :<br>
+                        <span class="tracking_details">Driver Contact :</span><br>
                             <b><?= h($deliveryDetails[0]->driver_contact) ?></b>
                         </div>
 
@@ -129,8 +129,7 @@
                 </div>
             </div>
             <div class="card-body p-1">
-                <table class="table" id="example1"
-                    style="border-left: .5px solid lightgray;border-right: .5px solid lightgray; border-bottom: .5px solid lightgray;">
+                <table class="table" id="example1">
                     <thead>
                         <tr>
                             <th>Item</th>

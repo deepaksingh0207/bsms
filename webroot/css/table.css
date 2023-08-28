@@ -17,7 +17,7 @@
 
 .table thead th {
     font-weight: 500;
-    color: #fff !important;
+    color: #000 !important;
     font-size: 12px !important;
 }
 
@@ -31,7 +31,7 @@ hr {
 }
 .text-info { color: #F79E33 !important;}
 .table>tbody{
-	background-color: #fafafa !important;
+	background-color: #fff !important;
 }
 .table th{
 	font-size:12px;
@@ -52,8 +52,7 @@ hr {
 	color: #112a68 !important;
 } */
 .table-hover tbody tr:hover {
-   
-    background-color:#E7EAF0!important;
+    background: color #f4f4f4 !important;
 }
 .vl { border-left: 6px solid #F7941D !important;}
 
@@ -92,3 +91,8 @@ hr {
 
 .btnSub,.btn-sm { color: #fff !important;}
 .btnSub:hover,.btn-sm:hover { color: #fff !important;}
+
+.mark_entry_cancel { color: #ED1C24 !important;}
+.mark_entry_ok { color: #F7941D !important;}
+
+.card_box_shadow  { box-shadow: none !important;}

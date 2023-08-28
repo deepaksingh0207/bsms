@@ -15,14 +15,14 @@
 <!-- <?= $this->Html->css('b_index.css') ?> -->
 <style>
     .vl {
-        border-left: 6px solid #17a2b8;
+        border-left: 4px solid #17a2b8;
         margin-left: 20px;
     }
 </style>
 <div class="row">
     <div class="col-12">
         <?= $this->Form->create(null, ['type' => 'file', 'id' => 'sapvendorcodeform']); ?>
-        <div class="card">
+        <div class="card card_box_shadow">
             <div class="card-body ">
                 <div class="row">
                     <div class="col-sm-12 col-md-6">

@@ -26,6 +26,8 @@ class ProductionLinesTableTest extends TestCase
     protected $fixtures = [
         'app.ProductionLines',
         'app.Materials',
+        'app.LineMasters',
+        'app.Dailymonitor',
     ];
 
     /**
