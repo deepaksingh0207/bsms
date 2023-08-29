@@ -9,8 +9,10 @@ aside.main-sidebar {
 
 .nav-link.active {
     background-color: #FEF4E8 !important;
-    color: #fff !important;
+    /* color: #fff !important; */
 }
+
+.asn_cardbody { padding: 0 !important;}
 
 .loader-container {
     position: fixed;

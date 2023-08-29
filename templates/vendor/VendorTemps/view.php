@@ -169,7 +169,7 @@
                 <span class="User_head text-info d-flex justify-content-between align-items-center">USER DETAILS
                     <div class="float-right">
                         <?php if ($updatecount == 0) : ?>
-                            <?= $this->Html->link(__('Edit'), ['action' => 'edit', $vendorTemp->id], ['class' => 'btn btn-info mb-0']) ?>
+                            <?= $this->Html->link(__('Edit'), ['action' => 'edit', $vendorTemp->id], ['class' => 'edit_btn btn btn-info mb-0']) ?>
                         <?php endif; ?>
                     </div>
                 </span>
@@ -177,7 +177,7 @@
             <div class="card card-tabs card_boxshadow">
                 <div class="row">
                     <div class="col-sm-12 col-md-12 col-lg-12" style="border-bottom: 1px solid #eee;">
-                        <div class=" p-0">
+                        <div class=" p-0" id="vendor-custom-tabs-one-tab">
                             <ul class="nav" id="custom-tabs-one-tab" role="tablist">
                                 <li class="nav-item">
                                     <a class="nav-link active" id="custom-tabs-one-home-tab" data-toggle="pill" href="#custom-tabs-one-home" role="tab" aria-controls="custom-tabs-one-home" aria-selected="true">

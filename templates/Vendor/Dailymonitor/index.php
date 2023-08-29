@@ -58,7 +58,7 @@
                                     <div class="float-left">
                                         <?= $this->Html->link(__('Edit'), ['action' => 'edit', $dailymonitors->id], ['class' => 'btn btn-info btn-sm mb-0']) ?>
                                     
-                                        <?= $this->Html->link(__('Cancel'), "#", ['data-value' => $dailymonitors->id, 'data-key' => 'cancel', 'class' => 'btn btn-info btn-sm mb-0 cancel']) ?>
+                                        <!-- <?= $this->Html->link(__('Cancel'), "#", ['data-value' => $dailymonitors->id, 'data-key' => 'cancel', 'class' => 'btn btn-info btn-sm mb-0 cancel']) ?> -->
                                     </div>
                                     <?php endif; ?>
                                 </td>

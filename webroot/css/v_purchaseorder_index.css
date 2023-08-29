@@ -19,7 +19,7 @@ td {
 }
 
 th {
-    font-weight: 500;
+    font-weight: 600;
 }
 
 
@@ -43,7 +43,7 @@ th {
 }
 
 .purchase-order .po-list {
-    border: 1px solid #e2e2e2;
+    border: 1px solid #eee;
     background-color: #fafafa;
 }
 

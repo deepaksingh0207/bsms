@@ -47,7 +47,7 @@
       </tbody>
     </table>
   </div>
-  <div class="row">
+  <div class="row p-3">
     <?php if($factoryExists) : ?>
     <div class="col-lg-12 mb-2 pe-4 d-flex justify-content-end flagButton">
       <!-- <button type="button" data-id="" class="btn bg-gradient-button notify mb-0">

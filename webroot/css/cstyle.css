@@ -64,7 +64,7 @@
 .row {
   --bs-gutter-x: 1.5rem;
   --bs-gutter-y: 0;
-  border-radius: 2rem;
+  /* border-radius: 2rem; */
   display: flex;
   flex-wrap: wrap;
   margin-top: ;
@@ -9128,9 +9128,9 @@
   background: transparent;
 }
 
-.card {
+/* .card {
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-}
+} */
 
 .card[data-animation="true"] .card-header {
   -webkit-transform: translate3d(0, 0, 0);

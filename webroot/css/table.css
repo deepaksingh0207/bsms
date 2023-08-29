@@ -16,9 +16,10 @@
 }
 
 .table thead th {
-    font-weight: 500;
-    color: #000 !important;
+    font-weight: 600;
+    color: #121212 !important;
     font-size: 12px !important;
+    letter-spacing: .7px;
 }
 
 hr {
@@ -35,6 +36,8 @@ hr {
 }
 .table th{
 	font-size:12px;
+    font-weight: 600px !important;
+    word-spacing: .5px;
 }
 /* .table td, .table th{
 	font-size:14px;
@@ -95,4 +98,7 @@ hr {
 .mark_entry_cancel { color: #ED1C24 !important;}
 .mark_entry_ok { color: #F7941D !important;}
 
-.card_box_shadow  { box-shadow: none !important;}
+.card_box_shadow  { 
+    box-shadow: none !important;
+    border: 1px solid #eee;
+}

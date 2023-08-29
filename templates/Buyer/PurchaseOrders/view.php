@@ -23,6 +23,30 @@
         <div class="search-bar mb-2">
           <input type="search" placeholder="Search all orders, meterials" class="form-control search-box">
         </div>
+        <div class="mb-2">
+                <?= $this->Form->create(null, ['id' => 'formUpload', 'url' => ['controller' => '/purchase-orders', 'action' => 'upload']]) ?>
+                <div class="row">
+                    <div class="col-sm-2 col-md-2 mt-3">
+                        <?= $this->Form->control('upload_file', [
+                                'type' => 'file', 'label' => false, 'class' => 'pt-1 rounded-0', 'style' => 'visibility: hidden; position: absolute;', 'div' => 'form-group', 'id' => 'bulk_file']); ?>
+                        <?= $this->Form->button('Choose File', ['id' => 'OpenImgUpload','type' => 'button','class' => 'd-block btn bg-gradient-button btn-block mb-0 file-upld-btn' ]); ?>
+                        <span id="filessnames"></span>
+                    </div>
+                    <div class="col-sm-2 col-md-2 mt-3 d-flex justify-content-start align-items-baseline">
+                        <button class="btn bg-gradient-submit" id="id_import" type="button">
+                            Submit
+                        </button>
+                    </div>
+                    <div class="col-sm-12 col-md-12 mt-3">
+                        <i style="color: black;">
+                            <a href="<?= $this->Url->build('/') ?>webroot/templates/schedule_upload.xlsx"
+                                download>Schedule upload template</a>
+                        </i>
+                    </div>
+                </div>
+                <?= $this->Form->end() ?>
+            </div>
+            
         <div class="po-list">
           <div class="d-flex" id="poItemss"></div>
         </div>
@@ -39,93 +63,54 @@
   </div>
 </div>
 
-<!-- <?php foreach ($poHeader->po_footers as $poFooters) :
-        $actualQty = $poFooters->po_qty;
-        $totalQty = 0;
-      ?> -->
+
 <!-- delivery modal -->
-<div class="modal fade" id="item_<?= h($poFooters->item) ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="upload_info" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-xl" role="document">
 
     <div class="modal-content">
 
       <div class="modal-header">
-        <h5 class="modal-title"><b>Delivery Detail :</b>
-          <?= h($poHeader->po_no . ' - ' . $poFooters->item) ?>
-        </h5>
+        <h5 class="modal-title"><b>Uploaded Schedule Detail :</b></h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
-        <table class="table" id="example2">
+        <table class="table" id="uploadInfoTable">
           <thead>
             <tr>
               <th>
-                <?= __('Item') ?>
+                <?= __('Vendor Code') ?>
               </th>
               <th>
-                <?= __('Short Text') ?>
+                <?= __('PO No.') ?>
               </th>
               <th>
-                <?= __('Challan No.') ?>
+                <?= __('Item No.') ?>
               </th>
               <th>
-                <?= __('Qty') ?>
+                <?= __('Material') ?>
               </th>
               <th>
-                <?= __('Eway Bill No.') ?>
+                <?= __('Schedule Qty.') ?>
               </th>
               <th>
-                <?= __('Einvoice No') ?>
+                <?= __('Delivery Date') ?>
               </th>
               <th class="actions">
-                <?= __('Actions') ?>
+                <?= __('Status') ?>
               </th>
             </tr>
           </thead>
-
           <tbody>
-            <?php foreach ($poFooters->delivery_details as $delivery) :
-              $totalQty = $totalQty + $delivery->qty;
-            ?>
-              <tr>
-                <td>
-                  <?= h($poFooters->item) ?>
-                </td>
-                <td>
-                  <?= h($poFooters->short_text) ?>
-                </td>
-                <td>
-                  <?= h($delivery->challan_no) ?>
-                </td>
-                <td>
-                  <?= h($delivery->qty) ?>
-                </td>
-                <td>
-                  <?= h($delivery->eway_bill_no) ?>
-                </td>
-                <td>
-                  <?= h($delivery->einvoice_no) ?>
-                </td>
-                <td class="actions">
-                  <!-- <?= $this->Html->link(__('View'), ['controller' => 'PoFooters', 'action' => 'view', $poFooters->id]) ?> -->
-                </td>
-              </tr>
-            <?php endforeach; ?>
           </tbody>
         </table>
-      </div>
-      <div class="modal-footer">
-        <b>Actual Qty :</b>
-        <?php echo $actualQty ?>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-        <b>Delivered Qty :</b>
-        <?php echo $totalQty ?>
       </div>
     </div>
   </div>
 </div>
-<?php endforeach; ?>
+
 
 <!-- Modal stock -->
 <div class="modal fade" id="scheduleModal" tabindex="-1" role="dialog" aria-labelledby="scheduleModalLabel" aria-hidden="true">
@@ -311,3 +296,64 @@
   var save_schedule_remarks = "<?php echo \Cake\Routing\Router::url(array('controller' => 'purchase-orders', 'action' => 'save-schedule-remarks')); ?>";
 </script>
 <?= $this->Html->script('b_purchaseorder_view') ?>
+
+<script>
+    $('#OpenImgUpload').click(function() {
+        $('#bulk_file').trigger('click');
+    });
+    $('#bulk_file').change(function() {
+        var file = $(this).prop('files')[0].name;
+        $("#filessnames").append(file);
+    });
+
+    $("#id_import").click(function() {
+        var fd = new FormData($('#formUpload')[0]);
+
+        $.ajax({
+            url: "<?php echo \Cake\Routing\Router::url(array('controller' => '/purchase-orders', 'action' => 'upload')); ?>",
+            type: "post",
+            dataType: 'json',
+            processData: false, // important
+            contentType: false, // important
+            data: fd,
+            success: function(response) {
+                if (response.status) {
+                    Toast.fire({
+                        icon: 'success',
+                        title: response.message
+                    });
+
+                    $("#uploadInfoTable tbody").empty();
+
+                    $("#upload_info").modal("toggle");
+
+                    // Loop through the response data and build the table rows dynamically
+                    $.each(response.data, function (key, val) { 
+                        var rowHtml = `<tr>
+                        <td> `+ val.sap_vendor_code + `</td>
+                        <td> `+ val.po_no +`</td>
+                        <td> `+ val.item_no +`</td>
+                        <td> `+ val.material + `</td>
+                        <td> `+ val.schedule_qty + `</td>
+                        <td> `+ val.delivery_date + `</td>
+                        <td> `+ val.error + `</td>
+                        </tr>`;
+                        $("#uploadInfoTable tbody").append(rowHtml);
+                    });
+
+                } else {
+                    Toast.fire({
+                        icon: 'error',
+                        title: response.message
+                    });
+                }
+            },
+            error: function() {
+                Toast.fire({
+                    icon: 'error',
+                    title: 'An error occured, please try again.'
+                });
+            }
+        });
+    });
+</script>

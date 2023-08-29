@@ -472,4 +472,138 @@ class PurchaseOrdersController extends BuyerAppController
 
         echo json_encode($response);
     }
+
+    public function upload()
+    {
+        $response['status'] = 0;
+        $response['message'] = 'upload fail';
+        $this->autoRender = false;
+        
+        if ($this->request->is(['patch', 'post', 'put', 'ajax'])) {
+            try {
+            
+                $uploadData = [];
+                if (isset($_FILES['upload_file']) && $_FILES['upload_file']['name'] != "" && isset($_FILES['upload_file']['name'])) {
+                    $inputFileType = \PhpOffice\PhpSpreadsheet\IOFactory::identify($_FILES['upload_file']['tmp_name']);
+                    $reader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader($inputFileType);
+                    $spreadsheet = $reader->load($_FILES['upload_file']['tmp_name']);
+                    $worksheet = $spreadsheet->getActiveSheet();
+                    $highestRow = $worksheet->getHighestRow(); 
+                    $highestColumn = $worksheet->getHighestColumn();
+                    $highestColumnIndex = \PhpOffice\PhpSpreadsheet\Cell\Coordinate::columnIndexFromString($highestColumn); // e.g. 5
+
+                    //echo '<pre>'; print_r($worksheet); exit;
+                    $this->loadModel('VendorTemps');
+                    $this->loadModel('PoHeaders');
+                    $this->loadModel('PoFooters');
+                    $this->loadModel('PoItemSchedules');
+                    
+                    $tmp = [];
+                    
+                    for ($row = 2; $row <= $highestRow; ++$row) {
+                        $vendorError = false;
+                        $poError = false;
+                        $poItemError = false;
+                        $datas = [];
+                        for ($col = 1; $col <= $highestColumnIndex; ++$col) {
+                            $value = $worksheet->getCellByColumnAndRow($col, $row)->getValue();
+                            if($value){
+                                if($col == 1) {
+                                    $tmp['sap_vendor_code'] = $value;
+                                    $datas['sap_vendor_code'] = $value;
+
+                                    if(!$this->VendorTemps->exists(['sap_vendor_code' => str_pad((string)$value, 10, "0", STR_PAD_LEFT)])) {
+                                        $vendorError = true;
+                                    }
+
+                                } else if($col == 2) {
+                                    $poHeaderId = $this->PoHeaders->find('list')
+                                    ->select(['id'])
+                                    ->where(['po_no' => $value])
+                                    ->first();
+                                    $tmp['po_header_id'] = $poHeaderId ? $poHeaderId : null;
+                                    $datas['po_no'] = $value;
+                                    if(!$poHeaderId) {
+                                        $poError = true;
+                                    }
+                                } else if($col == 3) {
+                                    if(!$poError) {
+                                        $poFooterId = $this->PoFooters->find('list')
+                                        ->select(['id'])
+                                        ->where(['po_header_id' => $tmp['po_header_id'], 'item' => str_pad((string)$value, 5, "0", STR_PAD_LEFT)])
+                                        ->first();
+                                        $tmp['po_footer_id'] = $poFooterId ? $poFooterId : null;
+                                        if(!$poFooterId) {
+                                            $poItemError = true;
+                                        }
+                                    } else {
+                                        $tmp['po_footer_id'] = null;
+                                    }
+
+                                    $datas['item_no'] = $value;
+                                    
+                                } else if($col == 4){
+                                    $datas['material'] = $value;
+                                } else if($col == 5){
+                                    $tmp['actual_qty'] = $value;
+                                    $datas['schedule_qty'] = $value;
+                                } else if($col == 6){
+                                    $tmp['delivery_date'] = date('Y-m-d', strtotime(trim($value)));
+                                    $datas['delivery_date'] = $value;
+                                }
+                            }
+                        }
+
+                        $datas['error'] = '';
+                        if($vendorError) {
+                            $datas['error'] = 'Invalid Vendor code';
+                        } 
+                        if($poError) {
+                            $datas['error'] = 'PO Detail not found';
+                        } 
+                        if($poItemError) {
+                            $datas['error'] = 'Item Detail not found';
+                        } 
+
+                        if(empty($datas['error'])) {
+                            $uploadData[] = $tmp; 
+                            
+                            //echo '<pre>'; print_r($uploadData); exit;
+                            if($this->PoItemSchedules->exists(['po_header_id' => $tmp['po_header_id'], 'po_footer_id' => $tmp['po_footer_id'], 'delivery_date' => $tmp['delivery_date'], 'status' => 1])) {
+                                $datas['error'] = 'Schedule already created';
+                            } else {
+                                $PoItemSchedule = $this->PoItemSchedules->newEmptyEntity();
+                                $PoItemSchedule = $this->PoItemSchedules->patchEntity($PoItemSchedule, $tmp);
+                                if ($this->PoItemSchedules->save($PoItemSchedule)) {
+                                    $datas['error'] = "Schedule created";
+                                } else {
+                                    $datas['error'] = "Fail to create schedule";
+                                }
+                            }
+                        }
+
+                        $showData[] = $datas;
+                    }
+
+                    $response['status'] = 1;
+                    $response['message'] = 'uploaded Successfully';
+                    $response['data'] = $showData;
+                } else {
+                    $response['status'] = 0;
+                    $response['message'] = 'file not uploaded';
+                }
+
+                
+            } catch (\PDOException $e) {
+                $response['status'] = 0;
+                $response['message'] = $e->getMessage();
+            } catch (\Exception $e) {
+                $response['status'] = 0;
+                $response['message'] = $e->getMessage();
+            }
+        }
+
+        echo json_encode($response); exit;
+    }
+
 }

@@ -12,7 +12,9 @@ label { font-size: 15px !important; color: #333;}
     background-color: #fff !important;
 }
 
-
+#custom-tabs-four-tab .nav-link { font-weight: 500 !important;}
+.nav-tabs { border: none !important;}
+#custom-tabs-four-tab .nav-link.active { background-color: #fff !important; border-top: 2px solid;}
 
 a.text-info:hover { color: #333 !important;}
 .btn-info:hover{
@@ -74,3 +76,7 @@ a.text-info:hover { color: #333 !important;}
 }
 
 .User_head  { color: #000 !important;}
+
+.edit_btn { color: #000 !important;}
+
+.edit_btn:hover { color: #F7941D !important;}

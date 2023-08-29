@@ -824,10 +824,8 @@ div#past_messages::-webkit-scrollbar-track {
 }
 
 .purchase-order .po-list {
-    border: 1px solid #ddd;
+    border: 1px solid #eee;
     background-color: #fafafa;
-
-
 }
 
 .commu-review .card-body {
@@ -841,7 +839,7 @@ div#past_messages::-webkit-scrollbar-track {
 .purchase-order .po-box {
     border-right: 1px solid #ccc;
     padding: 5px 20px;
-    width: 170px;
+    min-width: 170px;
     cursor: pointer;
     color: #444;
 }
@@ -978,7 +976,11 @@ span.otp-send-email { color: #121212 !important;}
 
 .mrk:hover { color: #fff !important;}
 
-.card_box_shadow  { box-shadow: none !important;}
+.card_box_shadow  { 
+    box-shadow: none !important;
+    border: 1px solid #eee;
+}
+
 
 
 

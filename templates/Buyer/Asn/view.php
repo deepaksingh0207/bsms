@@ -22,7 +22,7 @@
             <div class="d-flex justify-content-between">
 
                 <div class="head-t">
-                    <h5 class="text-info pt-2"><b>Details</b></h5>
+                    <h5 class="pt-2"><b>Details</b></h5>
                 </div>
                 <div class="actionbtn">
                     <?php
@@ -62,7 +62,7 @@
 
             <div class="">
 
-                <div class="card-body gateentry-asn" style="background-color: #f5f7fd !important;">
+                <div class="card-body gateentry-asn" style="background-color: #fafafa !important;">
                     <div class="row">
                         <div class="col-md-2">
                             <label>ASN No.</label>
@@ -125,7 +125,7 @@
                 </div>
             </div>
 
-            <div class="card-body mt-3">
+            <div class="card-body mt-3 asn_cardbody">
                 <table class="table table-bordered delivery-dt-tbl mb-2">
                     <thead>
                         <tr>

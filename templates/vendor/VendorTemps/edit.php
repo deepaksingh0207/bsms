@@ -729,7 +729,7 @@
                                                         <div class="row mb-3 factory_office_0_commencement" data-id="0"
                                                             data-sub="1" data-sub_id="0"
                                                             id="factory_office_0_commencement_0">
-                                                            <div class="col-sm-12 col-md-3 col-lg-3">
+                                                            <div class="col-sm-12 col-md-3 col-lg-4">
                                                                 <label for="">Year Of Commencement Of Production</label>
                                                                 <input type="number" class="form-control maxlength_validation"
                                                                     name="prdflt[factory_office][0][commencement][0][commencement_year]"
