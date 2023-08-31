@@ -918,7 +918,7 @@
                                         <!-- <hr class="other_address_0" style="border: revert;"> -->
                                     </div>
                                 </div>
-                                <?php echo $this->Form->button('Save', array('class' => 'btn bg-gradient-submit mt-4 profile_submit', 'type' => 'button', 'id' => 'contact_person')); ?>
+                                <?php echo $this->Form->button('Save', array('class' => 'btn bg-gradient-submit mt-4 profile_submit', 'type' => 'button', 'data-id' => 'contact_person')); ?>
                                 <?= $this->Form->end() ?>
                             </div>
 
@@ -1184,7 +1184,7 @@
                                             cols="30" rows="3"></textarea>
                                     </div>
                                 </div>
-                                <?php echo $this->Form->button('Save', array('class' => 'btn bg-gradient-submit mt-4 profile_submit', 'type' => 'button', 'id' => 'questionnaire')); ?>
+                                <?php echo $this->Form->button('Save', array('class' => 'btn bg-gradient-submit mt-4 profile_submit', 'type' => 'button', 'data-id' => 'questionnaire')); ?>
                                 <?= $this->Form->end() ?>
                             </div>
 

@@ -58,3 +58,4 @@ bsms_backup/
 webroot/img/flow-img.jpg
 vendor/composer/installed.php
 webroot/uploads/*
+*.zip
