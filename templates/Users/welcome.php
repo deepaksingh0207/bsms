@@ -262,7 +262,7 @@
           <div
             class="ant-col otherdetails-container ant-col-xs-24 ant-col-sm-24 ant-col-md-24 ant-col-lg-12 ant-col-xl-12">
             <div class="left-content animate__animated animate__backInLeft">
-              <h1>Welcome to FTSPL Supplier Portal</h1>
+              <h1>Welcome to APAR Vendor Portal</h1>
               <p>A single window digital interface and communication platform for supplier assessment and onboarding-
                 Towards Co-creating Governance.</p>
               <img class="flow-img" src="<?= $this->Url->build('/') ?>img/login-img.png">

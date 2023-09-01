@@ -17,8 +17,8 @@
         <div class="card p-1">
             <div class="card m-1">
                 <div class="card-header asn_header_bg">
-                    <div class="row align-items-center">
-                        <div class="col-sm-12">
+                    <div class="row align-items-center justify-content-between">
+                        <div class="col-sm-12 col-lg-2">
                             Factory : <b>
                                 <?= h($deliveryDetails[0]->VendorFactories['factory_code']) ?>
                             </b>

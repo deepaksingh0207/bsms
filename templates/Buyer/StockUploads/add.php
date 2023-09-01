@@ -56,36 +56,36 @@ use PhpOffice\PhpSpreadsheet\Calculation\Information\Value;
     <div class="col-12">
         <div class="card">
             <div class="card-header">
-                <div class="row">
-                    <div class="col-lg-6 d-flex justify-content-start">
+                <div class="row col-lg-12 d-flex justify-content-between align-items-center">
+                    <div class="col-lg-6">
                         <h5><b>UPLOAD STOCKS</b></h5>
                     </div>
-                </div>
-            </div>
-
-            <div class="card-body">
+                    <div class="col-lg-6">
                 <?= $this->Form->create(null, ['id' => 'formUpload', 'url' => ['controller' => '/stock-uploads', 'action' => 'upload']]) ?>
-                <div class="row">
-                    <div class="col-sm-2 col-md-2 mt-3">
+                <div class="row justify-content-end align-items-center">
+                    <div class="col-lg-4 d-flex justify-content-end">
+                        <i>
+                            <a href="<?= $this->Url->build('/') ?>webroot/templates/material_stock_upload_buyer.xlsx"
+                                download class="template_format">stock_upload_template</a>
+                        </i>
+                    </div>
+                    <div class="col-sm-2 col-md-2 col-lg-3">
                         <?= $this->Form->control('upload_file', [
                                 'type' => 'file', 'label' => false, 'class' => 'pt-1 rounded-0', 'style' => 'visibility: hidden; position: absolute;', 'div' => 'form-group', 'id' => 'bulk_file']); ?>
                         <?= $this->Form->button('Choose File', ['id' => 'OpenImgUpload','type' => 'button','class' => 'd-block btn bg-gradient-button btn-block mb-0 file-upld-btn' ]); ?>
                         <span id="filessnames"></span>
                     </div>
-                    <div class="col-sm-2 col-md-2 mt-3 d-flex justify-content-start align-items-baseline">
                         <button class="btn bg-gradient-submit" id="id_import" type="button">
                             Submit
                         </button>
-                    </div>
-                    <div class="col-sm-12 col-md-12 mt-3">
-                        <i style="color: black;">
-                            <a href="<?= $this->Url->build('/') ?>webroot/templates/material_stock_upload_buyer.xlsx"
-                                download>stock_upload_template</a>
-                        </i>
-                    </div>
+                    
                 </div>
                 <?= $this->Form->end() ?>
             </div>
+                </div>
+            </div>
+
+            
 
                         
             <div class="card-footer" id="id_pohead">

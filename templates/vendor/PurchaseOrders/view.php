@@ -11,16 +11,19 @@
 <?= $this->Html->css('v_index.css') ?>
 <link rel="stylesheet"
   href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
-<div class="card">
-  <div class="card-header">
+<div class="card card_border">
+  <div class="card-header border_bottom">
     <div class="d-flex">
-      <div class="col-md-6">
-      <h5 class="text-info mt-2"><b>PO NO : 
+      <div class="col-md-4">
+      <h5 class="text-info mt-2"><b class="po-no-label">PO NO : 
         <?= h($poHeader[0]->po_no) ?>
       </b></h5>
       </div>
-      <div class="col-md-6 d-flex justify-content-end">
-        <h6 class="text-right">Expected Delivery Date <br> <b>May 28, 2022</b></h6>
+      <div class="col-md-4 d-flex justify-content-center align-items-center">
+      <h6 class="text-right delivery_date">Expected Delivery Date:  <b>May 28, 2022</b></h6>
+      </div>
+      <div class="col-md-4 d-flex justify-content-end">
+        
         <a href="javascript:history.back()" class=" back-btn d-block create_asn_bckbtn"><i class="fas fa-angle-double-left"></i> BACK</a>
         <button type="submit" class="btn btn-info mb-0 ml-2 create_asn_btn">Create ASN</button>
       </div>
@@ -151,7 +154,7 @@
     <div class="table-responsive">
       <table class="table table-bordered material-list">
         <thead>
-          <tr style="background-color: #fff;">
+          <tr>
             <th>
               <?= __('Item') ?>
             </th>

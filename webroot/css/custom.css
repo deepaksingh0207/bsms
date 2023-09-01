@@ -478,7 +478,7 @@ table.table.table-bordered.delivery-dt-tbl th {
 
 .card-body.invoice-details .dgf {
     width: 100% !important;
-    background-color: #f5f7fd !important;
+    background-color: #fff !important;
     border-radius: 0px !important;
     padding: 10px !important;
     padding-bottom: 20px !important;
@@ -488,8 +488,8 @@ a.back-btn {
     padding: 10px 25px;
     margin-left: 25px;
     line-height: 22px;
-    color: #F7941D !important;
-    border: 1px solid #F7941D;
+    color: #121212 !important;
+    border: 1px solid #121212;
     font-size: 14px;
     border-radius: 5px;
 }
@@ -510,11 +510,12 @@ a.back-btn {
 .invoice-details label {
     color: #818589 !important;
     margin-left: 0px;
-    font-size: 12px;
+    font-size: 14px;
+    font-weight: 500 !important;
 }
 
 .invoice-details p {
-    color: #000 !important;
+    color: #121212 !important;
     font-weight: 600;
     font-size: 16px;
 }
@@ -562,7 +563,7 @@ a.back-btn {
 }
 
 .action-btn a {
-    background-color: #112A68 !important;
+    /* background-color: #112A68 !important; */
     font-size: 14px;
     padding: 10px 14px;
 }
@@ -580,7 +581,7 @@ td.ponum {
 
 .btn-custom {
     background-color: #F7941D !important;
-    color: #000 !important;
+    color: #121212 !important;
     font-size: 14px;
     line-height: 1.1rem;
     padding: 10px 20px;
@@ -588,7 +589,7 @@ td.ponum {
 
 .modal-footer .btn-custom-2 {
     background-color: #F7941D !important;
-    color: #000 !important;
+    color: #121212 !important;
     font-size: 14px;
     line-height: 1.1rem;
     padding: 10px 20px;
@@ -602,6 +603,7 @@ td.ponum {
 a.back-btn:hover {
     background-color: #F7941D !important;
     color: #fff !important;
+    border: 1px solid #F7941D !important;
 }
 
 /* .btn-custom:hover {
@@ -631,12 +633,12 @@ a.back-btn:hover {
 
 .rfq-details-head {
     padding: 15px;
-    background-color: #f5f7fd;
+    background-color: #fafafa;
     padding-bottom: 0px
 }
 
 .rfq-details-head b {
-    color: #000;
+    color: #121212;
     font-size: 15px;
 }
 
@@ -751,9 +753,9 @@ input.form-control.search {
     padding: 7px;
     height: 30px;
     border-radius: 30px;
-    background-color: #527195;
-    color: #fff;
-    border: 1px solid #527195;
+    /* background-color: #527195; */
+    color: #121212;
+    /* border: 1px solid #527195; */
 }
 
 .c-msg p {
@@ -937,9 +939,17 @@ p.po-no {
 .btn:hover{ color: #F7941D!important;}
 /* .btn { color: #F7941D!important;} */
 /* #OpenImgUpload { color: #fff !important;} */
+#OpenImgUpload {
+    color: #121212 !important;
+    border: 1px solid #121212 !important;
+    background-color: #fff !important;
+}
 #OpenImgUpload:hover {
     color: #F7941D !important;
+    border-color: #F7941D !important;
 }
+
+
 
 .page-item.active .page-link{
     border-color: #F7941D;
@@ -982,6 +992,10 @@ span.otp-send-email { color: #121212 !important;}
 }
 
 
+.template_format { 
+    color: #121212 !important;
+    text-decoration: dotted !important;
+}
 
 
 

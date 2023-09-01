@@ -117,7 +117,7 @@ th {
 /* Default Button */
 .bg-gradient-button {
     /* background: #F2EDD7FF linear-gradient(180deg, #F2EDD7FF, #e5e1cc) repeat-x !important; */
-    color: #000 !important;
+    color: #121212 !important;
     background-color: #F7941D;
 }
 
@@ -134,14 +134,14 @@ th {
     background-color: #fff;
 }
 
-.bg-gradient-button.btn:not(:disabled):not(.disabled):active,
+/* .bg-gradient-button.btn:not(:disabled):not(.disabled):active,
 .bg-gradient-button.btn:not(:disabled):not(.disabled).active,
 .bg-gradient-button.btn:active,
 .bg-gradient-button.btn.active {
     background: #F2EDD7FF linear-gradient(180deg, #e5e1cc, #e5e1cc) repeat-x !important;
     border-color: #F2EDD7FF;
     color: #755139FF !important;
-}
+} */
 
 .bg-gradient-button.btn:disabled,
 .bg-gradient-button.btn.disabled {
@@ -150,8 +150,8 @@ th {
     /* color: #755139FF !important; */
 }
 
-#id_import { color: #000 !important;}
-#id_import:hover { color: #F7941D !important;}
+/* #id_import { color: #F7941D !important; border: 1px solid #F7941D !important; background-color: #fff !important;} */
+#id_import:hover { color: #121212 !important; border-color: #121212 !important; transition: all ease .5s    ;}
 
 /* Default Button */
 
@@ -267,9 +267,8 @@ th {
 .bg-gradient-cancel.btn.disabled {
     background-image: none !important;
     background-color: #fff !important;
-    border-color: #F7941D;
-    color: #F7941D !important;
-    /* color: #496e97; */
+    border-color: #121212;
+    color: #121212 !important;
 }
 
 /* Cancel Button */
@@ -376,7 +375,7 @@ body {
 }
 
 .collapse .nav-link {
-    margin: 0 7px;
+    margin: 0 5px;
 }
 
 /* Nav bar styling end here */
@@ -419,6 +418,8 @@ body {
 .nav-sidebar>.nav-item {
     margin-bottom: 10px !important;
 }
+
+.form-control:disabled { background-color: #f4f4f4 !important;}
 
 /* submit button styling start here */
 #id_fksubmit {
@@ -611,4 +612,26 @@ body {
 .buyer-status-icon {
     font-size: .75rem;
     color: #F7941D !important;
+}
+
+.template_format { 
+    font-weight: 500;
+    color: #121212 !important;
+    /* font-style: normal !important; */
+}
+
+.template_format:hover {
+    transition: all ease .5s;
+    color: #F7941D !important;
+}
+
+#OpenImgUpload {
+    background-color: #fff !important;
+    color: #121212 !important;
+    border:  1px solid #121212 !important;
+}
+
+#OpenImgUpload:hover {
+    color: #F7941D !important;
+    border-color: #F7941D !important;
 }

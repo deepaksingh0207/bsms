@@ -8,7 +8,7 @@
 
   <style type="text/css">
     input[type='radio'] {
-      accent-color: #5ba10a;
+      accent-color: #F7941D !important;
     border: 0px;
     width: 1.3em;
     height: 1.3em;
@@ -262,7 +262,7 @@
           <div
             class="ant-col otherdetails-container ant-col-xs-24 ant-col-sm-24 ant-col-md-24 ant-col-lg-12 ant-col-xl-12">
             <div class="left-content animate__animated animate__backInLeft">
-              <h1>Welcome to FTSPL Supplier Portal</h1>
+              <h1>Welcome to APAR Vendor Portal</h1>
               <p>A single window digital interface and communication platform for supplier assessment and onboarding-
                 Towards Co-creating Governance.</p>
               <img class="flow-img" src="<?= $this->Url->build('/') ?>img/login-img.png">
@@ -274,7 +274,7 @@
 
                 <div class="signupform signupform__signin">
                   <p class="signupform__signin--signinText">
-                    <img src="<?= $this->Url->build('/') ?>img/logo_s.png" class="s-logo">
+                    <img src="<?= $this->Url->build('/') ?>img/apar_logo.png" class="s-logo">
                   </p>
 
                   <div class="select-button login-page .form">

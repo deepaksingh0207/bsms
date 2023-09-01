@@ -20,32 +20,35 @@
   <div class="col-12">
     <div class="poHeaders view content card card_box_shadow" id="">
       <div class="table-responsive p-2" id="purViewId">
-        <div class="search-bar mb-2">
+        <div class="col-lg-12 d-flex justify-content-between align-items-center">
+        <div class="search-bar mb-3 mt-2">
           <input type="search" placeholder="Search all orders, meterials" class="form-control search-box">
         </div>
-        <div class="mb-2">
+        <div class="mb-3 col-lg-6 mt-2">
                 <?= $this->Form->create(null, ['id' => 'formUpload', 'url' => ['controller' => '/purchase-orders', 'action' => 'upload']]) ?>
-                <div class="row">
-                    <div class="col-sm-2 col-md-2 mt-3">
+                <div class="row justify-content-end align-items-center">
+                <div class="col-sm-6 col-md-6 col-lg-4">
+                        <i>
+                            <a href="<?= $this->Url->build('/') ?>webroot/templates/schedule_upload.xlsx"
+                                download class="template_format">Schedule_upload_template</a>
+                        </i>
+                    </div>
+                    <div class="col-sm-2 col-md-2 col-lg-3">
                         <?= $this->Form->control('upload_file', [
                                 'type' => 'file', 'label' => false, 'class' => 'pt-1 rounded-0', 'style' => 'visibility: hidden; position: absolute;', 'div' => 'form-group', 'id' => 'bulk_file']); ?>
                         <?= $this->Form->button('Choose File', ['id' => 'OpenImgUpload','type' => 'button','class' => 'd-block btn bg-gradient-button btn-block mb-0 file-upld-btn' ]); ?>
                         <span id="filessnames"></span>
                     </div>
-                    <div class="col-sm-2 col-md-2 mt-3 d-flex justify-content-start align-items-baseline">
+                    <div class="col-sm-2 col-md-2">
                         <button class="btn bg-gradient-submit" id="id_import" type="button">
                             Submit
                         </button>
                     </div>
-                    <div class="col-sm-12 col-md-12 mt-3">
-                        <i style="color: black;">
-                            <a href="<?= $this->Url->build('/') ?>webroot/templates/schedule_upload.xlsx"
-                                download>Schedule upload template</a>
-                        </i>
-                    </div>
+                    
                 </div>
                 <?= $this->Form->end() ?>
             </div>
+        </div>
             
         <div class="po-list">
           <div class="d-flex" id="poItemss"></div>
