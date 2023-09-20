@@ -36,18 +36,18 @@
                     <div class="col-sm-2 col-md-2 col-lg-3">
                         <?= $this->Form->control('upload_file', [
                                 'type' => 'file', 'label' => false, 'class' => 'pt-1 rounded-0', 'style' => 'visibility: hidden; position: absolute;', 'div' => 'form-group', 'id' => 'bulk_file']); ?>
-                        <?= $this->Form->button('Choose File', ['id' => 'OpenImgUpload','type' => 'button','class' => 'd-block btn bg-gradient-button btn-block mb-0 file-upld-btn' ]); ?>
-                        <span id="filessnames"></span>
-                    </div>
-                    <div class="col-sm-2 col-md-2">
-                        <button class="btn bg-gradient-submit" id="id_import" type="button">
-                            Submit
-                        </button>
-                    </div>
-                    
-                </div>
-                <?= $this->Form->end() ?>
+                <?= $this->Form->button('Choose File', ['id' => 'OpenImgUpload','type' => 'button','class' => 'btn bg-gradient-button btn-block mb-0 file-upld-btn' ]); ?>
+                <span id="filessnames"></span>
+              </div>
+              <div class="col-sm-2 col-md-2">
+                <button class="btn bg-gradient-submit" id="id_import" type="button">
+                  Submit
+                </button>
+              </div>
+
             </div>
+            <?= $this->Form->end() ?>
+          </div>
         </div>
             
         <div class="po-list">
@@ -130,7 +130,7 @@
       </div>
 
       <div class="modal-body">
-        <div class="alert-body text-center d-none">
+        <div class="alert-body text-center" style="display: none;">
           <h6>Are you sure you want to create schedule ?</h6>
         </div>
         <div class="a-data">
@@ -150,9 +150,9 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary dismiss-btn" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-secondary d-none" id="btnClose">Close</button>
+        <button type="button" class="btn btn-secondary" style="display: none;" id="btnClose">Close</button>
         <button type="button" class="btn btn-custom btnSub">Submit</button>
-        <button type="submit" class="btn btn-success btn-sm d-none">Ok</button>
+        <button type="submit" class="btn btn-success btn-sm" style="display: none;">Ok</button>
       </div>
       </form>
     </div>
@@ -172,7 +172,7 @@
       </div>
 
       <div class="modal-body">
-        <!-- <div class="alert-body text-center d-none">
+        <!-- <div class="alert-body text-center"  style="display: none;">
           <h6>Are you sure you want to create schedule ?</h6>
         </div> -->
         <div class="a-data">

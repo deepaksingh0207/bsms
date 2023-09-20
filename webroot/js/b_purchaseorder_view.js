@@ -201,6 +201,7 @@ function populateItemData(status, itemData) {
 }
 
 $(document).on("click", ".schedule_item", function () {
+    $("#btnClose").trigger('click');    
     $("#error_msg").html("");
     var id = $(this).attr("footer-id");
     $(".check").prop("checked", false);
@@ -656,21 +657,17 @@ $(".btnSub").click(function (event) {
 
     // Display alert body and OK button
     if (status) {
-        $(".a-data").addClass("d-none");
-        $(".alert-body").removeClass("d-none");
-        $(".btnSub").addClass("d-none");
-        $("#btnClose").removeClass("d-none");
-        $(".dismiss-btn").hide();
-        $(".btn-success").removeClass("d-none");
+        $(".a-data, .btnSub, .dismiss-btn").hide();
+        $("#btnClose").show();
+        $(".alert-body, .btn-success").show();
     }
 });
 
 $("#btnClose").click(function () {
-    $(".a-data").addClass("d-block");
+    $(".a-data").show();
     $(".dismiss-btn").show();
-    $(".btnSub").addClass("d-block");
+    $(".btnSub").show();
     $(".alert-body").hide();
     $(".btn-success").hide();
     $("#btnClose").hide();
-    $("#btnClose").removeClass("d-none");
 });
