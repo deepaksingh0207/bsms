@@ -170,7 +170,7 @@
                                 </div>
                                 <div class="col-3 mt-3 col-md-3">
                                     <div class="form-group">
-                                        <?php echo $this->Form->control('pincode', ['class' => 'form-control', 'maxlength' => "6"]); ?>
+                                        <?php echo $this->Form->control('pincode', ['class' => 'form-control maxlength_validation', 'maxlength' => "6", 'type'=>'number']); ?>
                                     </div>
                                 </div>
 
@@ -194,7 +194,7 @@
 
                                 <div class="col-3 mt-3 col-md-3">
                                     <div class="form-group">
-                                    <?php echo $this->Form->control('telephone', ['class' => 'form-control', 'minlength'=>'14', 'maxlength'=>'14']); ?>
+                                        <?php echo $this->Form->control('telephone', ['class' => 'form-control maxlength_validation', 'type'=>'number', 'minlength'=>'14', 'maxlength'=>'14']); ?>
                                     </div>
                                 </div>
                             </div>
@@ -211,13 +211,13 @@
 
                                 <div class="col-3 mt-3">
                                     <div class="form-group">
-                                        <?php echo $this->Form->control('contact_email', ['class' => 'form-control', 'label' => 'Email']); ?>
+                                        <?php echo $this->Form->control('contact_email', ['type'=>'email', 'class' => 'form-control', 'label' => 'Email']); ?>
                                     </div>
                                 </div>
 
                                 <div class="col-3 mt-3">
                                     <div class="form-group">
-                                        <?php echo $this->Form->control('contact_mobile', ['class' => 'form-control', 'label' => 'Mobile' ,'maxlength' => 10, 'minlength' => 10]); ?>
+                                        <?php echo $this->Form->control('contact_mobile', ['class' => 'form-control maxlength_validation', 'label' => 'Mobile', 'type'=>'number' ,'maxlength' => 10, 'minlength' => 10]); ?>
                                     </div>
                                 </div>
                                 <div class="col-3 mt-3">
@@ -438,6 +438,14 @@
         });
     });
 
+    function validateMaxLength(inputElement) {
+        var inputValue = inputElement.val();
+        var maxLength = parseInt(inputElement.attr("maxlength"));
+        if (inputValue.length > maxLength) { inputValue = inputValue.slice(0, maxLength); inputElement.val(inputValue); }
+    }
+
+    $(document).on("input", ".maxlength_validation", function () { validateMaxLength($(this)); });
+
     $(document).ready(function () {
 
         $(".chatload").each(function () {
@@ -611,46 +619,46 @@
             }
         });
 
-        $(document).on("click", "#id_fksubmit", function() {
-        var submitcall = true;
-        var tab = {
-            "tab_address": ["address", "address-2", "pincode", "city", "country-id", "state-id"],
-            "tab_contactperson": ["contact-person", "contact-person", "contact-mobile", "contact-department",
-                "contact-designation"
-            ],
-            "tab_paymentdetails": ["gst-no", "pan-no"],
-            "tab_document": ["formFileMultiple1", "formFileMultiple2", "formFileMultiple3"]
-        }
+        $(document).on("click", "#id_fksubmit", function () {
+            var submitcall = true;
+            var tab = {
+                "tab_address": ["address", "address-2", "pincode", "city", "country-id", "state-id"],
+                "tab_contactperson": ["contact-person", "contact-person", "contact-mobile", "contact-department",
+                    "contact-designation"
+                ],
+                "tab_paymentdetails": ["gst-no", "pan-no"],
+                "tab_document": ["formFileMultiple1", "formFileMultiple2", "formFileMultiple3"]
+            }
 
-        for (const [index, row] of Object.entries(tab)) {
-            for (const [indexs, rows] of Object.entries(row)) {
-                var data = $("#" + rows).val();
-                console.log("#" + index);
-                console.log("#" + rows);
-                if (data == "" || data == null || data == undefined) {
-                    $("#" + index).trigger('click');
-                    submitcall = false;
+            for (const [index, row] of Object.entries(tab)) {
+                for (const [indexs, rows] of Object.entries(row)) {
+                    var data = $("#" + rows).val();
+                    console.log("#" + index);
+                    console.log("#" + rows);
+                    if (data == "" || data == null || data == undefined) {
+                        $("#" + index).trigger('click');
+                        submitcall = false;
+                        break;
+                    }
+                }
+
+                if (submitcall == false) {
+                    setTimeout(function () {
+                        if ($("#onbordingSubmit").valid()) {
+                            //$("#id_ogsubmit").trigger('click');
+                        }
+                    }, 500);
                     break;
                 }
             }
 
-            if (submitcall == false) {
-                setTimeout(function() {
-                    if ($("#onbordingSubmit").valid()) {
-                        //$("#id_ogsubmit").trigger('click');
-                    }
-                }, 500);
-                break;
-            } 
-        }
-
-        if (submitcall) {
-            if ($("#onbordingSubmit").valid()) {
-                $('#modal-sm').modal('show');
-                //$('#id_ogsubmit')[0].submit();
+            if (submitcall) {
+                if ($("#onbordingSubmit").valid()) {
+                    $('#modal-sm').modal('show');
+                    //$('#id_ogsubmit')[0].submit();
+                }
             }
-        }
-    });
+        });
 
 
         $(document).on("keypress", ".alphaonly", function (event) {
