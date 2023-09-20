@@ -68,12 +68,6 @@ class PurchaseOrdersController extends VendorAppController
             'contain' => [],
         ]);
 
-        $user = $this->Users->find()
-            ->select(['username'])
-            ->where(['id' => $session->read('buyer_id')])
-            ->first();
-
-
         if ($poHeader->acknowledge == 0) {
             $visit_url = Router::url('/', true);
             $poNumber  = $poHeader->po_no;
