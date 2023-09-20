@@ -218,7 +218,7 @@
                                             name="registered_offices[city]" id="id_vendor_registered_offices_city">
                                     </div>
                                     <div class="col-sm-12 col-md-3 mb-3 required">
-                                        <?php echo $this->Form->control('registered_offices[country]', ['data-state' =>'id_vendor_registered_offices_state', 'class' => 'selectpicker show-menu-arrow form-control my-select1 country_code_option', 'options' => $countries, 'empty' => 'Select Country', 'label' => 'Country', 'data-live-search' => 'true', 'title' => 'Select Country', 'id' => 'id_vendor_registered_offices_country']); ?>
+                                        <?php echo $this->Form->control('registered_offices[country]', ['data-state' =>'id_vendor_registered_offices_state', 'class' => 'selectpicker show-menu-arrow form-control my-select1 country_code_option', 'options' => $countries, 'default' => 'IN', 'empty' => 'Select Country', 'label' => 'Country', 'data-live-search' => 'true', 'title' => 'Select Country', 'id' => 'id_vendor_registered_offices_country']); ?>
                                     </div>
                                     <div class="col-sm-12 col-md-3 mb-3 required">
                                         <?php echo $this->Form->control('registered_offices[state]', ['class' => 'selectpicker form-control my-select1', 'options' => $states, 'label' => 'State', 'data-live-search' => 'true', 'empty' => 'Select State', 'title' => 'Select State', 'id' => 'id_vendor_registered_offices_state']); ?>
@@ -287,7 +287,7 @@
                                                     name="branch_offices[0][city]" id="id_vendor_branch_offices_0_city">
                                             </div>
                                             <div class="col-sm-12 col-md-3 mb-3 required">
-                                                <?php echo $this->Form->control('branch_office_country', ['name' => 'branch_offices[0][country]','data-state' =>'id_vendor_branch_offices_0_state', 'class' => 'selectpicker form-control my-select country_code_option', 'options' => $countries, 'empty' => 'Select Country', 'label' => 'Country', 'data-live-search' => 'true', 'title' => 'Select Country',  'id' => 'id_vendor_branch_offices_country']); ?>
+                                                <?php echo $this->Form->control('branch_office_country', ['name' => 'branch_offices[0][country]','data-state' =>'id_vendor_branch_offices_0_state', 'default' => 'IN', 'class' => 'selectpicker form-control my-select country_code_option', 'options' => $countries, 'empty' => 'Select Country', 'label' => 'Country', 'data-live-search' => 'true', 'title' => 'Select Country',  'id' => 'id_vendor_branch_offices_country']); ?>
                                                 <!-- <label for="id_vendor_branch_offices_country">Country</label>
                                                 <select class="form-control"
                                                     data-state="id_vendor_branch_offices_0_state"
@@ -634,7 +634,7 @@
                                                     id="id_vendor_factories_0_city">
                                             </div>
                                             <div class="col-sm-12 col-md-3 mb-3 required">
-                                                <?php echo $this->Form->control('factories[0][country]', ['name' => 'factories[0][country]','data-state' =>'id_vendor_factories_0_state', 'class' => 'selectpicker form-control my-select country_code_option', 'options' => $countries, 'label' => 'Country', 'required' => 'true', 'data-live-search' => 'true', 'empty' => 'Please select', 'title' => 'Select Country', 'empty' => 'Select Country', 'id' => 'id_vendor_factories_0_country']); ?>
+                                                <?php echo $this->Form->control('factories[0][country]', ['name' => 'factories[0][country]','data-state' =>'id_vendor_factories_0_state', 'class' => 'selectpicker form-control my-select country_code_option', 'options' => $countries, 'default' => 'IN', 'label' => 'Country', 'required' => 'true', 'data-live-search' => 'true', 'empty' => 'Please select', 'title' => 'Select Country', 'empty' => 'Select Country', 'id' => 'id_vendor_factories_0_country']); ?>
                                                 <!-- <label for="id_vendor_factories_0_country">Country</label>
                                                 <select class="form-control" name="factories[0][country]"
                                                     id="id_vendor_factories_0_country"></select> -->
@@ -972,7 +972,7 @@
                                                     id="id_vendor_partner_address_0_city">
                                             </div>
                                             <div class="col-sm-12 col-md-3 mb-3 required">
-                                                <?php echo $this->Form->control('partner_address[0][country]', ['id' => 'id_vendor_partner_address_0_country','data-state' =>'id_vendor_partner_address_0_state', 'class' => 'selectpicker form-control my-select country_code_option', 'name'=>'partner_address[0][country]', 'options' => $countries, 'data-live-search' => 'true', 'empty' => 'Select Country', 'title' => 'Please select', 'label' => 'Country']); ?>
+                                                <?php echo $this->Form->control('partner_address[0][country]', ['id' => 'id_vendor_partner_address_0_country','data-state' =>'id_vendor_partner_address_0_state', 'class' => 'selectpicker form-control my-select country_code_option', 'name'=>'partner_address[0][country]', 'options' => $countries, 'default' => 'IN', 'data-live-search' => 'true', 'empty' => 'Select Country', 'title' => 'Please select', 'label' => 'Country']); ?>
                                                 <!-- <label for="id_vendor_partner_address_0_country">Country</label>
                                                 <select class="form-control" name="partner_address[0][country]"
                                                     id="id_vendor_partner_address_0_country"></select> -->
@@ -1059,7 +1059,7 @@
                                     </div>
 
                                     <div class="col-3 mb-3">
-                                        <?php echo $this->Form->control('order_currency', ['name' => 'temps[order_currency]', 'class' => 'selectpicker form-control my-select id_order_currency', 'options' => $currencies, 'id'=>'id_vendor_temps_order_currency', 'data-live-search' => 'true', 'required'=>'true', 'title' => 'Select Country', 'empty' => 'Please select']); ?>
+                                        <?php echo $this->Form->control('order_currency', ['name' => 'temps[order_currency]', 'class' => 'selectpicker form-control my-select id_order_currency', 'options' => $currencies, 'id'=>'id_vendor_temps_order_currency', 'data-live-search' => 'true', 'required'=>'true', 'title' => 'Select Currency', 'empty' => 'Please select']); ?>
                                     </div>
 
                                     <div class="col-3 mb-3 required">
@@ -1399,7 +1399,7 @@
                                     <div class="col-3 mb-3 col-md-3">
                                         <div class="form-group">
                                             <div class="input select required">
-                                                <?php echo $this->Form->control('reputed_customers[0][country]', ['class' => 'selectpicker form-control my-select country_code_option','data-state' =>'id_vendor_reputed_customers_0_state', 'options' => $countries, 'data-live-search' => 'true', 'title' => 'Select Country', 'label' => 'Country','required'=>'required', 'id'=>'id_vendor_reputed_customers_0_country', 'empty' => 'Please select']); ?>
+                                                <?php echo $this->Form->control('reputed_customers[0][country]', ['class' => 'selectpicker form-control my-select country_code_option','data-state' =>'id_vendor_reputed_customers_0_state', 'default' => 'IN', 'options' => $countries, 'data-live-search' => 'true', 'title' => 'Select Country', 'label' => 'Country','required'=>'required', 'id'=>'id_vendor_reputed_customers_0_country', 'empty' => 'Please select']); ?>
                                                 <!-- <label for="reputed-customer-0-country">Country</label>
                                                 <select name="reputed_customers[0][country]"
                                                     class="selectpicker form-control my-select country_code_option"
