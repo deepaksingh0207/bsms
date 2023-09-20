@@ -48,7 +48,7 @@ $(document).on("change", ".checkBoxClass", function () {
     else { $(".continue_btn").addClass('btn-secondary ').removeClass('btn-success').attr('disabled', 'disabled'); }
 });
 
-$(document).on("change focusout", ".check_qty", function () { if ($(this).val() > $(this).data('max')) { $(this).val($(this).data('max')) } });
+$(document).on("change focusout", ".check_qty", function () { if ($(this).val() > $(this).data('max')) { $(this).val($(this).data('max')) }});
 
 $('.search-box').on('keypress', function (event) {
     if (event.which === 13) {
@@ -103,27 +103,14 @@ function format(rowData) {
 
                 var tbody = ``;
                 $.each(response.data, function (key, val) {
-                    var curr = (val.current_stock == null ? 0 : val.current_stock);
-                    var mins = (val.minimum_stock == null ? 0 : val.minimum_stock);
-                    var actQty = parseFloat(val.actual_qty);
-                    maxQty = actQty + actQty * 0.05;
-                    if (maxQty > curr || curr == 0) { maxQty = curr; }
-                    var chekbox = ``;
-                    if (curr != 0) {
-                        chekbox = `<input type="checkbox" name="footer_id[]" value="` + val['PoFooters'].id + `" style="max-width: 20px;" class="form-control form-control-sm checkBoxClass"  data-pendingqty="` + val.actual_qty + `" data-id="` + val['PoItemSchedules'].id + `">`;
-                    }
-                    if (val.minimum_stock == null) { mins = `<i class="text-danger fas fa-exclamation-circle" data-toggle="tooltip" data-placement="top" title="" data-original-title="Define Minimum Stock"></i>` }
-                    if (val.current_stock == null) { curr = `<i class="text-danger fas fa-exclamation-circle" data-toggle="tooltip" data-placement="top" title="" data-original-title="Define Current Stock"></i>` }
-                    else if (curr <= mins) { curr = `<i class="text-warning fas fa-exclamation-triangle" data-toggle="tooltip" data-placement="top" title="" data-original-title="Maintain Minimum Stock"></i> &nbsp; ` + curr }
-                    tbody += `<tr><td>` + chekbox + `</td>
+                    tbody += `<tr>
+                        <td><input type="checkbox" name="footer_id[]" value="`+ val['PoFooters'].id + `" style="max-width: 20px;" class="form-control form-control-sm checkBoxClass"  data-pendingqty="` + val.actual_qty + `" data-id="` + val['PoItemSchedules'].id + `"></td>
                      <td>`+ val['PoFooters'].item + `</td>
                      <td>`+ val['PoFooters'].material + `</td>
                      <td>` + val.delivery_date + `</td>
                      <td>`+ val['PoFooters'].short_text + `</td>
-                     <td>`+ actQty + ` ` + val['PoFooters'].order_unit + `</td>
-                     <td>`+ curr + `</td>
-                     <td>`+ mins + `</td>
-                     <td><input type="number" name="" class="form-control form-control-sm check_qty" data-max="` + maxQty + `" max="` + maxQty + `" required="required" data-item="` + val['PoFooters'].item + `" id="qty` + val['PoItemSchedules'].id + `" value="0"></td>
+                     <td>`+ val.actual_qty + ` ` + val['PoFooters'].order_unit + `</td>
+                     <td><input type="number" name="" class="form-control form-control-sm check_qty" data-max="` + val.maxqty + `" max="` + val.maxqty + `" required="required" data-item="` + val['PoFooters'].item + `" id="qty` + val['PoItemSchedules'].id + `" value="0"></td>
                     </tr>`;
                 });
                 var thead = `<table class="table table-bordered material-list" id="example2">
@@ -137,15 +124,12 @@ function format(rowData) {
                         <th>Delivery Date</th>
                         <th>Short Text</th>
                         <th>Pending Qty</th>
-                        <th>Current Stock</th>
-                        <th>Minimum Stock</th>
                         <th>Set Delivery Qty</th>
                     </tr>
                 </thead>
                 <tbody>`+ tbody + `</tbody>
                 </table>`;
                 $(".right-side").html(thead);
-                $('[data-toggle="tooltip"]').tooltip();
             }
         },
         complete: function () { $("#gif_loader").hide(); }

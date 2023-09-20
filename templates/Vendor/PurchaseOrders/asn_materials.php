@@ -33,7 +33,7 @@
           </div>
           <!-- <div class="col-6"></div> -->
           <div class="col-1">
-            <a style="display:none;" href="vendor/purchase-orders/create-asn" id="id_backmodal" class="btn bg-gradient-cancel float-right">
+            <a href="vendor/purchase-orders/create-asn" id="id_backmodal" class="btn bg-gradient-cancel float-right">
               <i class="fas fa-angle-double-left"></i> BACK</a>
           </div>
           <div class="col-1 text-center">
@@ -238,17 +238,17 @@
                       <div class="form-group mb-0">
                         <?= $this->form->control('po_footer_id[]', ['label' => false, 'type' => 'hidden', 'value' => $row['PoFooters']['id']]) ?>
                         <?= $this->form->control('schedule_id[]', ['label' => false, 'type' => 'hidden', 'value' => $row['PoItemSchedules']['id']]) ?>
-                        <?= $this->form->control('qty[]', ['label' => false, 'value' => $row['actual_qty'], 'readonly' => 'readonly', 'class' => 'form-control form-control-sm check_qty', 'type' => 'number', 'required', 'data-item' => $row['PoFooters']['item'], 'min' => '0', 'data-minstock'=>$row['current_stock'], 'max' => $row['actual_qty'],  'div' => 'form-group', 'data-net-price' => $row['PoFooters']['net_price']]) ?>
+                        <?= $this->form->control('qty[]', ['label' => false, 'value' => $row['actual_qty'], 'readonly' => 'readonly', 'class' => 'form-control check_qty', 'type' => 'number', 'required', 'data-item' => $row['PoFooters']['item'], 'min' => '0', 'data-minstock'=>$materialStock ? $materialStock->current_stock : 0, 'max' => $row['actual_qty'],  'div' => 'form-group', 'data-net-price' => $row['PoFooters']['net_price']]) ?>
                       </div>
                     </td>
                     <td class="net_value" id="net_value_<?= h($row['PoFooters']['item']) ?>">
                       <?= ($row['PoFooters']['net_price'] * $row['actual_qty']) ?>
                     </td>
                     <td><span id="current_stock">
-                        <?php echo $row['current_stock'] ?>
+                        <?php echo ($materialStock) ? $materialStock->current_stock : 0?>
                       </span></td>
                     <td><span id="minimum_stock">
-                        <?php echo $row['min_stock'] ?>
+                        <?php echo ($materialStock) ? $materialStock->material->minimum_stock : 0 ?>
                       </span></td>
                   </tr>
                   <?php endforeach; ?>

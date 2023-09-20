@@ -663,17 +663,11 @@ class PurchaseOrdersController extends VendorAppController
         $response = array('status'=>0, 'message'=>'', 'data'=>'');
         $this->loadModel('PoHeaders');
         $this->loadModel('PoFooters');
-        $this->loadModel("StockUploads");
-        $this->loadModel("Materials");
-        $this->loadModel('PoItemSchedules');
-        $this->loadModel('VendorFactories');
 
         $data = $this->PoHeaders->find('all')
-            ->select(['PoHeaders.id', 'PoHeaders.sap_vendor_code', 'PoHeaders.po_no', 'PoHeaders.document_type', 'PoHeaders.created_by', 'PoHeaders.created_on', 'PoHeaders.po_no', 'PoHeaders.currency', 'PoFooters.id', 'PoFooters.item', 'PoFooters.material', 'PoFooters.short_text', 'PoFooters.order_unit', 'PoFooters.net_price', 'PoItemSchedules.id', 'actual_qty' => '(PoItemSchedules.actual_qty - PoItemSchedules.received_qty)', 'delivery_date' => 'PoItemSchedules.delivery_date', 'current_stock' => 'StockUploads.current_stock', 'minimum_stock' => 'Materials.minimum_stock'])
+            ->select(['PoHeaders.id', 'PoHeaders.sap_vendor_code', 'PoHeaders.po_no', 'PoHeaders.document_type', 'PoHeaders.created_by', 'PoHeaders.created_on', 'PoHeaders.po_no', 'PoHeaders.currency', 'PoFooters.id', 'PoFooters.item', 'PoFooters.material', 'PoFooters.short_text', 'PoFooters.order_unit', 'PoFooters.net_price', 'PoItemSchedules.id', 'actual_qty' => '(PoItemSchedules.actual_qty - PoItemSchedules.received_qty)', 'delivery_date' => 'PoItemSchedules.delivery_date'])
             ->innerJoin(['PoFooters' => 'po_footers'], ['PoFooters.po_header_id = PoHeaders.id'])
             ->innerJoin(['PoItemSchedules' => 'po_item_schedules'], ['PoItemSchedules.po_footer_id = PoFooters.id'])
-            ->leftJoin(['Materials' => 'materials'], ['Materials.code = PoFooters.material', 'PoHeaders.sap_vendor_code = Materials.sap_vendor_code'])
-            ->leftJoin(['StockUploads' => 'stock_uploads'], ['StockUploads.material_id = Materials.id'])
             ->innerJoin(['dateDe' => '(select min(delivery_date) date, po_footer_id from po_item_schedules PoItemSchedules where (PoItemSchedules.actual_qty - PoItemSchedules.received_qty) > 0  group by po_footer_id )'], ['dateDe.date = PoItemSchedules.delivery_date', 'dateDe.po_footer_id = PoItemSchedules.po_footer_id'])
             ->where(['PoHeaders.id' => $id, '(PoItemSchedules.actual_qty - PoItemSchedules.received_qty) > 0']);
         if ($data->count() > 0) { $response = array('status'=>1, 'message'=>'Data Found', 'data'=>$data); }
@@ -862,24 +856,20 @@ class PurchaseOrdersController extends VendorAppController
             }
 
             $poHeader = $this->PoHeaders->find('all')
-                ->select(['PoHeaders.id', 'PoHeaders.po_no', 'PoHeaders.currency', 'PoFooters.id', 'PoFooters.item', 'PoFooters.material', 'PoFooters.short_text', 'PoFooters.order_unit', 'PoFooters.net_price', 'PoItemSchedules.id', 'actual_qty' => '(PoItemSchedules.actual_qty - PoItemSchedules.received_qty)', 'delivery_date' => 'PoItemSchedules.delivery_date', 'current_stock'=>'StockUploads.current_stock', 'min_stock'=>'Materials.minimum_stock'])
+                ->select(['PoHeaders.id', 'PoHeaders.po_no', 'PoHeaders.currency', 'PoFooters.id', 'PoFooters.item', 'PoFooters.material', 'PoFooters.short_text', 'PoFooters.order_unit', 'PoFooters.net_price', 'PoItemSchedules.id', 'actual_qty' => '(PoItemSchedules.actual_qty - PoItemSchedules.received_qty)', 'delivery_date' => 'PoItemSchedules.delivery_date'])
                 ->innerJoin(['PoFooters' => 'po_footers'], ['PoFooters.po_header_id = PoHeaders.id'])
                 ->innerJoin(['PoItemSchedules' => 'po_item_schedules'], ['PoItemSchedules.po_footer_id = PoFooters.id'])
                 ->innerJoin(['dateDe' => '(select min(delivery_date) date, po_footer_id from po_item_schedules PoItemSchedules where (PoItemSchedules.actual_qty - PoItemSchedules.received_qty) > 0  group by po_footer_id )'], ['dateDe.date = PoItemSchedules.delivery_date', 'dateDe.po_footer_id = PoItemSchedules.po_footer_id'])
-                ->leftJoin(['Materials' => 'materials'], ['Materials.code = PoFooters.material', 'PoHeaders.sap_vendor_code = Materials.sap_vendor_code'])
-                ->leftJoin(['StockUploads' => 'stock_uploads'], ['StockUploads.material_id = Materials.id'])
                 ->where($conditions)
                 // ->limit(1)
                 ->toArray();
 
-
+            
                 
-            // $materialStock = $this->StockUploads->find('all')
-            //     ->contain(['Materials' => function($query) use ($poHeader){
-            //         return $query->where(['Materials.code' => $poHeader[0]->PoFooters['material']]);
-            //     }])->first();
-
-            //echo '<pre>'; print_r($poHeader); exit;
+            $materialStock = $this->StockUploads->find('all')
+                ->contain(['Materials' => function($query) use ($poHeader){
+                    return $query->where(['Materials.code' => $poHeader[0]->PoFooters['material']]);
+                }])->first();
             
             foreach ($poHeader as &$row) {
                 foreach ($request['footer_id'] as $key => $footer_id) {
@@ -892,8 +882,7 @@ class PurchaseOrdersController extends VendorAppController
             $vendorFactories = $this->VendorFactories->find('list', ['keyField' => 'id', 'valueField' => 'factory_code'])->where(['vendor_temp_id' => $session->read('vendor_id')])->all();
         
 
-            // $this->set(compact('poHeader', 'materialStock', 'vendorFactories'));
-            $this->set(compact('poHeader', 'vendorFactories'));
+            $this->set(compact('poHeader', 'materialStock', 'vendorFactories'));
         } else {
             return $this->redirect(['action' => 'create-asn']);
         }

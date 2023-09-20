@@ -180,7 +180,7 @@ class AsnController extends VendorAppController
             'vendor_factory_id' => $deliveryDetail->vendor_factory_id)])->first();
 
             if($stockDetails) {
-                $stockDetails = $this->StockUploads->patchEntity($stockDetails, ['current_stock' => ($stockDetails->current_stock - $deliveryDetail->qty), 'asn_stock' => ($stockDetails->asn_stock + $deliveryDetail->qty)]);
+                $stockDetails = $this->StockUploads->patchEntity($stockDetails, ['asn_stock' => ($stockDetails->asn_stock + $deliveryDetail->qty)]);
                 if($this->StockUploads->save($stockDetails)) {
                     $response['status'] = 'success';
                     $response['message'] = 'success';

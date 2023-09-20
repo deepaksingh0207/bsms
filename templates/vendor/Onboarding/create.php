@@ -273,22 +273,16 @@
                                 <div class="col-4 mt-3">
                                     <!-- <label for="formFileMultiple" class="form-label">Upload GST no</label> -->
                                     <?php echo $this->Form->control('gst_file', ['accept'=>'.pdf', 'required'=>'true', 'type' => 'file', 'class' => 'form-control', 'id'=>'formFileMultiple1']); ?>
-                                    <?php if($vendorTemp->gst_file != '') : ?>
                                     <?= $this->Html->link(__('<i class="fas fa-file-download"></i>'), '/' . $vendorTemp->gst_file, ['escape' => false, 'target'=>'_blank']) ?>
-                                    <?php endif; ?>
                                     <small class="text-warning info-msg">Upload only PDF file</small>
                                 </div>
                                 <div class="col-4 mt-3">
                                     <?php echo $this->Form->control('pan_file', ['accept'=>'.pdf', 'required'=>'true', 'type' => 'file', 'class' => 'form-control', 'id'=>'formFileMultiple2']); ?>
-                                    <?php if($vendorTemp->pan_file != '') : ?>
                                     <?= $this->Html->link(__('<i class="fas fa-file-download"></i>'), '/' . $vendorTemp->pan_file, ['escape' => false, 'target'=>'_blank']) ?>
-                                    <?php endif; ?>
                                 </div>
                                 <div class="col-4 mt-3">
                                     <?php echo $this->Form->control('bank_file', ['accept'=>'.pdf', 'required'=>'true', 'type' => 'file', 'class' => 'form-control', 'id'=>'formFileMultiple3']); ?>
-                                    <?php if($vendorTemp->bank_file != '') : ?>
                                     <?= $this->Html->link(__('<i class="fas fa-file-download"></i>'), '/' . $vendorTemp->bank_file, ['escape' => false, 'target'=>'_blank']) ?>
-                                    <?php endif; ?>
                                 </div>
                             </div>
 
@@ -518,8 +512,8 @@
                  },
                 gst_no: {
                     required: true,
-                    minlength: 15,
-                    maxlength: 15
+                    minlength: 16,
+                    maxlength: 16
                 },
                 pan_no: {
                     required: true,
