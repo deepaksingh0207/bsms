@@ -76,7 +76,7 @@ class DashboardController extends VendorAppController
         $totalPos = $totalPos->count();
         
         $stocks = $this->StockUploads->find()
-        ->select(['VendorFactories.factory_code', 'Materials.description', 'opening_stock', 'production_stock', 'current_stock', 'asn_stock', 'closing_stock' => "(current_stock - asn_stock)"])
+        ->select(['VendorFactories.factory_code', 'Materials.description', 'opening_stock', 'production_stock', 'current_stock', 'asn_stock', 'closing_stock' => "current_stock"])
         ->contain(['Materials', 'VendorFactories'])
         ->where(['StockUploads.sap_vendor_code' => $session->read('vendor_code')])
         ->toArray();

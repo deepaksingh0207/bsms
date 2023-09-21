@@ -597,6 +597,7 @@ class SyncController extends ApiAppController
             $this->getRequestedVendor($ftpConn, $list);
             $this->getCreatedVendor($ftpConn, $list);
             $this->getRequestedBuyer($ftpConn, $list);
+            $this->asnUpdates($ftpConn, $list);
             $response['status'] = 1;
             $response['message'] = 'Vendor sync done';
         } catch (\Exception $e) {
@@ -698,9 +699,14 @@ class SyncController extends ApiAppController
         
                                 $user = $this->Users->patchEntity($user, $data);
         
-                                if ($this->Users->save($user)) {
-                                    $this->Ftp->removeFile($ftpConn, $fileKey);
-                                }
+                                try{
+                                    if ($this->Users->save($user)) {
+                                        $response['message'][] = 'User '.$row->LIFNR.' created successfully!';
+                                        $this->Ftp->removeFile($ftpConn, $fileKey);
+                                    }
+                                } catch (\Exception $e) {
+                                    $response['message'][] = 'Vendor fail - '.$e->getMessage();
+                                } 
                             } else {
                                 $this->Ftp->removeFile($ftpConn, $fileKey);
                             }
@@ -794,9 +800,13 @@ class SyncController extends ApiAppController
             
                                     $user = $this->Users->patchEntity($user, $data);
             
-                                    if ($this->Users->save($user)) {
-                                        $response['message'][] = 'Vendor 1 '.$row->LIFNR.' save fail';
-                                        $this->Ftp->removeFile($ftpConn, $fileKey);
+                                    try {
+                                        if ($this->Users->save($user)) {
+                                            $response['message'][] = 'User '.$row->LIFNR.' created successfully';
+                                            $this->Ftp->removeFile($ftpConn, $fileKey);
+                                        }
+                                    } catch (\Exception $e) {
+                                        $response['message'][] = 'User '.$row->LIFNR.' fail - '.$e->getMessage();
                                     }
                                 } else {
                                     $response['message'][] = 'Vendor 2 '.$row->LIFNR.' save fail';
@@ -883,9 +893,12 @@ class SyncController extends ApiAppController
                                 $data['group_id'] = 2;
         
                                 $user = $this->Users->patchEntity($user, $data);
-        
-                                if ($this->Users->save($user)) {
-                                    $this->Ftp->removeFile($ftpConn, $fileKey);
+                                try{
+                                    if ($this->Users->save($user)) {
+                                        $this->Ftp->removeFile($ftpConn, $fileKey);
+                                    }
+                                } catch (\Exception $e) {
+                                    $response['message'][] = 'User creation failed - '.$e->getMessage();
                                 }
                             } else {
                                 $this->Ftp->removeFile($ftpConn, $fileKey);
@@ -898,6 +911,65 @@ class SyncController extends ApiAppController
             }
         }
 
+        echo json_encode($response);
+    }
+
+    public function asnUpdates()  {
+        set_time_limit(300);
+        $response = array();
+        $response['message'] = [];
+        
+        $ftpConn = $this->Ftp->connection();
+        $list = $this->Ftp->getList($ftpConn);
+
+        $this->loadModel("AsnHeaders");
+        $this->loadModel("AsnFooters");
+
+        foreach($list as $fileKey => $val) {
+            if(str_starts_with($fileKey, 'ASN_')) {
+                $data  = $this->Ftp->downloadFile($ftpConn, $fileKey);
+                
+                if($data) {
+                    $data = trim(preg_replace('/\s+/', ' ', $data));
+                    $d = json_decode($data);
+
+                    foreach($d as $key => $row) {
+                        $hederData = array();
+                        $footerData = array();
+
+                        if($row->SUCCESS == "1") {
+                            if($this->AsnHeaders->exists(['asn_no' => $row->ASN_NO])) {
+                                $hederData['status'] = 3;
+                                $poInstance = $this->AsnHeaders->find()->where(['asn_no' => $row->ASN_NO])->first();
+                                $poInstance = $this->AsnHeaders->patchEntity($poInstance, $hederData);
+                            
+                                try {
+                                    if ($this->AsnHeaders->save($poInstance)) {
+                                        $po_header_id = $poInstance->id;
+        
+                                        /*if($this->AsnFooters->exists(['po_header_id' => $po_header_id])) {
+                                            $poItemsInstance = $this->PoFooters->find()->where(['po_header_id' => $po_header_id, 'item' => $item->EBELP])->first();
+                                            $poItemsInstance = $this->PoFooters->patchEntity($poItemsInstance, $hederData);
+                                        }*/
+                                        $response['message'][] = 'ASN-' . $row->ASN_NO . ' received successfully';
+                                        $this->Ftp->removeFile($ftpConn, $fileKey);
+                                    }
+                                } catch (\PDOException $e) {
+                                    $response['message'][] = $e->getMessage();
+                                } catch (\Exception $e) {
+                                    $response['message'][] = $e->getMessage();
+                                }
+                            } else {
+                                $response['message'][] = 'ASN-' . $row->ASN_NO . ' not found';
+                                $this->Ftp->removeFile($ftpConn, $fileKey);
+                            }
+                        } else {
+                            $response['message'][] = 'ASN-' . $row->ASN_NO . ' fail - ';
+                        }
+                    }
+                }
+            }
+        }
         echo json_encode($response);
     }
 }

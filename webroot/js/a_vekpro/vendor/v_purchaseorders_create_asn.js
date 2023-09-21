@@ -109,8 +109,10 @@ function format(rowData) {
                      <td>`+ val['PoFooters'].material + `</td>
                      <td>` + val.delivery_date + `</td>
                      <td>`+ val['PoFooters'].short_text + `</td>
-                     <td>`+ val.actual_qty + ` ` + val['PoFooters'].order_unit + `</td>
-                     <td><input type="number" name="" class="form-control form-control-sm check_qty" data-max="` + val.maxqty + `" max="` + val.maxqty + `" required="required" data-item="` + val['PoFooters'].item + `" id="qty` + val['PoItemSchedules'].id + `" value="0"></td>
+                     <td>`+ actQty + ` ` + val['PoFooters'].order_unit + `</td>
+                     <td>`+ curr + `</td>
+                     <td>`+ mins + `</td>
+                     <td><input type="number" name="footer_id_qty[]" class="form-control form-control-sm check_qty" data-max="` + maxQty + `" max="` + maxQty + `" required="required" data-item="` + val['PoFooters'].item + `" id="qty` + val['PoItemSchedules'].id + `" value="0"></td>
                     </tr>`;
                 });
                 var thead = `<table class="table table-bordered material-list" id="example2">

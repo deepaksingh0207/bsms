@@ -205,14 +205,20 @@
                 // async: false,
                 beforeSend: function () { $("#gif_loader").show(); },
                 success: function (response) {
-                    if (response.status == 'success') {
+                    if (response.status) {
                         //location.reload(true);
                         $("#modal-confirm").modal('hide');
                         $(".mrk").hide();
-
                         $(".asnstatus").html('In-Transit');
+                        Toast.fire({
+                            icon: "success",
+                            title: response.message,
+                        });
                     } else {
-                        alert('Please try again...');
+                        Toast.fire({
+                            icon: "error",
+                            title: response.message,
+                        });
                     }
                 },
                 complete: function () { $("#gif_loader").hide(); }

@@ -499,24 +499,29 @@ class VendorTempsController extends BuyerAppController
         $data['DATA']['BUYER_ID'] = $session->read('id');
 
 
-        $uploadFileContent = json_encode($data);
-        $uploadfileName = 'VENDOR_CR_('.$vendor->id.')_REQ.JSON';
-        $downloadfileName = 'VENDOR_CR_('.$vendor->id.')_RES.JSON';
-        $ftpConn = $this->Ftp->connection();
-        if($this->Ftp->uploadFile($ftpConn, $uploadFileContent, $uploadfileName)) {
-            if ($action == 'app') { $vendor->status = 2; }
-            $this->VendorTemps->save($vendor);
-            $this->loadModel('VendorCodeFiles');
-            $vendorCodeFile = $this->VendorCodeFiles->newEmptyEntity();
-            $tm['vendor_temp_id'] = $vendor->id;
-            $tm['req_file_name'] = $uploadfileName;
-            $tm['res_file_name'] = $downloadfileName;
-            $tm['status'] = 'request sent';
-            $vendorCodeFile = $this->VendorCodeFiles->patchEntity($vendorCodeFile, $tm);
-            $this->VendorCodeFiles->save($vendorCodeFile);
-            $flash = ['type'=>'success', 'msg'=>' Vendor sent to SAP for approval'];
-        } else {
-            $flash = ['type'=>'error', 'msg'=>' Vendor sent to SAP fail'];
+        try {
+            $uploadFileContent = json_encode($data);
+            $uploadfileName = 'VENDOR_CR_('.$vendor->id.')_REQ.JSON';
+            $downloadfileName = 'VENDOR_CR_('.$vendor->id.')_RES.JSON';
+        
+            $ftpConn = $this->Ftp->connection();
+            if($this->Ftp->uploadFile($ftpConn, $uploadFileContent, $uploadfileName)) {
+                if ($action == 'app') { $vendor->status = 2; }
+                $this->VendorTemps->save($vendor);
+                $this->loadModel('VendorCodeFiles');
+                $vendorCodeFile = $this->VendorCodeFiles->newEmptyEntity();
+                $tm['vendor_temp_id'] = $vendor->id;
+                $tm['req_file_name'] = $uploadfileName;
+                $tm['res_file_name'] = $downloadfileName;
+                $tm['status'] = 'request sent';
+                $vendorCodeFile = $this->VendorCodeFiles->patchEntity($vendorCodeFile, $tm);
+                $this->VendorCodeFiles->save($vendorCodeFile);
+                $flash = ['type'=>'success', 'msg'=>' Vendor sent to SAP for approval'];
+            } else {
+                $flash = ['type'=>'error', 'msg'=>' Vendor sent to SAP fail'];
+            }
+        } catch (\Exception $e) {
+            $flash = ['type'=>'error', 'msg'=> $e->getMessage()];
         }
 
         /*

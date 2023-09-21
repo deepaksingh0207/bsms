@@ -70,7 +70,6 @@ class AsnController extends VendorAppController
 
             ->where(['AsnHeaders.id' => $id])->toArray();
 
-
         $this->set('deliveryDetails', $deliveryDetails);
     }
 
@@ -153,7 +152,7 @@ class AsnController extends VendorAppController
     public function markDelivered($id = null)
     {
         $response = array();
-        $response['status'] = 'fail';
+        $response['status'] = 0;
         $response['message'] = '';
         $this->autoRender = false;
 
@@ -169,6 +168,48 @@ class AsnController extends VendorAppController
         ->innerJoin(['Materials' => 'materials'], ['Materials.code = PoFooters.material'])
         ->where(['AsnHeaders.id' => $id])->first();
 
+        $uploadedToFTP = false;
+        $asnDetails = $this->AsnHeaders->find('all')
+        ->contain(['PoHeaders','AsnFooters', 'AsnFooters.PoFooters','AsnFooters.PoFooters'])
+        ->where(['AsnHeaders.id' => $id])->toArray();
+
+        $asnItems = [];
+        
+        foreach($asnDetails as $asn) {
+            foreach($asn->asn_footers as $item) {
+                $tmp = [];
+                $tmp['ASN_NO'] = $asn->asn_no;
+                $tmp['EBELN'] = $asn->po_header->po_no;
+                $tmp['EBELP'] = $item->po_footer->item;
+                $tmp['MATNR'] = $item->po_footer->material;
+                $tmp['MENGE'] = $item->qty;
+                $tmp['MEINS'] = $item->po_footer->order_unit;
+                $tmp['MBLNR'] = "";
+                $tmp['MJAHR'] = "";
+                $tmp['SUCCESS'] = "";
+                $tmp['MESSAGE'] = "";
+
+                $asnItems[] = $tmp;
+            }
+        }
+
+        try{
+            $uploadFileContent = json_encode($asnItems);
+            $uploadfileName = 'ASN_('.$asnItems[0]['ASN_NO'].')_REQ.JSON';
+            $downloadfileName = 'ASN_('.$asnItems[0]['ASN_NO'].')_RES.JSON';
+            $ftpConn = $this->Ftp->connection();
+            if($this->Ftp->uploadFile($ftpConn, $uploadFileContent, $uploadfileName)) {
+                $uploadedToFTP = true;
+            }
+        } catch (\Exception $e) {
+            $uploadedToFTP = false;
+            $response['status'] = 0;
+            $response['message'] = $e->getMessage();
+        }
+
+        if(!$uploadedToFTP) {
+            echo json_encode($response); exit;
+        }
 
         $deliveryDetail = $this->AsnHeaders->patchEntity($deliveryDetail, ['status' => 2, 'gateout_date'=>date('Y-m-d h:i:s')]);
 
@@ -182,30 +223,17 @@ class AsnController extends VendorAppController
             if($stockDetails) {
                 $stockDetails = $this->StockUploads->patchEntity($stockDetails, ['asn_stock' => ($stockDetails->asn_stock + $deliveryDetail->qty)]);
                 if($this->StockUploads->save($stockDetails)) {
-                    $response['status'] = 'success';
-                    $response['message'] = 'success';
+                    $response['status'] = 1;
+                    $response['message'] = 'Successfully Marked In-Transit';
                 }
 
             } else {
-                $response['status'] = 'fail';
+                $response['status'] = 0;
                 $response['message'] = 'Stock not found';
             }
-            
-            /*$asnUpload = [];
-            $uploadFileContent = json_encode($data);
-            $uploadfileName = 'ASN_('.$deliveryDetail->asn_no.')_REQ.JSON';
-            $ftpConn = $this->Ftp->connection();
-            if($this->Ftp->uploadFile($ftpConn, $uploadFileContent, $uploadfileName)) {
-                $flash = ['type'=>'success', 'msg'=>' ASN sent to SAP'];
-            } else {
-                $flash = ['type'=>'error', 'msg'=>' ASN sent to SAP fail'];
-            }*/
-
-            $response['status'] = 'success';
-            $response['message'] = 'success';
         } else {
-            $response['status'] = 'fail';
-            $response['message'] = 'mark entry';
+            $response['status'] = 0;
+            $response['message'] = 'mark entry fail';
         }
 
 

@@ -212,7 +212,10 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <?php foreach ($poHeader as $row) : ?>
+                  <?php foreach ($poHeader as $row) : 
+                    
+                    //echo '<pre>'; print_r($row); exit;
+                    ?>
                   <tr>
                     <td>
                       <?= h($row['PoFooters']['item']) ?>
@@ -312,13 +315,13 @@
     const dt3 = new DataTransfer();
     $(document).ready(function ($) {
       var subTotal = 0;
-      $(".check_qty").each(function (i, o) {
+      /*$(".check_qty").each(function (i, o) {
         var id = $(this).attr('data-item');
         var netPrice = $(this).attr('data-net-price');
         var minstock = $(this).data('minstock');
         if ($(o).val() > minstock) { $(o).val(minstock) }
         $("#net_value_" + id).html($(o).val() * netPrice);
-      });
+      });*/
       $('.net_value').each(function (i, obj) {
         var tmp = 0
         if ($(obj).html() == NaN) { tmp = 0; }
@@ -561,7 +564,7 @@
   });
 
   // for page leave popup
-  $(document).ready(function () {
+  $(document).ready(function () { 
     var previousUrl = null;
     $('.nav-link').click(function () {
       previousUrl = $(this).attr('href');

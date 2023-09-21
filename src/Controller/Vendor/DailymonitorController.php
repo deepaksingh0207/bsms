@@ -238,8 +238,8 @@ class DailymonitorController extends VendorAppController
         $this->loadModel("LineMasters");
         $this->loadModel("Dailymonitor");
         $this->loadModel('VendorFactories');
-        $factory = $this->VendorFactories->find('list',['keyField' => 'id', 'valueField' => 'factory_code']);
 
+        $factory = $this->VendorFactories->find('list', ['conditions' => ['vendor_temp_id' => $vendorId], 'keyField' => 'id', 'valueField' => 'factory_code'])->all();
 
         $dailymonitor = $this->Dailymonitor->newEmptyEntity();
         $session = $this->getRequest()->getSession();
