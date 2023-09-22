@@ -320,8 +320,7 @@ use PhpOffice\PhpSpreadsheet\Calculation\Information\Value;
                         icon: 'success',
                         title: response.message
                     });
-
-    
+                    $("#filessnames").empty();
                     $("#example1 tbody").empty();
 
                     // Loop through the response data and build the table rows dynamically

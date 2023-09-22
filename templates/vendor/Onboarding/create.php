@@ -297,7 +297,7 @@
                     <div class="modal-dialog modal-sm">
                         <div class="modal-content">
                             <div class="modal-body text-center">
-                                <h6>Are you sure you want to proceed? This action cannot be edit.</h6>
+                                <h6>Are you sure you want to proceed ?</h6>
                             </div>
                             <div class="modal-footer justify-content-between">
                                 <button type="button" class="btn cancelButton" style="border:1px solid #F7941D; color: #F7941D!important;" data-dismiss="modal">Cancel</button>

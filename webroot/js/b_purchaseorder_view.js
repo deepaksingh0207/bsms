@@ -91,7 +91,7 @@ $("#purViewId").on("click", ".po-box", function () {
             console.log(response.status + "=" + response.data);
             if ((response.status || !response.status) && response.data) {
                 populateItemData(response.status, response.data);
-                if(!response.status) {
+                if (!response.status) {
                     $("#action_schedule").hide();
                     $("#res_message").html(response.message);
                 }
@@ -183,7 +183,7 @@ function populateItemData(status, itemData) {
         );
     });
 
-    if(!status) {
+    if (!status) {
         $(".schedule_item, .check, .checkall, .flu").hide();
     }
 
@@ -201,7 +201,7 @@ function populateItemData(status, itemData) {
 }
 
 $(document).on("click", ".schedule_item", function () {
-    $("#btnClose").trigger('click');    
+    $("#btnClose").trigger('click');
     $("#error_msg").html("");
     var id = $(this).attr("footer-id");
     $(".check").prop("checked", false);
@@ -625,7 +625,7 @@ $(".btnSub").click(function (event) {
     // jthayil
     $(".act_qty").each(function (key, obj) {
 
-        console.log("QTY="+$(obj).attr("max")+"="+$(obj).val());
+        console.log("QTY=" + $(obj).attr("max") + "=" + $(obj).val());
         if (
             $(obj).val() == "" ||
             $(obj).val() == null ||

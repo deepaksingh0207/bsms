@@ -24,7 +24,7 @@
                         <?php echo $this->Form->control('name', ['class' => 'form-control', 'label' => 'Line Name']); ?>
                     </div>
                     <div class="col-sm-12 col-md-3 col-lg-3">
-                        <?php echo $this->Form->control('capacity', ['class' => 'form-control']); ?>
+                        <?php echo $this->Form->control('capacity', ['class' => 'form-control','min'=> '0']); ?>
                     </div>
                     <div class="col-sm-12 col-md-3 col-lg-3">
                         <?php echo $this->Form->control('uom', array('class' => 'form-control w-100', 'options' => $uom, 'empty' => 'Please Select', 'label' => 'Unit Of Measurement')); ?>

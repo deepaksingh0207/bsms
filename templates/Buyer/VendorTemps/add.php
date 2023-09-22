@@ -9,11 +9,8 @@
  */
 ?>
 
-<!-- <?= $this->Html->css('cstyle.css') ?> -->
 <?= $this->Html->css('custom') ?>
 <?= $this->Html->css('table.css') ?>
-<!-- <?= $this->Html->css('listing.css') ?> -->
-<!-- <?= $this->Html->css('b_index.css') ?> -->
 <?= $this->Html->css('b_vendortemps_add') ?>
 <script>
     var addurl = "<?php echo \Cake\Routing\Router::url(array('controller' => '/vendor-temps', 'action' => 'addvendor')); ?>";
@@ -27,7 +24,7 @@
                 <div class="row">
                     <div class="col-sm-12 col-md-3 col-lg-1 mb-3">
                         <div class="form-group">
-                        <?php echo $this->Form->control('title', array('class' => 'form-control', 'options' => $titles, 'required' => 'required', 'empty' => 'Select')); ?>
+                            <?php echo $this->Form->control('title', array('class' => 'form-control', 'options' => $titles, 'required' => 'required', 'empty' => 'Select')); ?>
                         </div>
                     </div>
                     <div class="col-sm-12 col-md-4 col-lg-3 mb-3">
@@ -92,7 +89,7 @@
                     </div>
                     <div class="col-sm-12 col-md-2 col-lg-1 mb-3 d-flex align-items-end justify-content-end">
                         <div class="form-group">
-                        <?= $this->Form->button(__('Submit'), ['class' => 'btn bg-gradient-submit', 'id' => 'id_addvendor', 'type' => 'button']) ?>
+                            <?= $this->Form->button(__('Submit'), ['class' => 'btn bg-gradient-submit', 'id' => 'id_addvendor', 'type' => 'button']) ?>
                         </div>
                     </div>
                     <div class="col-sm-12 col-md-3 col-lg-2 mb-3">
@@ -108,8 +105,8 @@
                                 <h6>Are you sure you want to add vendor?</h6>
                             </div>
                             <div class="modal-footer justify-content-between">
-                                <button type="button" class="modal_cancel btn "  data-dismiss="modal">Cancel</button>
-                                <button type="submit" class="modal_ok btn " >Ok</button>
+                                <button type="button" class="modal_cancel btn " data-dismiss="modal">Cancel</button>
+                                <button type="submit" class="modal_ok btn ">Ok</button>
                             </div>
                         </div>
                     </div>
@@ -143,7 +140,8 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <?php foreach ($latestVendors as $vendor) :
+                                    <?php if (!empty($latestVendors)) :
+                                        foreach ($latestVendors as $vendor) :
                                         switch ($vendor->status) {
                                             case 0:
                                                 $status = '<span class="badge lbluebadge" data-toggle="tooltip" data-placement="right" title="Sent to Vendor"><i class="fas fa-people-arrows"></i></span>';
@@ -165,29 +163,34 @@
                                                 break;
                                         }
                                     ?>
-                                        <tr>
-                                            <td>
-                                                <?php echo $vendor->title ?>
-                                            </td>
-                                            <td>
-                                                <?php echo $vendor->name ?>
-                                            </td>
-                                            <td>
-                                                <?php echo $vendor->mobile ?>
-                                            </td>
-                                            <td>
-                                                <?php echo $vendor->email ?>
-                                            </td>
-                                            <td>
-                                                <?php echo $vendor->purchasing_organization->name ?>
-                                            </td>
-                                            <td>
-                                                <?= $status ?>
-                                            </td>
+                                    <tr>
+                                        <td>
+                                            <?php echo $vendor->title ?>
+                                        </td>
+                                        <td>
+                                            <?php echo $vendor->name ?>
+                                        </td>
+                                        <td>
+                                            <?php echo $vendor->mobile ?>
+                                        </td>
+                                        <td>
+                                            <?php echo $vendor->email ?>
+                                        </td>
+                                        <td>
+                                            <?php echo $vendor->purchasing_organization->name ?>
+                                        </td>
+                                        <td>
+                                            <?= $status ?>
+                                        </td>
 
-                                        </tr>
-                                    <?php endforeach; ?>
-
+                                    </tr>
+                                    <?php endforeach; else : ?>
+                                    <tr>
+                                        <td colspan="6" class="text-center">
+                                           <p class="mb-0">Recently No Vendor Added</p>
+                                        </td>
+                                    </tr>
+                                    <?php endif ?>
                                 </tbody>
                             </table>
                         </div>
@@ -201,7 +204,7 @@
         <?= $this->Form->create(null, ['type' => 'file']); ?>
         <div class="card mx-2">
             <div class="card-header p-3">
-                <h5 >
+                <h5>
                     Bulk Vendor Import
                 </h5>
             </div>
@@ -223,69 +226,70 @@
                     </div>
                     <div class="col-12 pt-2">
                         <i style="color: black;">
-                            <a href="<?= $this->Url->build('/') ?>webroot/templates/vendor_import_template.xlsx" target="_blank" rel="noopener noreferrer">Sample_Excel_Template.xlsx</a>
+                            <a href="<?= $this->Url->build('/') ?>webroot/templates/vendor_import_template.xlsx"
+                                target="_blank" rel="noopener noreferrer">Sample_Excel_Template.xlsx</a>
                         </i>
                     </div>
                 </div>
                 <?php if (isset($results)) : ?>
-                    <div class="row py-0">
-                        <div class="col-12">
-                            <div class="table-responsive">
-                                <table class="table table-hover dataTable no-footer" id="example1">
-                                    <thead>
-                                        <tr style="color: white;">
-                                            <td>Name</td>
-                                            <td>Mobile</td>
-                                            <td>Email</td>
-                                            <td>Payment Terms</td>
-                                            <td>Purchase Organization</td>
-                                            <td>Account Group</td>
-                                            <td>Schema Group</td>
-                                            <td>Status</td>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <?php foreach ($results as $row) : ?>
-                                            <tr>
-                                                <td>
-                                                    <?= h($row["data"][1]) ?>
-                                                </td>
-                                                <td>
-                                                    <?= h($row["data"][2]) ?>
-                                                </td>
-                                                <td>
-                                                    <?= h($row["data"][3]) ?>
-                                                </td>
-                                                <td>
-                                                    <?= h($row["data"][4]) ?>
-                                                </td>
-                                                <td>
-                                                    <?= h($row["data"][5]) ?>
-                                                </td>
-                                                <td>
-                                                    <?= h($row["data"][6]) ?>
-                                                </td>
-                                                <td>
-                                                    <?= h($row["data"][7]) ?>
-                                                </td>
-                                                <?php if ($row['status']) : ?>
-                                                    <td class="text-success">
-                                                        <?= h($row['msg']) ?>
-                                                    </td>
-                                                <?php else : ?>
-                                                    <td class="text-danger">
-                                                        <b>
-                                                            <?= h($row['msg']) ?>
-                                                        </b>
-                                                    </td>
-                                                <?php endif; ?>
-                                            </tr>
-                                        <?php endforeach; ?>
-                                    </tbody>
-                                </table>
-                            </div>
+                <div class="row py-0">
+                    <div class="col-12">
+                        <div class="table-responsive">
+                            <table class="table table-hover dataTable no-footer" id="example1">
+                                <thead>
+                                    <tr style="color: white;">
+                                        <td>Name</td>
+                                        <td>Mobile</td>
+                                        <td>Email</td>
+                                        <td>Payment Terms</td>
+                                        <td>Purchase Organization</td>
+                                        <td>Account Group</td>
+                                        <td>Schema Group</td>
+                                        <td>Status</td>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php foreach ($results as $row) : ?>
+                                    <tr>
+                                        <td>
+                                            <?= h($row["data"][1]) ?>
+                                        </td>
+                                        <td>
+                                            <?= h($row["data"][2]) ?>
+                                        </td>
+                                        <td>
+                                            <?= h($row["data"][3]) ?>
+                                        </td>
+                                        <td>
+                                            <?= h($row["data"][4]) ?>
+                                        </td>
+                                        <td>
+                                            <?= h($row["data"][5]) ?>
+                                        </td>
+                                        <td>
+                                            <?= h($row["data"][6]) ?>
+                                        </td>
+                                        <td>
+                                            <?= h($row["data"][7]) ?>
+                                        </td>
+                                        <?php if ($row['status']) : ?>
+                                        <td class="text-success">
+                                            <?= h($row['msg']) ?>
+                                        </td>
+                                        <?php else : ?>
+                                        <td class="text-danger">
+                                            <b>
+                                                <?= h($row['msg']) ?>
+                                            </b>
+                                        </td>
+                                        <?php endif; ?>
+                                    </tr>
+                                    <?php endforeach; ?>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
+                </div>
                 <?php endif; ?>
             </div>
             <div class="card-footer">Note<span class="text-danger">*</span> : <i>Imported Vendor's will receive
