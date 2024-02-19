@@ -369,7 +369,7 @@ class SyncController extends ApiAppController
                             $hederData['currency'] = $row->WAERS;
                             $hederData['exchange_rate'] = $row->WKURS;
                             $hederData['release_status'] = $row->FRGZU ? $row->FRGZU : 'X';
-                            //$hederData['acknowledge'] = 0;
+                            $hederData['acknowledge'] = 0;
                             
 
                             if($this->PoHeaders->exists(['po_no' => $row->EBELN])) {

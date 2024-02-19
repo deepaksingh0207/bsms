@@ -224,7 +224,7 @@ class DashboardController extends BuyerAppController
         $orderByPeriod = $conn->execute("SELECT sum(po_footers.net_value) as value, date_format(po_headers.created_on, '%b-%y') as network
         from po_headers left join po_footers on po_footers.po_header_id = po_headers.id
         left join materials on materials.code = po_footers.material".$g3_filter."
-        group by po_headers.created_on
+        group by date_format(po_headers.created_on, '%b-%y')
         order by po_headers.created_on asc limit 5 ");
         $orderByPeriods = $orderByPeriod->fetchAll('assoc');
 
