@@ -103,6 +103,10 @@ $(function () {
                         dtable.rows.add(response.data[0]).draw();
                         dtable.columns.adjust().draw();
 
+                        d3table.clear().draw();
+                        d3table.rows.add(response.data[0]).draw();
+                        d3table.columns.adjust().draw();
+
                         stable.clear().draw();
                         stable.rows.add(response.data[1]).draw();
                         stable.columns.adjust().draw();

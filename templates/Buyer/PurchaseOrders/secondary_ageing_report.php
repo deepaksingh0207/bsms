@@ -21,9 +21,9 @@
                     </div>
                 </div>
             </div>
-
+            
             <hr class="m-0">
-
+            
         </div>
     </div>
 </div>
@@ -221,8 +221,6 @@
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
 </div>
 
 
