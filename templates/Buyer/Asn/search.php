@@ -34,7 +34,7 @@
                         <p><b>OR</b></p>
                         <br>
                            <div class="s-box">
-                           <?php echo $this->Form->control('asn_no', array('label' => false, 'class' => 'form-control rounded-0', "placeholder"=>"Start entering ASN or Invoice Number",'div' => 'form-group', 'required')); ?>
+                           <?php echo $this->Form->control('asn_no', array('label' => false, 'maxlength'=>'15', 'class' => 'form-control rounded-0', "placeholder"=>"Start entering ASN or Invoice Number",'div' => 'form-group', 'required')); ?>
                             <?= $this->Form->button(__('GO'), ['class' => 'btn btn-custom mt-3']) ?>
                            </div>
                            

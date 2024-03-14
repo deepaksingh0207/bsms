@@ -21,7 +21,7 @@
             <fieldset>
                 <legend><?= __('Add Vendor Material Stock') ?></legend>
                 <?php
-                    echo $this->Form->control('sap_vendor_code');
+                    echo $this->Form->control('sap_vendor_code', array('maxlength'=>'10'));
                     echo $this->Form->control('material');
                     echo $this->Form->control('part_code');
                     echo $this->Form->control('material_desc');

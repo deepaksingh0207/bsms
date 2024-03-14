@@ -134,7 +134,7 @@ class PurchaseOrdersController extends VendorAppController
         }
 
         $conn = ConnectionManager::get('default');
-        $material = $conn->execute("select distinct * from (select po_headers.id, po_headers.sap_vendor_code, po_headers.po_no, item, materials.type, materials.segment, po_footers.material, po_footers.short_text, po_qty, grn_qty, pending_qty, po_footers.order_unit, po_footers.net_price, po_footers.net_value, po_footers.gross_value,po_footers.price_unit, po_item_schedules.actual_qty, po_item_schedules.received_qty, DATE_FORMAT(po_item_schedules.delivery_date, '%d-%m-%Y') as 'delivery_date', a.asn_no,
+        $material = $conn->execute("select distinct * from (select po_headers.id, po_headers.sap_vendor_code, po_headers.po_no, item, materials.type, materials.segment, po_footers.material, po_footers.short_text, po_qty, grn_qty, pending_qty, po_footers.order_unit, po_footers.net_price, po_footers.net_value, po_footers.gross_value,po_footers.price_unit, po_item_schedules.actual_qty, asn_footers.qty as received_qty, DATE_FORMAT(po_item_schedules.delivery_date, '%d-%m-%Y') as 'delivery_date', a.asn_no,
         case
             when a.status = 3 then 'Received' else
             case when a.status = 2 then 'In-Transit' else
@@ -218,7 +218,7 @@ class PurchaseOrdersController extends VendorAppController
                 ->select(['Buyers.id','user_id'=> 'Users.id', 'email', 'first_name', 'last_name'])
                 ->innerJoin(['Users' => 'users'], ['Users.username = Buyers.email'])
                 ->innerJoin(['VendorTemps' => 'vendor_temps'], ['VendorTemps.purchasing_organization_id = Buyers.purchasing_organization_id', 'VendorTemps.company_code_id = Buyers.company_code_id'])
-                ->where(['VendorTemps.sap_vendor_code' => $poHeader['sap_vendor_code']]);
+                ->where(['VendorTemps.sap_vendor_code' => $poHeader['sap_vendor_code'], 'Users.status' => 1]);
                 
                 $vendor = $this->VendorTemps->find()->where(['VendorTemps.sap_vendor_code' => $poHeader['sap_vendor_code']])->first();
                 
@@ -237,7 +237,6 @@ class PurchaseOrdersController extends VendorAppController
                     $this->Notifications->save($n);
 
                     if ($buyer->email !== "") {
-                        if($this->Users->find()->select('status')->where(['username' => $buyer->email])->first()['status'] == 1){
                         $mailer = new Mailer('default');
                         $mailer
                             ->setTransport('smtp')
@@ -254,7 +253,6 @@ class PurchaseOrdersController extends VendorAppController
                             ->viewBuilder()
                                 ->setTemplate('acknowledge');
                         $mailer->deliver();
-                        }
                     }
 
                 }
@@ -300,7 +298,7 @@ class PurchaseOrdersController extends VendorAppController
                 ->select(['Buyers.id','user_id'=> 'Users.id', 'email', 'first_name', 'last_name'])
                 ->innerJoin(['Users' => 'users'], ['Users.username = Buyers.email'])
                 ->innerJoin(['VendorTemps' => 'vendor_temps'], ['VendorTemps.purchasing_organization_id = Buyers.purchasing_organization_id', 'VendorTemps.company_code_id = Buyers.company_code_id'])
-                ->where(['VendorTemps.sap_vendor_code' => $poHeader['sap_vendor_code']]);
+                ->where(['VendorTemps.sap_vendor_code' => $poHeader['sap_vendor_code'], 'Users.status' => 1]);
                 
                 $vendor = $this->VendorTemps->find()->where(['VendorTemps.sap_vendor_code' => $poHeader['sap_vendor_code']])->first();
                 $po_footer = $this->PoFooters->find('all')->where(['PoFooters.po_header_id' => $poHeader['id'], 'deleted_indication' => ''])->toArray();
@@ -312,7 +310,6 @@ class PurchaseOrdersController extends VendorAppController
                         left join po_headers on po_headers.created_user = buyers.sap_user
                         where po_headers.id=".$poHeader['id']);
                         $response = $query->fetchAll('assoc');
-                        if($this->Users->find()->select('status')->where(['username' => $buyer->email])->first()['status'] == 1){
                         $mailer = new Mailer('default');
                         $mailer
                             ->setTransport('smtp')
@@ -331,7 +328,6 @@ class PurchaseOrdersController extends VendorAppController
                             ->viewBuilder()
                                 ->setTemplate('non_acknowledge');
                         $mailer->deliver();
-                        }
                     }
                 }
 
@@ -717,7 +713,7 @@ class PurchaseOrdersController extends VendorAppController
                     ->select(['Buyers.id','user_id'=> 'Users.id'])
                     ->innerJoin(['Users' => 'users'], ['Users.username = Buyers.email'])
                     ->innerJoin(['VendorTemps' => 'vendor_temps'], ['VendorTemps.purchasing_organization_id = Buyers.purchasing_organization_id', 'VendorTemps.company_code_id = Buyers.company_code_id'])
-                    ->where(['VendorTemps.sap_vendor_code' => $poHeader[0]['sap_vendor_code']]);
+                    ->where(['VendorTemps.sap_vendor_code' => $poHeader[0]['sap_vendor_code'], 'Users.status' => 1]);
 
                     foreach ($filteredBuyers as $buyer) {
                         $n = $this->Notifications->find()->where(['user_id' => $buyer->user_id, 'notification_type'=>'New ASN'])->first();
@@ -1330,5 +1326,172 @@ class PurchaseOrdersController extends VendorAppController
         } else {
             return $this->redirect(['action' => 'create-asn']);
         }
+    }
+
+    public function saveAsn($id = null)
+    {
+
+        $response = array();
+        $response['status'] = 0;
+        $response['message'] = '';
+        $this->autoRender = false;
+
+        $this->loadModel('PoHeaders');
+        $this->loadModel('PoItemSchedules');
+        $this->loadModel('Notifications');
+        $this->loadModel('Buyers');
+        $this->loadModel('VendorTemps');
+
+        /*$poHeader = $this->PoHeaders->get($id, [
+            'contain' => ['PoFooters'],
+        ]); */
+        $poHeader = $this->PoHeaders->find('all')
+            ->select(['PoHeaders.id', 'PoHeaders.po_no', 'PoHeaders.sap_vendor_code', 'PoHeaders.currency', 'PoFooters.id', 'PoFooters.item', 'PoFooters.material', 'PoFooters.short_text', 'PoFooters.order_unit', 'PoFooters.net_price', 'PoItemSchedules.id', 'actual_qty' => '(PoItemSchedules.actual_qty - PoItemSchedules.received_qty)', 'PoItemSchedules.delivery_date'])
+            ->innerJoin(['PoFooters' => 'po_footers'], ['PoFooters.po_header_id = PoHeaders.id', "PoFooters.deleted_indication = ''"])
+            ->innerJoin(['PoItemSchedules' => 'po_item_schedules'], ['PoItemSchedules.po_footer_id = PoFooters.id'])
+            ->where(['PoHeaders.id' => $id, '(PoItemSchedules.actual_qty - PoItemSchedules.received_qty) > 0'])->toArray();
+
+        if ($this->request->is(['patch', 'post', 'put'])) {
+            $this->loadModel('AsnHeaders');
+            $this->loadModel('AsnFooters');
+            try {
+                $request = $this->request->getData();
+
+                //echo '<pre>'; print_r($request); exit;
+
+                $conn = ConnectionManager::get('default');
+                $maxrfq = $conn->execute("SELECT MAX(asn_no) maxrfq FROM asn_headers");
+
+                foreach ($maxrfq as $maxid) {
+                    $asnNo = $maxid['maxrfq'];
+                    if ($asnNo == 0) {
+                        $asnNo = date('y') . str_pad($request['po_header_id'], 5, '0', STR_PAD_LEFT) . '1';
+                    } else {
+                        $asnNo = $asnNo + 1;
+                    }
+                }
+
+
+                $invoiceUpload = $request["invoice"];
+                $ewaybillUpload = $request["ewaybill"];
+                $otherUploads = $request["others"];
+
+                //print_r($productImage);exit;
+                $uploads["uploads"] = array();
+                // file uploaded
+                
+                if($invoiceUpload->getSize() > 0) {
+                    $fileName = $asnNo . '_invoice_' . time() . '_' . $invoiceUpload->getClientFilename();
+                    $fileType = $invoiceUpload->getClientMediaType();
+
+                    if ($fileType == "application/pdf" || $fileType == "image/*") {
+                        $imagePath = WWW_ROOT . "uploads/" . $fileName;
+                        $invoiceUpload->moveTo($imagePath);
+                        $uploads["uploads"]['invoice'] = "uploads/" . $fileName;
+                    }
+                }
+                if($ewaybillUpload->getSize() > 0) {
+                    $fileName = $asnNo . '_ewaybill_' . time() . '_' . $ewaybillUpload->getClientFilename();
+                    $fileType = $ewaybillUpload->getClientMediaType();
+
+                    if ($fileType == "application/pdf" || $fileType == "image/*") {
+                        $imagePath = WWW_ROOT . "uploads/" . $fileName;
+                        $ewaybillUpload->moveTo($imagePath);
+                        $uploads["uploads"]['ewaybill'] = "uploads/" . $fileName;
+                    }
+                }
+                foreach($otherUploads as $otherUpload) {
+                    if($otherUpload->getSize() > 0) {
+                        $fileName = $asnNo . '_other_' . time() . '_' . $otherUpload->getClientFilename();
+                        $fileType = $otherUpload->getClientMediaType();
+
+                        if ($fileType == "application/pdf" || $fileType == "image/*") {
+                            $imagePath = WWW_ROOT . "uploads/" . $fileName;
+                            $otherUpload->moveTo($imagePath);
+                            $uploads["uploads"]['other'][] = "uploads/" . $fileName;
+                        }
+                    }
+                }
+
+
+                // print_r($uploads["invoices"]);exit;
+                $asnData = array();
+                $asnData['asn_no'] = $asnNo;
+                $asnData['vendor_factory_id'] = $request['vendor_factory_id'];
+                $asnData['po_header_id'] = $request['po_header_id'];
+                $asnData['invoice_path'] = json_encode($uploads["uploads"]);
+                $asnData['invoice_no'] = $request['invoice_no'];
+                $asnData['invoice_date'] = $request['invoice_date'];
+                $asnData['invoice_value'] = $request['invoice_value'];
+                $asnData['vehicle_no'] = $request['vehicle_no'];
+                $asnData['driver_name'] = $request['driver_name'];
+                $asnData['driver_contact'] = $request['driver_contact'];
+                $asnData['transporter_name'] = $request['transporter_name'];
+
+                //if ($this->AsnHeaders->validate($asnData)) {
+                $asnObj = $this->AsnHeaders->newEmptyEntity();
+                $asnObj = $this->AsnHeaders->patchEntity($asnObj, $asnData);
+
+                if (!$asnObj->getErrors()) {
+                    if ($this->AsnHeaders->save($asnObj)) {
+                        $filteredBuyers = $this->Buyers->find()
+                        ->select(['Buyers.id','user_id'=> 'Users.id'])
+                        ->innerJoin(['Users' => 'users'], ['Users.username = Buyers.email'])
+                        ->innerJoin(['VendorTemps' => 'vendor_temps'], ['VendorTemps.purchasing_organization_id = Buyers.purchasing_organization_id', 'VendorTemps.company_code_id = Buyers.company_code_id'])
+                        ->where(['VendorTemps.sap_vendor_code' => $poHeader[0]['sap_vendor_code'], 'Users.status' => 1]);
+
+                        foreach ($filteredBuyers as $buyer) {
+                            $n = $this->Notifications->find()->where(['user_id' => $buyer->user_id, 'notification_type'=>'New ASN'])->first();
+                            if ($n) {
+                                $n->notification_type = 'New ASN';
+                                $n->message_count = $n->message_count+1;
+                            } else {
+                                $n = $this->Notifications->newEntity([
+                                    'user_id' => $buyer->user_id,
+                                    'notification_type' => 'New ASN',
+                                    'message_count' => '1',
+                                ]);
+                            }
+                            $this->Notifications->save($n);
+                        }    
+
+
+                        $asnSchedueData = array();
+                        foreach ($request['schedule_id'] as $key => $val) {
+                            $tmp = array();
+                            $tmp['asn_header_id'] = $asnObj->id;
+                            $tmp['po_footer_id'] = $request['po_footer_id'][$key];
+                            $tmp['po_schedule_id'] = $val;
+                            $tmp['qty'] = $request['qty'][$key];
+                            $asnSchedueData[] = $tmp;
+
+                            $schedueData = $this->PoItemSchedules->get($val);
+                            $schedueData->received_qty = $schedueData->received_qty + $request['qty'][$key];
+                            $this->PoItemSchedules->save($schedueData);
+                        }
+
+                        $asnFooter = $this->AsnFooters->newEntities($asnSchedueData);
+                        if ($this->AsnFooters->saveMany($asnFooter)) {
+                            $response['status'] = 1;
+                            $response['message'] = "ASN-$asnNo has been created successfully";
+                        }
+                    } 
+                } else {
+                    $msg = '';
+                    foreach($asnObj->getErrors() as $key => $er) {
+                        foreach($er as $mssage) {
+                            $msg .= "$key :: $mssage</br>";
+                        }
+                    }
+                    $response['message'] = $msg;
+                }
+            } catch (\PDOException $e) {
+                $response['message'] = $e->getMessage();
+            } catch (\Exception $e) {
+                $response['message'] = $e->getMessage();
+            }
+        }
+
+        echo json_encode($response); exit;
     }
 }

@@ -162,13 +162,13 @@ function load_data(i, v) {
                         </div>
                         <div class="col-sm-12 col-md-3 mb-3 required">
                             <label for="id_vendor_branch_offices_telephone">Telephone</label>
-                            <input required="required" type="number" value="`+ b.telephone + `" class="form-control maxlength_validation" maxlength="14" minlength="10" name="branch_offices[` + a + `][telephone]" id="id_vendor_branch_offices_` + a + `_telephone">
+                            <input required="required" type="text" value="`+ b.telephone + `" class="form-control numberonly maxlength_validation" maxlength="14" minlength="10" name="branch_offices[` + a + `][telephone]" id="id_vendor_branch_offices_` + a + `_telephone">
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-sm-12 col-md-3 mb-3 required">
                             <label for="id_vendor_branch_offices_registration_year"> Year of Registration</label>
-                            <input required="required" type="text" value="`+ b.registration_year + `" class="form-control maxlength_validation" maxlength="4" name="branch_offices[` + a + `][registration_year]" id="id_vendor_branch_offices_` + a + `_registration_year">
+                            <input required="required" type="text" value="`+ b.registration_year + `" class="form-control maxlength_validation numberonly" maxlength="4" name="branch_offices[` + a + `][registration_year]" id="id_vendor_branch_offices_` + a + `_registration_year">
                         </div>
                         <div class="col-sm-12 col-md-3 mb-3 required">
                             <label for="id_vendor_branch_offices_registration_no">Registration No</label>
@@ -494,7 +494,7 @@ function load_data(i, v) {
                             </div>
                             <div class="col-sm-12 col-md-3 mb-3">
                                 <label for="id_vendor_partner_address_`+ a + `_telephone">Telephone</label>
-                                <input  minlength="10" maxlength="14" type="number" value="`+ b.telephone + `" class="form-control" name="partner_address[` + a + `][telephone]" id="id_vendor_partner_address_` + a + `_telephone">
+                                <input  minlength="10" maxlength="14" type="text" value="`+ b.telephone + `" class="numberonly form-control" name="partner_address[` + a + `][telephone]" id="id_vendor_partner_address_` + a + `_telephone">
                             </div>
                             <div class="col-sm-12 col-md-3 mb-3">
                                 <label for="id_vendor_partner_address_`+ a + `_fax_no">Fax No.</label>
@@ -595,7 +595,7 @@ function load_data(i, v) {
                     <div class="col-3 mb-3 col-md-3">
                         <div class="form-group">
                             <label for="id_telephone">Telephone</label>
-                            <input type="number" id="id_vendor_reputed_customers_`+ a + `_telephone" value="` + b.telephone + `" name="reputed_customers[` + a + `][telephone]" class="form-control maxlength_validation"  minlength="10" maxlength="14">
+                            <input type="text" id="id_vendor_reputed_customers_`+ a + `_telephone" value="` + b.telephone + `" name="reputed_customers[` + a + `][telephone]" class="form-control numberonly maxlength_validation"  minlength="10" maxlength="14">
                         </div>
                     </div>
                     <div class="col-3 mb-3 col-md-3">
@@ -677,7 +677,7 @@ $(document).on("click", "#id_branch_offices_add", function () {
                 </div>
                 <div class="col-sm-12 col-md-3 mb-3">
                     <label for="id_vendor_branch_offices_telephone">Telephone</label>
-                    <input type="number"  minlength="10" maxlength="14" class="form-control" name="branch_offices[`+ lid + `][telephone]" id="id_vendor_branch_offices_` + lid + `_telephone">
+                    <input type="text"  minlength="10" maxlength="14" class="form-control numberonly" name="branch_offices[`+ lid + `][telephone]" id="id_vendor_branch_offices_` + lid + `_telephone">
                 </div>
             </div>
             <div class="row">
@@ -766,7 +766,7 @@ $(document).on("click", "#id_vendor_partner_add", function () {
                 </div>
                 <div class="col-sm-12 col-md-3 mb-3">
                     <label for="id_vendor_partner_address_`+ lid + `_telephone">Telephone</label>
-                    <input  minlength="10" maxlength="14" type="number" class="form-control maxlength_validation" name="partner_address[`+ lid + `][telephone]" id="id_vendor_partner_address_` + lid + `_telephone">
+                    <input  minlength="10" maxlength="14" type="number" class="form-control numberonly maxlength_validation" name="partner_address[`+ lid + `][telephone]" id="id_vendor_partner_address_` + lid + `_telephone">
                 </div>
                 <div class="col-sm-12 col-md-3 mb-3">
                     <label for="id_vendor_partner_address_`+ lid + `_fax_no">Fax No.</label>
@@ -842,7 +842,7 @@ $(document).on("click", "#id_reputed_customer_add", function () {
         <div class="col-3 mb-3 col-md-3">
             <div class="form-group">
                 <label for="id_telephone">Telephone</label>
-                <input  minlength="10" maxlength="14" type="number" id="id_vendor_reputed_customers_`+ lid + `_telephone" name="reputed_customers[` + lid + `][telephone]" class="form-control maxlength_validation" required="true">
+                <input  minlength="10" maxlength="14" type="text" id="id_vendor_reputed_customers_`+ lid + `_telephone" name="reputed_customers[` + lid + `][telephone]" class="form-control numberonly maxlength_validation" required="true">
             </div>
         </div>
         <div class="col-3 mb-3 col-md-2">

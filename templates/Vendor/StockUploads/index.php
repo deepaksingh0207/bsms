@@ -20,11 +20,11 @@
 <?= $this->Html->script('select2.js') ?>
 <div class="row">
     <div class="col-12">
-        <div class="card">
+        <div class="card mb-2">
             <div class="card-header">
                 <div class="row">
-                    <div class="col-lg-12 text-center">
-                        Stock Upload
+                    <div class="col-lg-12">
+                        STOCK UPLOAD
                     </div>
                     <!-- <div class="col-lg-6 d-flex justify-content-end text-align-end">
                         <a href="<?= $this->Url->build('/') ?>buyer/stock-uploads/add"><button type="button" id="continueSub" class="btn bg-gradient-button mb-0 continue_btn">Add Stock</button></a>
@@ -77,7 +77,12 @@
                 </div>
                 <?= $this->Form->end() ?>
             </div>
-            <div class="card-body" id="id_pohead">
+            
+        </div>
+    </div>
+</div>
+<div class="card">
+<div class="card-body" id="id_pohead">
                 <table class="table table-bordered table-striped table-hover" id="example1">
                     <thead>
                         <tr>
@@ -96,8 +101,6 @@
                     <tbody></tbody>
                 </table>
             </div>
-        </div>
-    </div>
 </div>
 
 <script>

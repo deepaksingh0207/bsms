@@ -127,7 +127,7 @@
           Stock By Material
         </div>
         <div class="card-body table-responsive">
-          <table class="table table-bordered table-hover table-striped">
+          <table class="table table-bordered table-hover table-striped" id="id_stockmat">
             <thead>
               <tr>
                 <th>Factory</th>
@@ -181,7 +181,7 @@
           Stock Intransit
         </div>
         <div class="card-body table-responsive">
-          <table class="table table-bordered table-hover table-striped">
+          <table class="table table-bordered table-hover table-striped" id="id_stockitt">
             <thead>
               <tr>
                 <th>Factory</th>
@@ -394,4 +394,4 @@
 </div>
 <?php endif; ?>
 
-<?= $this->Html->script('v_dashboard_index') ?>
+<?= $this->Html->script('a_vekpro/vendor/v_dashboard_index') ?>

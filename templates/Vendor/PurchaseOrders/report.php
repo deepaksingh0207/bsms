@@ -21,8 +21,13 @@
 </style>
 <?= $this->Html->css('bootstrap-multiselect') ?>
 <?= $this->Html->script('bootstrap-multiselect') ?>
-<div class="card">
-    <div class="card-header text-center">PURCHASE ORDER TRACKING REPORT</div>
+<div class="card mb-2">
+    <div class="card-header">PURCHASE ORDER TRACKING REPORT</div>
+    
+
+</div>
+<div class="card mb-2">
+    <div class="card-header">SEARCH</div>
     <div class="card-body">
         <?= $this->Form->create(null, ['id' => 'addvendorform']) ?>
         <div class="row">
@@ -68,7 +73,17 @@
                     <option value="Received">Received</option>
                 </select>
             </div>
-            <div class="col-sm-12 col-md-3 col-lg-4">
+            <div class="col-sm-12 col-md-3 col-lg-2">
+                <label for="id_vendortype">Type</label><br>
+                <select name="vendortype[]" id="id_vendortype" multiple="multiple" class="form-control chosen">
+                    <?php if (isset($vendortype)) : ?>
+                    <?php foreach ($vendortype as $mat) : ?>
+                    <option value="<?= h($mat->type) ?>"> <?= h($mat->type) ?> </option>
+                    <?php endforeach; ?>
+                    <?php endif; ?>
+                </select>
+            </div>
+            <div class="col-sm-12 col-md-3 col-lg-3">
                 <label for="id_material">Material</label><br>
                 <select name="material[]" id="id_material" multiple="multiple" class="form-control chosen">
                     <?php if (isset($materialList)) : ?>
@@ -81,16 +96,7 @@
                     <?php endif; ?>
                 </select>
             </div>
-            <div class="col-sm-12 col-md-3 col-lg-2">
-                <label for="id_vendortype">Type</label><br>
-                <select name="vendortype[]" id="id_vendortype" multiple="multiple" class="form-control chosen">
-                    <?php if (isset($vendortype)) : ?>
-                    <?php foreach ($vendortype as $mat) : ?>
-                    <option value="<?= h($mat->type) ?>"> <?= h($mat->type) ?> </option>
-                    <?php endforeach; ?>
-                    <?php endif; ?>
-                </select>
-            </div>
+            
             <div class="col-sm-12 col-md-3 col-lg-1">
                 <div class="form-group mt-4 pt-2">
                     <?= $this->Form->button(__('Search'), ['class' => 'btn bg-gradient-submit', 'id' => 'id_sub', 'type' => 'submit']) ?>
@@ -99,8 +105,9 @@
         </div>
         <?= $this->Form->end() ?>
     </div>
-
-    <div class="card-body buyer_material">
+</div>
+<div class="card mb-2">
+<div class="card-body buyer_material">
         <table class="table table-hover table-responsive" id="example1">
             <thead>
                 <tr>

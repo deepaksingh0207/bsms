@@ -364,7 +364,7 @@ function prepare() {
             $("#id_scheduletbl").append(`<tr>
                 <td><input type="hidden" name="`+ count + `[po_header_id]" value="` + hid + `">` + pid + `</td>
                 <td><input type="hidden" name="`+ count + `[po_footer_id]" value="` + fid + `">` + iid + `</td>
-                <td><input type="text" name="`+ count + `[actual_qty]" class="form-control act_qty" placeholder="Max ` + max + `" max="` + max + `" value=""></td>
+                <td><input type="number" name="`+ count + `[actual_qty]" class="form-control act_qty" placeholder="Max ` + max + `" max="` + max + `" value=""></td>
                 <td><input type="date" name="`+ count + `[delivery_date]" class="form-control dly_dt"  min="` + today + `" value=""></td>
             </tr>`);
             count++;

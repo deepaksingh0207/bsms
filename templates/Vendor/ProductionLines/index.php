@@ -15,11 +15,11 @@
 <?= $this->Html->css('dropdown-filter') ?>
 <?= $this->Html->css('select2.min.css') ?>
 <?= $this->Html->script('select2.js') ?>
-<div class="card">
+<div class="card mb-2">
     <div class="card-header">
         <div class="row align-items-center">
             <div class="col-sm-6 col-lg-6 d-flex justify-content-start">
-                <h5 class="mb-0"><b>Production Line</b></h5>
+                PRODUCTION LINE
             </div>
             <div class="col-sm-6 col-lg-6 d-flex justify-content-end text-align-end add_prod">
                 <a href="<?= $this->Url->build('/') ?>vendor/production-lines/add"><button type="button"
@@ -60,7 +60,10 @@
     </div>
     <?= $this->Form->end() ?>
     </div>
-    <div class="card-body" id="id_pohead">
+    
+</div>
+<div class="card">
+<div class="card-body" id="id_pohead">
         <table class="table table-bordered table-striped table-hover" id="example1">
             <thead>
                 <tr>

@@ -17,15 +17,27 @@
 <?= $this->Html->script('select2.js') ?>
 <div class="row">
     <div class="col-12">
-        <div class="card">
+        <div class="card mb-2">
             <div class="card-header">
-                <div class="row">
-                    <div class="col-lg-12 text-center">
-                        Opening Stock
+                <div class="row align-items-center">
+                    <div class="col-lg-10">
+                        OPENING STOCK
+                    </div>
+                    <div class="col-2">
+                    <a href="<?= $this->Url->build('/') ?>buyer/stock-uploads/add" id="continueSub"
+                            class="btn mb-0 continue_btn float-right">Add Material</a>
                     </div>
                 </div>
             </div>
-            <div class="card-body">
+            
+            <hr class="m-0">
+            
+        </div>
+    </div>
+</div>
+<div class="card">
+    <div class="card-header">SEARCH</div>
+    <div class="card-body">
                 <?= $this->Form->create(null, ['id' => 'addvendorform']) ?>
                 <div class="row">
                     <div class="col-3">
@@ -78,14 +90,14 @@
                     </div>
                     <div class="col-2 mt-4 pt-2">
                         <button class="btn bg-gradient-button" type="submit" id="id_sub">Search</button>
-                        <a href="<?= $this->Url->build('/') ?>buyer/stock-uploads/add" id="continueSub"
-                            class="btn mb-0 continue_btn float-right">Add Material</a>
+                        
                     </div>
                 </div>
                 <?= $this->Form->end() ?>
             </div>
-            <hr class="m-0">
-            <div class="card-body" id="id_pohead">
+</div>
+<div class="card">
+<div class="card-body" id="id_pohead">
                 <table class="table table-bordered table-striped table-hover" id="example1">
                     <thead>
                         <tr>
@@ -104,8 +116,6 @@
                     <tbody></tbody>
                 </table>
             </div>
-        </div>
-    </div>
 </div>
 
 <script>

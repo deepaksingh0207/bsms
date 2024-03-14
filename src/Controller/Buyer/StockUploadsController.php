@@ -148,11 +148,11 @@ class StockUploadsController extends BuyerAppController
         $this->autoRender = false;
         $this->loadModel('Materials');
         $this->loadModel("StockUploads");
-        $response = ['status' => 0, 'data' => "Stock Upload Failed"];
+        $response = ['status' => 0, 'msg' => "Stock Upload Failed"];
         if ($this->request->is(['patch', 'post', 'put'])) {
             $res = $this->request->getData();
             // echo '<pre>'; print_r($request);exit;
-            if ($res["sap_vendor_code"] && $res["vendor_factory_id"] && $res["material_id"] && $res["opening_stock"])
+            if ($res["sap_vendor_code"] && $res["vendor_factory_id"] && $res["material_id"] && ($res["opening_stock"] >= 0))
             {
                 $existingStockUpload = $this->StockUploads->find('all')->where(['material_id' => $res['material_id'], 'sap_vendor_code' => $res['sap_vendor_code'], 'vendor_factory_id' => $res["vendor_factory_id"]])->first();
 
@@ -162,16 +162,16 @@ class StockUploadsController extends BuyerAppController
                     $mslvalue['sap_vendor_code']  = $res['sap_vendor_code'];
                     $mslvalue['vendor_factory_id']  = $res['vendor_factory_id'];
                     $mslvalue['material_id']  = $res['material_id'];
-                    $mslvalue['opening_stock']  = $res['opening_stock'];
+                    $mslvalue['opening_stock']  = doubleval($res['opening_stock']);
                     $mslvalue['production_stock']  = 0;
                     $mslvalue['current_stock']  = 0;
                     $mslvalue['asn_stock']  = 0;
                     $stockupload = $this->StockUploads->patchEntity($stockupload, $mslvalue);
                     if ($this->StockUploads->save($stockupload))
-                    { $response = ['status' => 1, 'data' => "Stock Upload Updated"]; }
-                    else { $response = ['status' => 0, 'data' => "Stock Upload Update Failed"]; }
+                    { $response = ['status' => 1, 'msg' => "Stock Upload Updated"]; }
+                    else { $response = ['status' => 0, 'msg' => "Stock Upload Update Failed"]; }
                 }
-                else { $response = ['status' => 0, 'data' => "Stock Upload Exist"]; }
+                else { $response = ['status' => 0, 'msg' => "Stock Upload Exist"]; }
             }
         }
         echo json_encode($response); exit();

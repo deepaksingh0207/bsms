@@ -77,7 +77,7 @@ $('#modal-sm').on('click', '.btn-success', function () {
 
 $('#addvendorform').validate({
   rules: {
-    name: { required: true },
+    name: { required: true, maxlength:200 },
     mobile: { required: true, number: true },
     email: { required: true },
     payment_term_id: { required: true },
@@ -89,7 +89,7 @@ $('#addvendorform').validate({
     vendor_type_id:{required:true}
   },
   messages: {
-    name: { required: "Please provide name" },
+    name: { required: "Please provide name"},
     mobile: { required: "Please provide mobile", number: "Please enter a valid number" },
     email: { required: "Please provide email" },
     payment_term_id: { required: "Please select payment_term" },

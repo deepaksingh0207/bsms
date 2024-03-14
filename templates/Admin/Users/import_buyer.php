@@ -12,16 +12,16 @@
 <div class="content admin-console">
   <div class="row">
     <div class="col-12 useradd ">
-      <div class="card" style="height: 88vh;">
+      <div class="card" >
         <div class="card-header">
-          <h5 class="mb-0">Create Buyer</h5>
+          CREATE BUYER
         </div>
 
 
         <?= $this->Form->create(null, ['id' => 'userForm']) ?>
         <div class="card-body">
           <div class="row">
-            <div class="col-4 mt-3">
+            <div class="col-4">
               <div class="form-group">
                 <?php
                       echo $this->Form->control('sap_user', ['label' => 'SAP User',

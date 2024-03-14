@@ -13,15 +13,23 @@
 <?= $this->Html->script('select2.js') ?>
 <div class="row">
     <div class="col-12">
-        <div class="card">
+        <div class="card mb-2">
             <div class="card-header">
                 <div class="row">
-                    <div class="col-sm-12 col-md-12 text-center">
+                    <div class="col-sm-12 col-md-12">
                         SECONDARY AGEING REPORT
                     </div>
                 </div>
             </div>
-            <div class="card-body">
+            
+            <hr class="m-0">
+            
+        </div>
+    </div>
+</div>
+<div class="card mb-2">
+    <div class="card-header">SEARCH</div>
+    <div class="card-body">
                 <?= $this->Form->create(null, ['id' => 'addvendorform']) ?>
                 <div class="row">
                     <div class="col-2">
@@ -106,8 +114,10 @@
                 </div>
                 <?= $this->Form->end() ?>
             </div>
-            <hr class="m-0">
-            <div class="card-body buyer_material">
+</div>
+
+<div class="card">
+<div class="card-body buyer_material">
                 <div class="card card-primary card-outline card-tabs">
                     <div class="card-header p-0 pt-1 border-bottom-0">
                         <ul class="nav nav-tabs" id="custom-tabs-three-tab" role="tablist">
@@ -115,6 +125,11 @@
                                 <a class="nav-link active" id="custom-tabs-three-home-tab" data-toggle="pill"
                                     href="#custom-tabs-three-home" role="tab" aria-controls="custom-tabs-three-home"
                                     aria-selected="true">SECONDARY AGEING REPORT</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="custom-tabs-three-home-tab" data-toggle="pill"
+                                    href="#custom-another-tabs-three-home" role="tab" aria-controls="custom-tabs-three-home"
+                                    aria-selected="true">ANOTHER AGEING REPORT</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" id="custom-tabs-three-profile-tab" data-toggle="pill"
@@ -129,6 +144,34 @@
                                 aria-labelledby="custom-tabs-three-home-tab">
                                 <div class="table-responsive">
                                     <table class="table table-hover table-striped table-bordered" id="example1"
+                                        style="font-size: smaller;">
+                                        <thead>
+                                            <tr>
+                                                <th>Actual Indent Date</th>
+                                                <th>Actual delivery date</th>
+                                                <th>PM TYPE</th>
+                                                <th>Segment</th>
+                                                <th>Material</th>
+                                                <th>Material Description</th>
+                                                <th>Pack Size</th>
+                                                <th>UOM</th>
+                                                <th>Indent Qty</th>
+                                                <th>Receipt</th>
+                                                <th>Pending</th>
+                                                <th>Vendor Name</th>
+                                                <th>No of Days</th>
+                                                <th>Aging Bucket</th>
+                                                <th>Status</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody></tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="tab-pane fade" id="custom-another-tabs-three-home" role="tabpanel"
+                                aria-labelledby="custom-another-tabs-three-home-tab">
+                                <div class="table-responsive">
+                                    <table class="table table-hover table-striped table-bordered" id="example3"
                                         style="font-size: smaller;">
                                         <thead>
                                             <tr>
@@ -174,8 +217,6 @@
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
 </div>
 
 

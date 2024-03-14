@@ -50,19 +50,79 @@
   </ul>
 </li>
 
-
-<!-- <li class="nav-item"> <?= $this->Html->link(__('<i class="fa fa-file-invoice  nav-icon"></i><p>RFQs</p>'), ['controller' => 'rfqs', 'action' => 'index'], ['class' => "nav-link $rfqactive", 'escape' => false]) ?> </li> -->
-
-<!-- <li class="nav-item">  <?= $this->Html->link(__('<i class="fa fa-file nav-icon"></i><p>Purchase Requisitions</p>'), ['controller' => 'purchase-requisitions', 'action' => 'index'], ['class' => "nav-link $prlickActive", 'escape' => false]) ?> </li> -->
-
 <li class="nav-item">
-  <?= $this->Html->link(__('<i class="fa fa-shopping-cart nav-icon"></i><p>Purchase Orders</p>'), ['controller' => '/purchase-orders', 'action' => 'view'], ['class' => "nav-link po_acknowledge $polickActive", 'escape' => false]) ?>
+  <a href="#" class="nav-link">
+    <i class="nav-icon fas fa-file-invoice-dollar"></i>
+    <p>
+      Purchase Orders
+      <i class="right fas fa-angle-left"></i>
+    </p>
+  </a>
+  <ul class="nav nav-treeview">
+    <li class="nav-item ">
+      <a href="<?= $this->Url->build('/') ?>buyer/purchase-orders" class="nav-link vendor_material">
+        <i class="nav-icon fas fa-file-code"></i>
+        <p>Report</p>
+      </a>
+    </li>
+    <li class="nav-item ">
+      <a href="<?= $this->Url->build('/') ?>buyer/purchase-orders/view" class="nav-link">
+        <i class="fa fa-solid fa-calendar nav-icon"></i>
+        <p>Create Schedule</p>
+      </a>
+    </li>
+  </ul>
 </li>
+
 
 <li class="nav-item">
   <?= $this->Html->link(__('<i class="fas fa-truck nav-icon"></i><p>Intransit ASN</p>'), ['controller' => 'delivery-details', 'action' => 'index'], ['class' => "nav-link $intrasactive", 'escape' => false]) ?>
 </li>
 
-<li class="nav-item ">
-      <?= $this->Html->link(__('<i class="fas fa-warehouse nav-icon"></i><p>Opening stock</p>'), ['controller' => '/stock-uploads', 'action' => 'index'], ['class' => "nav-link $stocksUpload", 'escape' => false]) ?>
-  </li>
+<li class="nav-item">
+  <a href="#" class="nav-link">
+    <i class="nav-icon fas fa-clone"></i>
+    <p>
+    Masters
+      <i class="right fas fa-angle-left"></i>
+    </p>
+  </a>
+  <ul class="nav nav-treeview">
+    <li class="nav-item ">
+      <a href="<?= $this->Url->build('/') ?>buyer/materials" class="nav-link vendor_material">
+        <i class="nav-icon fas fa-users"></i>
+        <p>MSL Stock</p>
+      </a>
+    </li>
+    <li class="nav-item ">
+      <a href="<?= $this->Url->build('/') ?>buyer/stock-uploads/" class="nav-link">
+        <i class="fa fa-solid fa-plus nav-icon"></i>
+        <p>Opening stock</p>
+      </a>
+    </li>
+  </ul>
+</li>
+
+<li class="nav-item">
+  <a href="#" class="nav-link">
+    <i class="nav-icon fas fa-paste"></i>
+    <p>
+      Reports
+      <i class="right fas fa-angle-left"></i>
+    </p>
+  </a>
+  <ul class="nav nav-treeview">
+    <li class="nav-item ">
+      <a href="<?= $this->Url->build('/') ?>buyer/purchase-orders/secondaryAgeingReport" class="nav-link vendor_material">
+        <i class="nav-icon fas fa-users"></i>
+        <p>Ageing Report</p>
+      </a>
+    </li>
+    <li class="nav-item ">
+      <a href="<?= $this->Url->build('/') ?>buyer/purchase-orders/productionplanVsActual" class="nav-link">
+        <i class="fa fa-solid fa-plus nav-icon"></i>
+        <p>PRD Plan / Actual</p>
+      </a>
+    </li>
+  </ul>
+</li>

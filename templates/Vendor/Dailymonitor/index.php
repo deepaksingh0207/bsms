@@ -16,11 +16,11 @@
 <?= $this->Html->script('select2.js') ?>
 <div class="row dailymonitor">
     <div class="col-12">
-        <div class="card">
+        <div class="card mb-2">
             <div class="card-header">
                 <div class="row align-items-center">
                     <div class="col-sm-6 col-lg-6 d-flex justify-content-start">
-                        <h5 class="mb-0"><b>Production Planner</b></h5>
+                        PRODUCTION PLANNER
                     </div>
                     <div class="col-sm-6 col-lg-6 d-flex justify-content-end add-monitor-btn">
                         <a href="<?= $this->Url->build('/') ?>vendor/dailymonitor/add"><button type="button"
@@ -69,7 +69,13 @@
                 </div>
                 <?= $this->Form->end() ?>
                 </div>
-                <div class="card-body">
+                
+            
+        </div>
+    </div>
+</div>
+<div class="card">
+<div class="card-body">
                     <div class="table-responsive">
                         <table class="table table-hover table-striped table-bordered" id="example1">
                             <thead>
@@ -91,9 +97,6 @@
                         </table>
                     </div>
                 </div>
-            
-        </div>
-    </div>
 </div>
 
 <script>

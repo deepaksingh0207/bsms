@@ -81,8 +81,7 @@ class ProductionLinesController extends VendorAppController
         $conn = ConnectionManager::get('default');
         $material = $conn->execute("SELECT production_lines.id, line_masters.name, materials.code, materials.description, CONCAT(production_lines.capacity, ' ', materials.uom) as capacity
         FROM production_lines
-        left join materials on materials.id = production_lines.material_id 
-            and materials.sap_vendor_code = production_lines.sap_vendor_code
+        left join materials on materials.id = production_lines.material_id
         left join line_masters on line_masters.id = production_lines.line_master_id 
             and line_masters.sap_vendor_code = production_lines.sap_vendor_code". $conditions);
         
@@ -289,7 +288,7 @@ class ProductionLinesController extends VendorAppController
         $response['status'] = 1;
         $response['data']['materials'] = $materials;
 
-        echo json_encode($response);
+        echo json_encode($response);exit();
     }
 
     public function upload()

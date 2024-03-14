@@ -52,7 +52,7 @@
   
                     <div class="col-sm-8 col-md-2 col-lg-2">
                         <div class="form-group">
-                            <?php echo $this->Form->control('capacity', array('type' => 'number', 'class' => 'form-control custom-required rounded-0 w-100', 'div' => 'form-group', 'label' => 'Capacity (Per Day)','required'=>false)); ?>
+                            <?php echo $this->Form->control('capacity', array('type' => 'text', 'class' => 'numberonly form-control custom-required rounded-0 w-100', 'div' => 'form-group', 'label' => 'Capacity (Per Day)','required'=>false)); ?>
                             <small class="text-danger error-message" style="display:none;">This field is required.</small>
                         </div>
                     </div>

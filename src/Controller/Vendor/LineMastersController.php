@@ -259,6 +259,6 @@ class LineMastersController extends VendorAppController
             $response['data']['materials'] = $materials;
         }
 
-        echo json_encode($response);
+        echo json_encode($response);exit();
     }
 }

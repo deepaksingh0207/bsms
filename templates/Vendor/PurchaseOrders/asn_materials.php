@@ -70,13 +70,13 @@
           <div class="col-sm-8  col-md-2">
             <div class="form-group">
             <?= $this->form->control('vendor_factory_id', ['id' => 'vendor_factory_id', 'label' => false, 'type' => 'hidden']) ?>
-              <?php echo $this->Form->control('vendor_factory_id', array( 'name' => '', 'class' => 'form-control rounded-0', 'maxlength'=>'20', 'div' => 'form-group', 'required', 'disabled', 'empty' => 'Please Select')); ?>
+              <?php echo $this->Form->control('vendor_factory_id', array( 'name' => '', 'class' => 'form-control rounded-0', 'maxlength'=>'15', 'div' => 'form-group', 'required', 'disabled', 'empty' => 'Please Select')); ?>
             </div>
           </div>
 
           <div class="col-sm-8  col-md-2">
             <div class="form-group">
-              <?php echo $this->Form->control('invoice_no', array('class' => 'form-control rounded-0', 'maxlength'=>'20', 'div' => 'form-group', 'required')); ?>
+              <?php echo $this->Form->control('invoice_no', array('class' => 'form-control rounded-0', 'maxlength'=>'15', 'div' => 'form-group', 'required')); ?>
             </div>
           </div>
 
@@ -88,24 +88,24 @@
 
           <div class="col-sm-8 col-md-2">
             <div class="form-group">
-              <?php echo $this->Form->control('invoice_value', array('id' => 'invoice_value', 'type' => 'number', 'class' => 'form-control rounded-0', 'div' => 'form-group', 'required', 'readonly')); ?>
+              <?php echo $this->Form->control('invoice_value', array('id' => 'invoice_value', 'type' => 'number', 'maxlength'=>'12', 'class' => 'form-control rounded-0', 'div' => 'form-group', 'required', 'readonly')); ?>
             </div>
           </div>
 
           <div class="col-sm-8 col-md-2">
             <div class="form-group">
-              <?php echo $this->Form->control('vehicle_no', array('class' => 'form-control rounded-0', 'div' => 'form-group', 'required')); ?>
+              <?php echo $this->Form->control('vehicle_no', array('class' => 'form-control rounded-0', 'maxlength'=>'12', 'div' => 'form-group', 'required')); ?>
             </div>
           </div>
           <div class="col-sm-8 col-md-2">
             <div class="form-group">
-              <?php echo $this->Form->control('driver_name', array('class' => 'form-control rounded-0','type' => 'text','div' => 'form-group', 'required')); ?>
+              <?php echo $this->Form->control('driver_name', array('class' => 'form-control rounded-0', 'maxlength'=>'15','type' => 'text','div' => 'form-group', 'required')); ?>
             </div>
           </div>
 
           <div class="col-sm-8 col-md-2">
             <div class="form-group">
-              <?php echo $this->Form->control('driver_contact', array('type' => 'tel', 'class' => 'form-control numberonly rounded-0', 'div' => 'form-group', 'required')); ?>
+              <?php echo $this->Form->control('driver_contact', array('type' => 'text', 'maxlength'=>'10', 'class' => 'form-control numberonly rounded-0', 'div' => 'form-group', 'required')); ?>
             </div>
           </div>
 
@@ -451,16 +451,28 @@
     //   return this.optional(element) || pattern.test(value);
     // }, "Please enter a valid vehicle number (e.g., MH02vd2626)");
 
-
-
     $("#asnForm").validate({
       rules: {
+        invoice_no: {
+          required: true,
+          maxlength: 15,
+          //pattern: /^\d{10}$/,
+        },
         vehicle_no: {
           required: true,
+          maxlength: 12,
           //validateVehicleNo: true
         },
         driver_name: {
           required: true,
+          maxlength: 15,
+        },
+        transporter_name: {
+          maxlength: 30,
+        },
+        invoice_date: {
+          required: true,
+          date: true,
         },
         driver_contact: {
           required: true,
@@ -468,6 +480,9 @@
           maxlength: 10,
           minlength: 10
           //pattern: /^\d{10}$/,
+        },
+        transporter_name : {
+          maxlength: 30,
         },
         invoices: {
           required: true
@@ -521,6 +536,8 @@
 
 
     $("#vehicle-no").on("keyup", function () {
+      var splpattern = /[^a-zA-Z0-9]/g;
+      $(this).val(($(this).val()).replace(splpattern, ''));
       const currentValue = $(this).val();
       const capitalizedValue = currentValue.slice(0, 2).toUpperCase() + currentValue.slice(2);
       $(this).val(capitalizedValue);
@@ -545,7 +562,29 @@
     $('#modal-confirm').on('click', '.btn-success', function () {
       if ($("#asnForm").valid()) { // Check form validation again before submitting
         $('#modal-confirm').modal('hide'); // Hide the modal
-        $('#asnForm')[0].submit(); // Submit the form
+        //$('#asnForm')[0].submit(); // Submit the form
+
+        var fd = new FormData($('#asnForm')[0]);
+
+        $.ajax({
+                type: "post",
+                dataType: 'json',
+                processData: false, // important
+                contentType: false, // important
+                url: "<?php echo \Cake\Routing\Router::url(array('controller' => '/purchase-orders', 'action' => 'save-asn', $poHeader[0]->id)); ?>",
+                data: fd,
+                beforeSend: function () { $("#gif_loader").show(); },
+                success: function (response) {
+                    console.log(response);
+                    if (response.status) {
+                      Toast.fire({ icon: "success", title: response.message, allowHtml: true});
+                      location.href = '<?php echo \Cake\Routing\Router::url(array('controller' => '/asn', 'action' => 'index')); ?>';
+                    } else {
+                         Toast.fire({ icon: "error", title: response.message,allowHtml: true});
+                    }
+                },
+                complete: function () { $("#gif_loader").hide(); }
+            });
       }
     });
     $.validator.addMethod('checkQty', function (value, element) {

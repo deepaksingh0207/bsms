@@ -20,14 +20,25 @@
 <?= $this->Html->script('select2.js') ?>
 <div class="row">
     <div class="col-12">
-        <div class="card">
-            <div class="card-header"><div class="row"><div class="col-sm-12 col-md-12 text-center">VENDOR MATERIALS</div></div></div>
-            <div class="card-body">
+        <div class="card mb-2">
+            <div class="card-header"><div class="row align-items-center"><div class="col-sm-12 col-md-10 col-lg-10">VENDOR MATERIALS</div><div class="col-lg-2"><a href="<?= $this->Url->build('/') ?>buyer/materials/add" id="continueSub"
+                            class="btn mb-0 continue_btn float-right">Add Material</a></div></div></div>
+            
+            <hr class="m-0">
+            
+        </div>
+    </div>
+</div>
+<div class="card mb-2">
+    <div class="card-header">
+        SEARCH VENDOR MATERIALS
+    </div>
+    <div class="card-body">
                 <?= $this->Form->create(null, ['id' => 'addvendorform']) ?>
                 <div class="row">
                     <div class="col-3">
                         <label for="id_vendor">Vendor</label><br>
-                        <select name="vendor[]" id="id_vendor" class="chosen" multiple="multiple" style="width: 100%;">
+                        <select name="vendor[]" id="id_vendor" maxlength="10" class="chosen" multiple="multiple" style="width: 100%;">
                             <?php if (isset($vendor)) : ?>
                             <?php foreach ($vendor as $mat) : ?>
                             <option value="<?= h($mat->sap_vendor_code) ?>" data-select="<?= h($mat->sap_vendor_code) ?>">
@@ -42,7 +53,7 @@
                         <select name="material[]" id="id_material" multiple="multiple" class="form-control chosen">
                             <?php if (isset($materials)) : ?>
                             <?php foreach ($materials as $mat) : ?>
-                            <option value="<?= h($mat->id) ?>" data-select="<?= h($mat->code) ?>">
+                            <option value="<?= h($mat->code) ?>" data-select="<?= h($mat->code) ?>">
                                 <?= h($mat->code) ?> -
                                 <?= h($mat->description) ?>
                             </option>
@@ -74,14 +85,14 @@
                     </div>
                     <div class="col-2 mt-4 pt-2">
                         <button class="btn bg-gradient-button" type="submit" id="id_sub">Search</button>
-                        <a href="<?= $this->Url->build('/') ?>buyer/materials/add" id="continueSub"
-                            class="btn mb-0 continue_btn float-right">Add Material</a>
+                        
                     </div>
                 </div>
                 <?= $this->Form->end() ?>
             </div>
-            <hr class="m-0">
-            <div class="card-body buyer_material">
+</div>
+<div class="card">
+<div class="card-body buyer_material">
                 <div class="table-responsive">
                     <table class="table table-hover table-striped table-bordered" id="example1">
                         <thead>
@@ -101,8 +112,6 @@
                     </table>
                 </div>
             </div>
-        </div>
-    </div>
 </div>
 
 <script>

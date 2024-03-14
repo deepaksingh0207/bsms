@@ -23,12 +23,21 @@
 <?= $this->Html->css('dropdown-filter') ?>
 <?= $this->Html->script('bootstrap-multiselect') ?>
 <?= $this->Html->script('FilterMultiSelect') ?>
-<div class="card">
-    <div class="card-header text-center">PURCHASE ORDER TRACKING REPORT</div>
+<div class="card mb-2">
+    <div class="card-header">PURCHASE ORDER TRACKING REPORT</div>
+    
+
+    
+</div>
+
+<div class="card mb-2">
+    <div class="card-header">
+        SEARCH
+    </div>
     <div class="card-body search-filter">
         <?= $this->Form->create(null, ['id' => 'addvendorform']) ?>
         <div class="row">
-            <div class="col-4">
+            <div class="col-2">
                 <label for="id_po_no">PO No</label><br>
                 <select name="po_no[]" id="id_po_no" multiple="multiple" class="form-control chosen">
                     <?php if (isset($poList)) : ?>
@@ -40,7 +49,7 @@
                     <?php endif; ?>
                 </select>
             </div>
-            <div class="col-4">
+            <div class="col-3">
                 <label for="id_vendor">Vendor</label><br>
                 <select name="vendor[]" id="id_vendor" class="chosen" multiple="multiple" style="width: 100%;">
                     <?php if (isset($vendorList)) : ?>
@@ -53,7 +62,7 @@
                     <?php endif; ?>
                 </select>
             </div>
-            <div class="col-4">
+            <div class="col-3">
                 <label for="id_material">Material</label><br>
                 <select name="material[]" id="id_material" multiple="multiple" class="form-control chosen">
                     <?php if (isset($materialList)) : ?>
@@ -66,11 +75,11 @@
                     <?php endif; ?>
                 </select>
             </div>
-            <div class="col-2 mt-2">
+            <div class="col-2">
                 <label for="id_po_no">PO Date</label><br>
                 <input class="form-control" type="date" name="po_no_date" id="id_po_no_date">
             </div>
-            <div class="col-2 mt-2">
+            <div class="col-2">
                 <label for="id_dd">Delivery Date</label><br>
                 <input class="form-control" type="date" name="delivery_date" id="id_dd">
             </div>
@@ -114,8 +123,9 @@
         </div>
         <?= $this->Form->end() ?>
     </div>
-
-    <div class="card-body buyer_material">
+</div>
+<div class="card">
+<div class="card-body buyer_material">
         <table class="table table-hover table-responsive" id="example1">
             <thead>
                 <tr>

@@ -35,7 +35,7 @@ class MaterialsController extends BuyerAppController
         $this->loadModel("VendorTemps");
         $this->loadModel('VendorTypes');
         $this->loadModel('Materials');
-        $materials = $this->Materials->find('all')->toArray();
+        $materials = $this->Materials->find('all')->select(['code', 'description'])->distinct(['code'])->toArray();
         $segment = $this->Materials->find('all')->select(['segment'])->distinct(['segment'])->where(['segment IS NOT NULL' ])->toArray();
         $vendor = $this->VendorTemps->find('all')->select(['sap_vendor_code', 'name'])->distinct(['sap_vendor_code'])->where(['sap_vendor_code IS NOT NULL' ])->toArray();
         $vendortype = $this->Materials->find('all')->distinct(['type'])->where(['type IS NOT NULL' ])->toArray();
@@ -118,8 +118,8 @@ class MaterialsController extends BuyerAppController
                 $search = '';
                 foreach ($request['material'] as $mat) { $search .= "'" . $mat . "',"; }
                 $search = rtrim($search, ',');
-                if(!isset($request['vendor'])){ $conditions .= " and materials.id in (".$search.")"; }
-                else{ $conditions .= " and materials.id in (".$search.")"; }
+                if(!isset($request['vendor'])){ $conditions .= " and materials.code in (".$search.")"; }
+                else{ $conditions .= " and materials.code in (".$search.")"; }
             }
             if(isset($request['vendortype'])) {
                 $search = '';

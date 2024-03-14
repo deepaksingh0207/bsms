@@ -80,6 +80,22 @@ class AsnController extends BuyerAppController
     public function view($id = null)
     {
         $this->loadModel('AsnHeaders');
+        if ($this->request->is(['patch', 'post', 'put'])) {
+            $this->autoRender = false;
+            $response['status'] = 0;
+            $response['message'] = 'Fail to update record';
+            // echo '<pre>'; print_r($this->request->getData()); exit; 
+            $asntoupdate = $this->AsnHeaders->get($id);
+            $asntoupdate = $this->AsnHeaders->patchEntity($asntoupdate, $this->request->getData());
+            if ($this->AsnHeaders->save($asntoupdate)) {
+                $response['status'] = 1;
+                $response['message'] = 'Successfully Updated';
+                //$flash = ['type'=>'success', 'msg'=>'Successfully Updated'];
+                //$this->set('flash', $flash);
+
+                echo json_encode($response); exit;
+            }
+        }
 
         $deliveryDetails = $this->AsnHeaders->find('all')
             ->select(['AsnHeaders.id', 'AsnHeaders.asn_no', 'AsnHeaders.invoice_path', 'AsnHeaders.invoice_no', 'AsnHeaders.invoice_date', 'AsnHeaders.invoice_value', 'AsnHeaders.vehicle_no', 'AsnHeaders.driver_name', 'AsnHeaders.driver_contact', 'AsnHeaders.status', 'AsnHeaders.gateout_date', 'AsnHeaders.added_date', 'PoHeaders.po_no', 'PoFooters.item', 'PoFooters.material', 'PoFooters.order_unit', 'AsnFooters.qty', 'PoItemSchedules.actual_qty', 'PoItemSchedules.delivery_date'])

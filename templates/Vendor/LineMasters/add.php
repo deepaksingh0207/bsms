@@ -7,10 +7,15 @@
 ?>
 <?= $this->Html->css('v_index.css') ?>
 <?= $this->Html->css('custom_table') ?>
-<?= $this->Html->css('v_linemasters_add') ?>
+<?= $this->Html->css('v_linemasters_add') ?>'
+<style>
+    label.error{
+        color: red !important;
+    }
+</style>
 <div class="row">
     <div class="col-12">
-        <?= $this->Form->create($lineMaster) ?>
+        <?= $this->Form->create($lineMaster, ['id' => 'linemasterform']) ?>
         <div class="card">
             <div class="card-header">
                 <h5><b>Line Master</b></h5>
@@ -21,19 +26,19 @@
                         <?php echo $this->Form->control('vendor_factory_id', array('class' => 'form-control w-100', 'options' => $factory, 'empty' => 'Please Select', 'label' => 'Factories')); ?>
                     </div>
                     <div class="col-sm-12 col-md-3 col-lg-3">
-                        <?php echo $this->Form->control('name', ['class' => 'form-control', 'label' => 'Line Name']); ?>
+                        <?php echo $this->Form->control('name', ['class' => 'form-control', 'maxlength'=>'20', 'label' => 'Line Name']); ?>
                     </div>
                     <div class="col-sm-12 col-md-3 col-lg-2">
-                        <?php echo $this->Form->control('capacity', ['class' => 'form-control']); ?>
+                        <?php echo $this->Form->control('capacity', ['type'=>'text', 'class' => 'form-control numberonly', 'maxlength'=>'10']); ?>
                     </div>
                     <div class="col-sm-12 col-md-3 col-lg-2">
-                        <?php echo $this->Form->control('uom', array('class' => 'form-control w-100', 'options' => $uom, 'empty' => 'Please Select', 'label' => 'Unit Of Measurement')); ?>
+                        <?php echo $this->Form->control('uom', array('class' => 'form-control w-100', 'options' => $uom, 'empty' => 'Please Select', 'maxlength'=>'3', 'label' => 'Unit Of Measurement')); ?>
                         <?php echo $this->Form->control('status', ['value' => 1, 'style' => 'visibility: hidden; position: absolute;', 'label' => false]); ?>
                     </div>
                     <div class="pl-1 pr-1 mt-4 pt-2">
-                        <?= $this->Form->button(__('Submit'), ['class' => 'btn bg-gradient-submit']) ?>
+                        <?= $this->Form->button(__('Submit'), ['type'=> 'submit', 'class' => 'btn bg-gradient-submit']) ?>
                     </div>
-                    <div class="mt-4 pt-2">
+                    <div class="mt-4 pt-2" style="display:none;">
                         <?= $this->Html->link(__('Cancel'), ['action' => 'index'], ['class' => 'btn bg-gradient-cancel ml-1']) ?>
                     </div>
                 </div>
@@ -99,6 +104,26 @@
         var fileName = file ? file.name : '';
 
         $('#OpenImgUpload').text(fileName ?  fileName : 'Choose File');
+    });
+
+    $("#linemasterform").validate({
+        // Specify validation rules
+        rules: {
+            vendor_factory_id: "required",
+            name: "required",
+            capacity: "required",
+            uom: "required",
+        },
+        // Specify validation error messages
+        messages: {
+            vendor_factory_id: "Please select factories",
+            name: "Please enter line Items",
+            capacity: "Please enter capacity",
+            uom: "Please select UOM"
+        },
+        submitHandler: function (form) {
+            form.submit()
+        }
     });
 
     $("#id_exportme").click(function() {

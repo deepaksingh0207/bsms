@@ -132,7 +132,6 @@ class ApiController extends ApiAppController
                     left join po_headers on po_headers.created_user = buyers.sap_user
                     where po_headers.id=".$the_po->id);
                     $response = $query->fetchAll('assoc');
-                    if($this->Users->find()->select('status')->where(['username' => $data['email']])->first()['status'] == 1){
                     $mailer = new Mailer('default');
                     $mailer
                         ->setTransport('smtp')
@@ -152,7 +151,6 @@ class ApiController extends ApiAppController
                         ->viewBuilder()
                         ->setTemplate('purchase_order');
                     $mailer->deliver();
-                    }
 
                 }
             } catch (\PDOException $e) {

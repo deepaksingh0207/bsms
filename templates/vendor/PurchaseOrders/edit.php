@@ -26,7 +26,7 @@
             <fieldset>
                 <legend><?= __('Edit Po Header') ?></legend>
                 <?php
-                    echo $this->Form->control('sap_vendor_code');
+                    echo $this->Form->control('sap_vendor_code', array('maxlength'=>'10'));
                     echo $this->Form->control('po_no');
                     echo $this->Form->control('document_type');
                     echo $this->Form->control('created_on');

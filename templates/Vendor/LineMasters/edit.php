@@ -36,7 +36,7 @@
                     </div>
                     <div class="col-sm-12 col-md-3 col-lg-3">
                         <?php
-                    echo $this->Form->control('sap_vendor_code', ['class'=> 'form-control', 'style' => 'visibility: hidden; position: absolute;','label' => false]);
+                    echo $this->Form->control('sap_vendor_code', ['class'=> 'form-control', 'maxlength'=>'10', 'style' => 'visibility: hidden; position: absolute;','label' => false]);
                 ?>
                     </div>
                     <div class="col-sm-12 col-md-3 col-lg-3">

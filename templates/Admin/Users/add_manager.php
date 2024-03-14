@@ -12,16 +12,16 @@
 <div class="content admin-console">
   <div class="row">
     <div class="col-12 useradd ">
-      <div class="card" style="height: 88vh;">
+      <div class="card">
         <div class="card-header">
-          <h5 class="mb-0">Add Manager</h5>
+          ADD MANAGER
         </div>
 
 
         <?= $this->Form->create(null, ['id' => 'userForm']) ?>
         <div class="card-body">
           <div class="row">
-            <div class="col-lg-4 mt-3">
+            <div class="col-lg-4">
               <label for="mobileno">Role</label>
               <select class="custom-select" id="myCustomSelect" name="group_id" required>
                 <!-- <option disabled selected>Please Select</option>
@@ -29,7 +29,7 @@
                 <option value="4" selected>Manager</option>
               </select>
             </div>
-            <div class="col-lg-4 mt-3">
+            <div class="col-lg-4 ">
               <div class="form-group">
                 <?php
                       echo $this->Form->control('first_name', [
@@ -39,7 +39,7 @@
                       ?>
               </div>
             </div>
-            <div class="col-lg-4 mt-3">
+            <div class="col-lg-4 ">
               <div class="form-group">
                 <?php
                       echo $this->Form->control('last_name', [
@@ -49,22 +49,23 @@
                       ?>
               </div>
             </div>
-            <div class="col-lg-4 mt-3">
+            <div class="col-lg-4 ">
               <div class="form-group">
                 <?php echo $this->Form->control('email', array('class' => 'form-control rounded-0', 'placeholder' => 'please enter email id', 'required')); ?>
               </div>
             </div>
 
 
-            <div class="col-lg-4 mt-3">
+            <div class="col-lg-4 ">
               <div class="form-group">
                 <?php echo $this->Form->control('mobile', array('class' => 'form-control tel numberonly', 'minlength' => '10', 'maxlength' => '10', 'pattern' => '[9,8,7,6]{1}[0-9]{9}', 'type' => 'tel', 'placeholder' => 'please enter mobile number')); ?>
               </div>
             </div>
-          </div>
-          <div>
+            <div class="col-lg-1 mt-3 pt-3">
             <button type="submit" class="submit_btn btn btn-primary">Submit</button>
           </div>
+          </div>
+          
         </div>
         <?= $this->Form->end() ?>
       </div>

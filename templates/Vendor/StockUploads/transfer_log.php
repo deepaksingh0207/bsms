@@ -5,7 +5,7 @@
 <?= $this->Html->script('select2.js') ?>
 <div class="row">
     <div class="col-lg-12">
-        <div class="card">
+        <div class="card mb-2">
             <div class="card-header">TRANSFER LOG</div>
             <div class="card-body">
                 <?= $this->Form->create(null, ['id' => 'addvendorform']) ?>
@@ -36,7 +36,12 @@
                 </div>
                 <?= $this->Form->end() ?>
             </div>
-            <div class="card-body">
+            
+        </div>
+    </div>
+</div>
+<div class="card">
+<div class="card-body">
                 <div class="table-responsive">
                     <table class="table table-hover table-striped table-bordered" id="example1">
                         <thead>
@@ -52,8 +57,6 @@
                     </table>
                 </div>
             </div>
-        </div>
-    </div>
 </div>
 
 <script>

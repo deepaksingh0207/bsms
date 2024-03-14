@@ -192,7 +192,6 @@ class DashboardController extends AdminAppController
                     if ($this->Users->save($user)) {
                         
                         $visit_url = Router::url(['prefix' => false, 'controller' => 'users', 'action' => 'login', '_full' => true, 'escape' => true]);
-                        if($this->Users->find()->select('status')->where(['username' => $data['username']])->first()['status'] == 1){
                         $mailer = new Mailer('default');
                         $mailer
                             ->setTransport('smtp')
@@ -204,8 +203,6 @@ class DashboardController extends AdminAppController
                             ->viewBuilder()
                                 ->setTemplate('onboarding');
                         $mailer->deliver();
-                        }
-
 
                         $response['status'] = '1';
                         $response['message'] = 'User Added successfully';

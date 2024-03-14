@@ -135,12 +135,12 @@
                                 <div class="row">
                                     <div class="col-sm-12 col-md-3 mb-3 required">
                                         <label for="id_vendor_temps_address">Address</label>
-                                        <input required="required" type="text" class="form-control"
+                                        <input required="required" type="text" maxlength="255" class="form-control"
                                             name="temps[address]" id="id_vendor_temps_address">
                                     </div>
                                     <div class="col-sm-12 col-md-3 mb-3 required">
                                         <label for="id_vendor_temps_address_2">Address 1</label>
-                                        <input required="required" type="text" class="form-control"
+                                        <input required="required" type="text" class="form-control" maxlength="100"
                                             name="temps[address_2]" id="id_vendor_temps_address_2">
                                     </div>
                                     <div class="col-sm-12 col-md-3 mb-3 required">
@@ -151,7 +151,7 @@
                                     </div>
                                     <div class="col-sm-12 col-md-3 mb-3 required">
                                         <label for="id_vendor_temps_city">City</label>
-                                        <input required="required" type="text" class="form-control alphaonly capitalize"
+                                        <input required="required" type="text" maxlength="50" class="form-control alphaonly capitalize"
                                             name="temps[city]" id="id_vendor_temps_city">
                                     </div>
                                     <div class="col-sm-12 col-md-3 mb-3 required">
@@ -197,13 +197,13 @@
                                     <div class="col-sm-12 col-md-3 mb-3 required">
                                         <label for="id_vendor_registered_offices_address">Address</label>
                                         <input required="required" type="text" class="form-control"
-                                            name="registered_offices[address]"
+                                            name="registered_offices[address]" maxlength="250"
                                             id="id_vendor_registered_offices_address">
                                     </div>
                                     <div class="col-sm-12 col-md-3 mb-3 required">
                                         <label for="id_vendor_registered_offices_address_2">Address 1</label>
                                         <input required="required" type="text" class="form-control"
-                                            name="registered_offices[address_2]"
+                                            name="registered_offices[address_2]" maxlength="250"
                                             id="id_vendor_registered_offices_address_2">
                                     </div>
                                     <div class="col-sm-12 col-md-3 mb-3 required">
@@ -215,7 +215,7 @@
                                     <div class="col-sm-12 col-md-3 mb-3 required">
                                         <label for="id_vendor_registered_offices_city">City</label>
                                         <input required="required" type="text" class="form-control alphaonly capitalize"
-                                            name="registered_offices[city]" id="id_vendor_registered_offices_city">
+                                            name="registered_offices[city]" maxlength="200" id="id_vendor_registered_offices_city">
                                     </div>
                                     <div class="col-sm-12 col-md-3 mb-3 required">
                                         <?php echo $this->Form->control('registered_offices[country]', ['data-state' =>'id_vendor_registered_offices_state', 'class' => 'selectpicker show-menu-arrow form-control my-select1 country_code_option', 'options' => $countries, 'empty' => 'Select Country', 'label' => 'Country', 'data-live-search' => 'true', 'title' => 'Select Country', 'id' => 'id_vendor_registered_offices_country']); ?>
@@ -225,8 +225,8 @@
                                     </div>
                                     <div class="col-sm-12 col-md-3 mb-3">
                                         <label for="id_vendor_registered_offices_telephone">Telephone</label>
-                                        <input type="number"
-                                            class="form-control maxlength_validation"
+                                        <input type="text"
+                                            class="form-control numberonly maxlength_validation"
                                             name="registered_offices[telephone]"
                                             id="id_vendor_registered_offices_telephone" minlength="10" maxlength="14">
                                     </div>
@@ -263,26 +263,26 @@
                                         <div class="row">
                                             <div class="col-sm-12 col-md-3 mb-3 required">
                                                 <label for="id_vendor_branch_offices_address">Address</label>
-                                                <input required="required" type="text" class="form-control"
+                                                <input required="required" maxlength="45" type="text" class="form-control"
                                                     name="branch_offices[0][address]"
                                                     id="id_vendor_branch_offices_0_address">
                                             </div>
                                             <div class="col-sm-12 col-md-3 mb-3 required">
                                                 <label for="id_vendor_branch_offices_address_2">Address 1</label>
-                                                <input required="required" type="text" class="form-control"
+                                                <input required="required" maxlength="45" type="text" class="form-control"
                                                     name="branch_offices[0][address_2]"
                                                     id="id_vendor_branch_offices_0_address_2">
                                             </div>
                                             <div class="col-sm-12 col-md-3 mb-3 required">
                                                 <label for="id_vendor_branch_offices_pincode">Pincode</label>
-                                                <input required="required" type="number"
+                                                <input required="required" maxlength="6" type="number"
                                                     class="form-control maxlength_validation"
                                                     name="branch_offices[0][pincode]" maxlength="6"
                                                     id="id_vendor_branch_offices_0_pincode">
                                             </div>
                                             <div class="col-sm-12 col-md-3 mb-3 required">
                                                 <label for="id_vendor_branch_offices_city">City</label>
-                                                <input required="required" type="text"
+                                                <input required="required" maxlength="45" type="text"
                                                     class="form-control alphaonly capitalize"
                                                     name="branch_offices[0][city]" id="id_vendor_branch_offices_0_city">
                                             </div>
@@ -296,15 +296,15 @@
                                             </div>
                                             <div class="col-sm-12 col-md-3 mb-3 required">
                                                 <label for="id_vendor_branch_offices_state">State</label>
-                                                <select class="form-control" name="branch_offices[0][state]"
+                                                <select class="form-control" maxlength="45" name="branch_offices[0][state]"
                                                     id="id_vendor_branch_offices_0_state">
                                                     <option>Please Select</option>
                                                 </select>
                                             </div>
                                             <div class="col-sm-12 col-md-3 mb-3 required">
                                                 <label for="id_vendor_branch_offices_telephone">Telephone</label>
-                                                <input required="required" type="number"
-                                                    class="form-control maxlength_validation"
+                                                <input required="required" type="text" 
+                                                    class="form-control numberonly maxlength_validation"
                                                     name="branch_offices[0][telephone]"
                                                     id="id_vendor_branch_offices_0_telephone" maxlength="10">
                                             </div>
@@ -313,7 +313,7 @@
                                             <div class="col-sm-12 col-md-3 mb-3 required">
                                                 <label for="id_vendor_branch_offices_registration_year"> Year of
                                                     Registration</label>
-                                                <input required="required" type="number"
+                                                <input required="required" type="number" max="9999" 
                                                     class="form-control maxlength_validation"
                                                     name="branch_offices[0][registration_year]"
                                                     id="id_vendor_branch_offices_0_registration_year" maxlength="4">
@@ -321,7 +321,7 @@
                                             <div class="col-sm-12 col-md-3 mb-3 required">
                                                 <label for="id_vendor_branch_offices_registration_no">Registration
                                                     No</label>
-                                                <input required="required" type="text" class="form-control"
+                                                <input required="required" type="text" maxlength="15" class="form-control"
                                                     name="branch_offices[0][registration_no]"
                                                     id="id_vendor_branch_offices_0_registration_no">
                                             </div>
@@ -364,7 +364,7 @@
                                             Registration No
                                         </label>
                                         <input required="required" type="text" class="form-control"
-                                            name="small_scale[registration_no]"
+                                            name="small_scale[registration_no]" maxlength="45"
                                             id="id_vendor_small_scales_registration_no">
                                     </div>
                                     <div class="col-sm-12 col-md-4 mb-3 required">
@@ -405,7 +405,7 @@
                                     <div class="col-sm-12 col-md-4 mb-3" required="required">
                                         <label for="">Laboratory facilities available</label><br>
                                         <input required="required" class="id_vendor_facilities_lab_facility"
-                                            type="radio" name="facilities[lab_facility]"
+                                            type="radio" name="facilities[lab_facility]" 
                                             id="id_vendor_facilities_lab_facility_yes" value="yes">
                                         &nbsp;Yes&nbsp;&nbsp;
                                         <input required="required" class="id_vendor_facilities_lab_facility"
@@ -515,7 +515,7 @@
                                         <label for="id_vendor_turnovers_first_year" class="first_year"></label>
                                         <input required="required" type="hidden" name="turnovers[first_year]"
                                             id="id_vendor_turnovers_first_year">
-                                        <input required="required" type="text" class="form-control"
+                                        <input required="required" type="text" class="form-control numberonly"
                                             name="turnovers[first_year_turnover]"
                                             id="id_vendor_turnovers_first_year_turnover">
                                     </div>
@@ -523,7 +523,7 @@
                                         <label for="id_vendor_turnovers_second_year" class="second_year"></label>
                                         <input required="required" type="hidden" name="turnovers[second_year]"
                                             id="id_vendor_turnovers_second_year">
-                                        <input required="required" type="text" class="form-control"
+                                        <input required="required" type="text" class="form-control numberonly"
                                             name="turnovers[second_year_turnover]"
                                             id="id_vendor_turnovers_second_year_turnover">
                                     </div>
@@ -531,7 +531,7 @@
                                         <label for="id_vendor_turnovers_third_year" class="third_year"></label>
                                         <input required="required" type="hidden" name="turnovers[third_year]"
                                             id="id_vendor_turnovers_third_year">
-                                        <input required="required" type="text" class="form-control"
+                                        <input required="required" type="text" class="form-control numberonly"
                                             name="turnovers[third_year_turnover]"
                                             id="id_vendor_turnovers_third_year_turnover">
                                     </div>
@@ -612,12 +612,12 @@
                                                     class="vendor_factories vendor_temp_id"
                                                     value="<?= h($vendorTemp->id) ?>">
                                                 <label for="id_vendor_factories_0_address">Address</label>
-                                                <input required="required" type="text" class="form-control"
+                                                <input required="required" type="text" maxlength="255" class="form-control"
                                                     name="factories[0][address]" id="id_vendor_factories_0_address">
                                             </div>
                                             <div class="col-sm-12 col-md-3 mb-3 required">
                                                 <label for="id_vendor_factories_0_address_2">Address 1</label>
-                                                <input required="required" type="text" class="form-control"
+                                                <input required="required" type="text" maxlength="100" class="form-control"
                                                     name="factories[0][address_2]" id="id_vendor_factories_0_address_2">
                                             </div>
                                             <div class="col-sm-12 col-md-3 mb-3 required">
@@ -629,7 +629,7 @@
                                             </div>
                                             <div class="col-sm-12 col-md-3 mb-3 required">
                                                 <label for="id_vendor_factories_0_city">City</label>
-                                                <input required="required" type="text"
+                                                <input required="required" type="text" maxlength="50"
                                                     class="form-control alphaonly capitalize" name="factories[0][city]"
                                                     id="id_vendor_factories_0_city">
                                             </div>
@@ -661,7 +661,7 @@
                                                     <div class="col-sm-12 col-md-6 col-lg-6">
                                                         <input required="required" type="text" class="form-control"
                                                             required="true" name="factories[0][installed_capacity]"
-                                                            placeholder="Installed Capacity"
+                                                            placeholder="Installed Capacity" maxlength="45"
                                                             id="id_vendor_factories_0_installed_capacity">
                                                     </div>
                                                     <div class="col-sm-12 col-md-6 col-lg-6">
@@ -685,7 +685,7 @@
                                                     </div>
                                                     <div class="col-sm-12 col-md-6 col-lg-6">
                                                         <input required="required" type="text" class="form-control"
-                                                            name="factories[0][power_available]"
+                                                            name="factories[0][power_available]" maxlength="45"
                                                             placeholder="Power Consumption" required="true"
                                                             id="id_vendor_factories_0_power_available">
                                                     </div>
@@ -710,7 +710,7 @@
                                                     </div>
                                                     <div class="col-sm-12 col-md-6 col-lg-6">
                                                         <input required="required" type="text" class="form-control"
-                                                            name="factories[0][machinery_available]"
+                                                            name="factories[0][machinery_available]" maxlength="45"
                                                             placeholder="Machinery Available" required="true"
                                                             id="id_vendor_factories_0_machinery_available">
                                                     </div>
@@ -737,7 +737,7 @@
                                                     </div>
                                                     <div class="col-sm-12 col-md-6 col-lg-6">
                                                         <input required="required" type="text" class="form-control"
-                                                            name="factories[0][raw_material]"
+                                                            name="factories[0][raw_material]" maxlength="45"
                                                             placeholder="Raw Material Avi. and Source" required="true"
                                                             id="id_vendor_factories_0_raw_material">
                                                     </div>
@@ -770,7 +770,7 @@
                                             <div class="card-body" id="id_vendor_commencements_0_body">
                                                 <div class="row" id="vc_killme00">
                                                     <div class="col-sm-12 col-md-4 col-lg-4 required mb-3">
-                                                        <input required="required" type="hidden"
+                                                        <input required="required" type="hidden" maxlength="45"
                                                             name="factories[0][commencements][0][id]"
                                                             id="id_vendor_factories_0_commencement_0_id">
                                                         <input required="required" type="hidden"
@@ -794,7 +794,7 @@
                                                         <input required="required" type="text" class="form-control"
                                                             name="factories[0][commencements][0][commencement_material]"
                                                             id="id_vendor_factories_0_commencement_0_commencement_material"
-                                                            placeholder="Material" required="true">
+                                                            placeholder="Material" required="true" maxlength="45">
                                                     </div>
                                                     <div class="col-sm-12 col-md-2 col-lg-2 required mb-3">
                                                         <label id="id_vendor_factories_0_commencement_0_first_year"
@@ -869,27 +869,27 @@
                                 <div class="row">
                                     <div class="col-lg-4">
                                         <label for="id_contact_name">Full Name</label>
-                                        <input required="required" type="text" class="form-control"
+                                        <input required="required" type="text" class="form-control" maxlength="50"
                                             name="temps[contact_person]" id="id_vendor_temps_contact_person">
                                     </div>
                                     <div class="col-lg-4">
                                         <label for="id_contact_name">Email</label>
-                                        <input required="required" type="text" class="form-control"
+                                        <input required="required" type="text" class="form-control" maxlength="50"
                                             name="temps[contact_email]" id="id_vendor_temps_contact_email">
                                     </div>
                                     <div class="col-lg-4">
                                         <label for="id_contact_name">Mobile</label>
-                                        <input required="required" type="text" class="form-control"
+                                        <input required="required" type="text" class="form-control" maxlength="12"
                                             name="temps[contact_mobile]" id="id_vendor_temps_contact_mobile">
                                     </div>
                                     <div class="col-lg-4">
                                         <label for="id_contact_name">Department</label>
-                                        <input required="required" type="text" class="form-control"
+                                        <input required="required" type="text" class="form-control" maxlength="50"
                                             name="temps[contact_department]" id="id_vendor_temps_contact_department">
                                     </div>
                                     <div class="col-lg-4">
                                         <label for="id_contact_name">Designation</label>
-                                        <input required="required" type="text" class="form-control"
+                                        <input required="required" type="text" class="form-control" maxlength="50"
                                             name="temps[contact_designation]" id="id_vendor_temps_contact_designation">
                                     </div>
                                 </div>
@@ -942,19 +942,19 @@
                                             <div class="col-sm-12 col-md-12 mb-3 required">
                                                 <label for="id_vendor_partner_address_0_name">Name</label>
                                                 <input required="required" type="text" class="form-control"
-                                                    name="partner_address[0][name]"
+                                                    name="partner_address[0][name]" maxlength="45"
                                                     id="id_vendor_partner_address_0_name">
                                             </div>
                                             <div class="col-sm-12 col-md-3 mb-3 required">
                                                 <label for="id_vendor_partner_address_0_address">Address</label>
                                                 <input required="required" type="text" class="form-control"
-                                                    name="partner_address[0][address]"
+                                                    name="partner_address[0][address]" maxlength="250"
                                                     id="id_vendor_partner_address_0_address">
                                             </div>
                                             <div class="col-sm-12 col-md-3 mb-3 required">
                                                 <label for="id_vendor_partner_address_0_address_2">Address 1</label>
                                                 <input required="required" type="text" class="form-control"
-                                                    name="partner_address[0][address_2]"
+                                                    name="partner_address[0][address_2]" maxlength="250"
                                                     id="id_vendor_partner_address_0_address_2">
                                             </div>
                                             <div class="col-sm-12 col-md-3 mb-3 required">
@@ -966,7 +966,7 @@
                                             </div>
                                             <div class="col-sm-12 col-md-3 mb-3 required">
                                                 <label for="id_vendor_partner_address_0_city">City</label>
-                                                <input required="required" type="text"
+                                                <input required="required" type="text" maxlength="250"
                                                     class="form-control alphaonly capitalize"
                                                     name="partner_address[0][city]"
                                                     id="id_vendor_partner_address_0_city">
@@ -984,7 +984,7 @@
                                             </div>
                                             <div class="col-sm-12 col-md-3 mb-3">
                                                 <label for="id_vendor_partner_address_0_telephone">Telephone</label>
-                                                <input type="number" class="form-control maxlength_validation"
+                                                <input type="text" class="form-control numberonly maxlength_validation"
                                                     name="partner_address[0][telephone]"
                                                     id="id_vendor_partner_address_0_telephone"  minlength="10" maxlength="14">
                                             </div>
@@ -1021,13 +1021,13 @@
                                     <div class="col-lg-3 mb-3 required">
                                         <label for="id_bank_name">Bank name</label>
                                         <input required="required" type="text" name="temps[bank_name]"
-                                            class="form-control alphaonly capitalize id_bank_name"
+                                            class="form-control alphaonly capitalize id_bank_name" maxlength="45"
                                             id="id_vendor_temps_bank_name" required="true">
                                     </div>
 
                                     <div class="col-lg-3 mb-3 required">
                                         <label for="id_bank_branch">Bank Branch</label>
-                                        <input required="required" type="text"
+                                        <input required="required" type="text" maxlength="45"
                                             class="form-control alphaonly capitalize id_bank_branch"
                                             id="id_vendor_temps_bank_branch" name="temps[bank_branch]" required="true">
                                     </div>
@@ -1054,7 +1054,7 @@
 
                                     <div class="col-lg-3 mb-3 required">
                                         <label for="id_vendor_temps_bank_city">City</label>
-                                        <input required="required" type="text" class="form-control alphaonly capitalize"
+                                        <input required="required" type="text" maxlength="45" class="form-control alphaonly capitalize"
                                             id="id_vendor_temps_bank_city" name="temps[bank_city]" required="true">
                                     </div>
 
@@ -1064,21 +1064,21 @@
 
                                     <div class="col-lg-3 mb-3 required">
                                         <label for="id_vendor_temps_bank_swift">SWIFT/BIC</label>
-                                        <input required="required" type="text" class="form-control"
+                                        <input required="required" type="text" maxlength="45" class="form-control"
                                             id="id_vendor_temps_bank_swift" name="temps[bank_swift]" required="true">
                                     </div>
 
                                     <div class="col-3 ">
                                         <label for="id_vendor_temps_tan_no">TAN No</label>
                                         <input  type="text" name="temps[tan_no]"
-                                            class="form-control UpperCase" 
+                                            class="form-control UpperCase" maxlength="45" 
                                             id="id_vendor_temps_tan_no"  maxlength="25">
                                     </div>
 
                                     <div class="col-3 ">
                                         <label for="id_vendor_temps_cin_no">CIN No</label>
                                         <input  type="text" name="temps[cin_no]"
-                                            class="form-control UpperCase" 
+                                            class="form-control UpperCase" maxlength="45" 
                                             id="id_vendor_temps_cin_no"  maxlength="25">
                                     </div>
                                 </div>
@@ -1090,7 +1090,7 @@
                                 <div class="card card-primary card-outline">
                                     <div class="card-body p-2 required">
                                         <label for="">GST No</label>
-                                        <input required="required" type="text" name="temps[gst_no]"
+                                        <input required="required" type="text" name="temps[gst_no]" maxlength="25"
                                             class="form-control UpperCase" id='id_vendor_temps_gst_no'>
                                     </div>
 
@@ -1108,7 +1108,7 @@
                                 <div class="card card-primary card-outline">
                                     <div class="card-body p-2 required">
                                         <label for="">PAN No</label>
-                                        <input required="required" type="text" name="temps[pan_no]"
+                                        <input required="required" type="text" name="temps[pan_no]" maxlength="25"
                                             class="form-control UpperCase" id="id_vendor_temps_pan_no">
                                     </div>
                                     <div class="card-footer p-2" style="background-color: whitesmoke;">
@@ -1170,7 +1170,7 @@
                                     </div>
                                     <div class="col-sm-12 col-md-6 col-lg-3">
                                         <label>Registration No.</label>
-                                        <input type="number" id="id_vendor_otherdetails_iso"
+                                        <input type="number" id="id_vendor_otherdetails_iso" maxlength="45"
                                             class="form-control other_details_iso" name="otherdetails[iso]">
                                     </div>
 
@@ -1261,8 +1261,7 @@
                             <div class="card-body" id="id_vendor_questionnaires_body">
                                 <div class="row">
                                     <div class="col-lg-12 mt-3 required">
-                                        <label>Does the company have any policy wrt to child labour appoint in work
-                                            place</label>
+                                        <label>Does the company have any policy wrt to child labour appoint in work place</label>
                                         <input required="required" type="hidden" name="questionnaire[0][question]"
                                             value="Does the company have any policy wrt to child labour appoint in work place"
                                             id="id_vendor_questionnaires_0_question">
@@ -1354,7 +1353,7 @@
                                             <div class="input text required">
                                                 <label for="id_name">Customer Name</label>
                                                 <input required="required" type="text"
-                                                    name="reputed_customers[0][customer_name]"
+                                                    name="reputed_customers[0][customer_name]" maxlength="45"
                                                     class="form-control alphaonly capitalize" required="required"
                                                     id="id_vendor_reputed_customers_0_customer_name"
                                                     aria-required="true">
@@ -1365,7 +1364,7 @@
                                         <div class="form-group">
                                             <div class="input text required">
                                                 <label for="reputed-customer-0-address">Address</label>
-                                                <input required="required" type="text"
+                                                <input required="required" type="text" maxlength="250"
                                                     name="reputed_customers[0][address]" required="required"
                                                     class="form-control" id="id_vendor_reputed_customers_0_address"
                                                     aria-required="true">
@@ -1389,7 +1388,7 @@
                                         <div class="form-group">
                                             <div class="input text required">
                                                 <label for="">City</label>
-                                                <input required="required" type="text" name="reputed_customers[0][city]"
+                                                <input required="required" type="text" maxlength="250" name="reputed_customers[0][city]"
                                                     class="form-control alphaonly capitalize" required="required"
                                                     id="id_vendor_reputed_customers_0_city" aria-required="true">
                                             </div>
@@ -1417,7 +1416,7 @@
                                             <div class="input select required">
                                                 <label for="reputed_customer_0_state">State</label>
                                                 <select name="reputed_customers[0][state]"
-                                                    id="id_vendor_reputed_customers_0_state"
+                                                    id="id_vendor_reputed_customers_0_state" maxlength="250"
                                                     class="selectpicker form-control my-select" data-live-search="true"
                                                     title="Select State" required="required">
                                                     <option value="">Select State</option>
@@ -1428,10 +1427,10 @@
                                     <div class="col-lg-3 mb-3 col-md-3">
                                         <div class="form-group">
                                             <label for="id_telephone">Telephone</label>
-                                            <input type="number"
+                                            <input type="text"
                                                 id="id_vendor_reputed_customers_0_telephone"
-                                                name="reputed_customers[0][telephone]"
-                                                class="form-control maxlength_validation"
+                                                name="reputed_customers[0][telephone]" maxlength="15"
+                                                class="form-control numberonly maxlength_validation"
                                                 minlength="10" maxlength="14">
                                         </div>
                                     </div>
@@ -1440,7 +1439,7 @@
                                             <div class="input number">
                                                 <label for="reputed_faxno">Fax No.</label>
                                                 <input type="number"
-                                                    name="reputed_customers[0][fax_no]"
+                                                    name="reputed_customers[0][fax_no]" maxlength="15"
                                                     id="id_vendor_reputed_customers_0_fax_no"
                                                     class="form-control maxlength_validation"
                                                     minlength="10" maxlength="14">

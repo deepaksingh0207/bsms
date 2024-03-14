@@ -79,7 +79,7 @@ columnTemplate4.setAll({
   cornerRadiusTR: 10,
   strokeOpacity: 0
 });
-var customColors = ["#ED1C24", "#F7941D", "#28a745"];
+var customColors = ["#F7941D", "#FFD580", "#FFE5B4"];
 
 columnTemplate4.adapters.add("fill", function (fill, target) {
   var columnIndex = series4.columns.indexOf(target);

@@ -30,8 +30,8 @@
                     </div>
                     <div class="col-2">
                         <label for="">Stock Transfer</label>
-                        <input type="text" name="stock_qty" class="form-control" placeholder="Enter Stock"
-                            id="stockTransferInput">
+                        <input type="text" name="stock_qty" maxlength="10" class="form-control numberonly"
+                            placeholder="Enter Stock" id="stockTransferInput">
                     </div>
 
                     <div class="col-1 mt-4 pt-2">

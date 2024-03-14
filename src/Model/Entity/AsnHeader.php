@@ -57,5 +57,6 @@ class AsnHeader extends Entity
         'vendor_factory' => true,
         'po_header' => true,
         'asn_footers' => true,
+        'transporter_name' => true,
     ];
 }

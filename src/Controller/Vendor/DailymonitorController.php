@@ -212,7 +212,7 @@ class DailymonitorController extends VendorAppController
                 $tmp[] = $mat["uom"];
                 $tmp[] = date("d-m-Y", strtotime($mat["plan_date"]));;
                 if ($mat["status"] == 1){
-                    $tmp[] = '<input type="number" class="form-control form-control-sm confirm-input" id="confirmprd'.$mat["id"].'" data-id="'.$mat["id"].'"><span id="validationMessage'.$mat["id"].'" class="text-danger" style="display: none;"></span>';
+                    $tmp[] = '<input type="number" maxlength="20" class="form-control form-control-sm confirm-input" id="confirmprd'.$mat["id"].'" data-id="'.$mat["id"].'"><span id="validationMessage'.$mat["id"].'" class="text-danger" style="display: none;"></span>';
                     $tmp[] = '<button class="btn btn-success save btn-sm mb-0" id="confirmsave'.$mat["id"].'" data-id="'.$mat["id"].'">Save</button>';
                 } else if ($mat["status"] == 1){
                     $tmp[] = 'Plan Cancelled';

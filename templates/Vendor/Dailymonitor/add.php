@@ -16,11 +16,11 @@
 <div class="row">
     <div class="col-12">
         <?= $this->Form->create($dailymonitor) ?>
-        <div class="card card_box_shadow">
+        <div class="card mb-2 card_box_shadow">
             <div class="card-header pb-1 pt-2">
                 <div class="row">
                     <div class="col-lg-6 d-flex justify-content-start">
-                        <h5><b>Add Production Planner</b></h5>
+                        ADD PRODUCTION PLANNER
                     </div>
                 </div>
             </div>
@@ -29,39 +29,44 @@
                 <div class="row dgf m-0">
                     <div class="col-sm-8 col-md-2">
                         <div class="form-group">
-                            <?php echo $this->Form->control('plan_date', array('type' => 'date', 'class' => 'form-control w-100 form-field','min' => date('Y-m-d'))); ?>
+                            <?php echo $this->Form->control('plan_date', array('type' => 'date', 'class' => 'form-control custom-required w-100 form-field','min' => date('Y-m-d'))); ?>
+                            <small class="text-danger error-message" style="display:none;">This field is required.</small>
                         </div>
                     </div>
                     <div class="col-sm-12 col-md-2 col-lg-2">
                         <div class="form-group">
-                            <?php echo $this->Form->control('vendor_factory_id', array('class' => 'form-control w-100 form-field', 'options' => $factory, 'empty' => 'Please Select', 'label' => 'Factory', 'required')); ?>
+                            <?php echo $this->Form->control('vendor_factory_id', array('class' => 'form-control custom-required  w-100 form-field', 'options' => $factory, 'empty' => 'Please Select', 'label' => 'Factory', 'required')); ?>
+                            <small class="text-danger error-message" style="display:none;">This field is required.</small>
                         </div>
                     </div>
                     <div class="col-sm-8 col-md-2">
                         <div class="form-group">
-                            <?php echo $this->Form->control('production_line_id', array('name' => 'production_line_id', 'class' => 'form-control w-100 form-field', 'empty' => 'Please Select')); ?>
+                            <?php echo $this->Form->control('production_line_id', array('name' => 'production_line_id', 'class' => 'form-control custom-required  w-100 form-field', 'empty' => 'Please Select')); ?>
+                            <small class="text-danger error-message" style="display:none;">This field is required.</small>
                         </div>
                     </div>
                     <div class="col-sm-8 col-md-3">
                         <div class="form-group">
-                            <?php echo $this->Form->control('material_id', array('class' => 'form-control w-100 form-field chosen', 'empty' => 'Please Select')); ?>
+                            <?php echo $this->Form->control('material_id', array('class' => 'form-control custom-required  w-100 form-field chosen', 'empty' => 'Please Select')); ?>
+                            <small class="text-danger error-message" style="display:none;">This field is required.</small>
                         </div>
+                        
                     </div>
                     <div class="col-sm-8 col-md-2">
                         <div class="form-group">
-                            <?php echo $this->Form->control('target_production', array('type' => 'number', 'class' => 'form-control rounded-0 w-100 form-field', 'div' => 'form-group', 'required')); ?>
+                            <?php echo $this->Form->control('target_production', array('type' => 'text', 'class' => 'form-control numberonly custom-required  rounded-0 w-100 form-field', 'maxlength' => '10', 'div' => 'form-group', 'required')); ?>
                             <?php echo $this->Form->control('prod_line', array('type' => 'hidden', 'class' => 'form-control rounded-0 w-100 form-field', 'div' => 'form-group', 'required')); ?>
-                            <span class="text-danger"></span>
+                            <small class="text-danger error-message" style="display:none;">This field is required.</small>
                         </div>
                     </div>
                     <div class="col-sm-8 col-md-2" style="display:none;">
                         <div class="form-group">
-                            <?php echo $this->Form->control('confirm_production', array('type' => 'number', 'value' => '0', 'class' => 'form-control rounded-0 w-100 form-field', 'div' => 'form-group', 'required')); ?>
+                            <?php echo $this->Form->control('confirm_production', array('type' => 'number', 'value' => '0', 'class' => 'form-control rounded-0 w-100 form-field', 'min'=>'0', 'max'=>'999999999999', 'div' => 'form-group', 'required')); ?>
                         </div>
                     </div>
                     <div class="col-sm-8 col-md-1">
                         <div class="form-group mgt">
-                            <button type="button" class="btn bg-gradient-submit" onclick="showConfirmationModal()">Submit</button>
+                            <button type="button" class="btn bg-gradient-submit" id="submit-btn" onclick="showConfirmationModal()">Add</button>
                         </div>
                     </div>
                 </div>
@@ -86,31 +91,35 @@
     <div class="col-12">
         <?= $this->Form->create(null, ['id' => 'formUpload', 'url' => ['controller' => '/dailymonitor', 'action' => 'upload-plan']]) ?>
         <div class="card">
-            <div class="card-header">
-                <h5><b>Bulk Production Planner</b></h5>
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <div class="col-6">BULK PRODUCTION PLANNER</div>
+                <div class="d-flex justify-content-end col-6 pr-0 ">
+                    <div class="template_file pl-2 ml-3 mr-1" data-toggle="tooltip" data-original-title="Download Template" data-placement="bottom">
+                        <a class="template_format" href="<?= $this->Url->build('/') ?>webroot/templates/production_planner_template.xlsx"
+                            target="_blank" rel="noopener noreferrer"><i class="fa fa-solid fa-file-download"></i></a>
+                    </div>
+                    <div class="pl-1">
+    
+                        <?= $this->Form->control('upload_file', ['type' => 'file', 'label' => false, 'class' => 'pt-1 rounded-0', 'style' => 'visibility: hidden; position: absolute;', 'div' => 'form-group', 'id' => 'bulk_file']); ?>
+                        <?= $this->Form->button('Select File', [
+                            'id' => 'OpenImgUpload',
+                            'type' =>
+                                'button',
+                            'label' => 'Select File',
+                            'class' => 'd-block btn btn-block bg-gradient-button mb-0 file-upld-btn'
+                        ]); ?>
+                        <!-- <span id="filessnames"></span> -->
+                    </div>
+                    <div class="pl-2">
+                        <button type="button" class="btn bg-gradient-submit" id="id_exportme">Upload</button>
+                    </div>
+    
+                </div>
             </div>
 
-            <div class="card-body">
-            <div class="row">
-                <div class="template_file pl-2 ml-3 mr-1" data-toggle="tooltip" data-original-title="Download Template" data-placement="bottom">
-                    <a class="template_format" href="<?= $this->Url->build('/') ?>webroot/templates/production_planner_template.xlsx"
-                                    target="_blank" rel="noopener noreferrer"><i class="fa fa-solid fa-file-download"></i></a>
-                </div>
-                <div class="pl-1">
+            
 
-                    <?= $this->Form->control('upload_file', ['type' => 'file', 'label' => false, 'class' => 'pt-1 rounded-0', 'style' => 'visibility: hidden; position: absolute;', 'div' => 'form-group', 'id' => 'bulk_file']); ?>
-                    <?= $this->Form->button('Upload File', ['id' => 'OpenImgUpload', 'type' =>
-                    'button', 'label' => 'Upload File', 'class' => 'd-block btn btn-block bg-gradient-button mb-0 file-upld-btn']); ?>
-                    <!-- <span id="filessnames"></span> -->
-                </div>
-                <div class="col-sm-6 col-md-4 col-lg-2">
-                    <button type="button" class="btn bg-gradient-submit" id="id_exportme">IMPORT FILE</button>
-                </div>
-                
-            </div>
-    </div>
-
-            <div class="card-footer table-responsive">
+            <div class="card-body table-responsive">
                 <table class="table table-bordered table-hover table-striped" id="example1">
                     <thead>
                         <tr>

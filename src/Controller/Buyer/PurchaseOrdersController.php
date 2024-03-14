@@ -127,7 +127,7 @@ class PurchaseOrdersController extends BuyerAppController
         }
         // echo '<pre>';print_r($conditions);exit;
         $conn = ConnectionManager::get('default');
-        $material = $conn->execute("select distinct * from (select po_headers.id, po_headers.sap_vendor_code, po_headers.po_no, item, materials.type, materials.segment, po_footers.material, po_footers.short_text, po_qty, grn_qty, pending_qty, po_footers.order_unit, po_footers.net_price, po_footers.net_value, po_footers.gross_value,po_footers.price_unit, po_item_schedules.actual_qty, po_item_schedules.received_qty, DATE_FORMAT(po_item_schedules.delivery_date, '%d-%m-%Y') as 'delivery_date', a.asn_no,
+        $material = $conn->execute("select distinct * from (select po_headers.id, po_headers.sap_vendor_code, po_headers.po_no, item, materials.type, materials.segment, po_footers.material, po_footers.short_text, po_qty, grn_qty, pending_qty, po_footers.order_unit, po_footers.net_price, po_footers.net_value, po_footers.gross_value,po_footers.price_unit, po_item_schedules.actual_qty, asn_footers.qty as received_qty, DATE_FORMAT(po_item_schedules.delivery_date, '%d-%m-%Y') as 'delivery_date', a.asn_no,
         case
             when a.status = 3 then 'Received' else
             case when a.status = 2 then 'In-Transit' else
@@ -720,7 +720,7 @@ class PurchaseOrdersController extends BuyerAppController
                 $filteredBuyers = $this->VendorTemps->find()
                             ->select(['VendorTemps.id','user_id'=> 'Users.id'])
                             ->innerJoin(['Users' => 'users'], ['Users.username = VendorTemps.email'])
-                            ->where(['VendorTemps.id' => $vendorRecord['id']]);
+                            ->where(['VendorTemps.id' => $vendorRecord['id'], 'Users.status' => 1]);
 
                             foreach ($filteredBuyers as $buyer) {
                                 $n = $this->Notifications->find()->where(['user_id' => $buyer->user_id, 'notification_type'=>'Schedule Cancelled'])->first();
@@ -744,7 +744,6 @@ class PurchaseOrdersController extends BuyerAppController
                             $response = $query->fetchAll('assoc');
 
                             $visit_url = Router::url('/', true);
-                            if($this->Users->find()->select('status')->where(['username' => $vendorRecord->email])->first()['status'] == 1){
                             $mailer = new Mailer('default');
                             $mailer
                                 ->setTransport('smtp')
@@ -761,7 +760,6 @@ class PurchaseOrdersController extends BuyerAppController
                                 ->viewBuilder()
                                     ->setTemplate('m_delivery_schedule_can');
                             $mailer->deliver();
-                            }
 
                 $response['status'] = 'success';
                 $response['message'] = 'Schedule deleted successfully';
@@ -890,7 +888,7 @@ class PurchaseOrdersController extends BuyerAppController
                             $filteredBuyers = $this->VendorTemps->find()
                             ->select(['VendorTemps.id','user_id'=> 'Users.id'])
                             ->innerJoin(['Users' => 'users'], ['Users.username = VendorTemps.email'])
-                            ->where(['VendorTemps.id' => $vendorRecord['id']]);
+                            ->where(['VendorTemps.id' => $vendorRecord['id'], 'Users.status' => 1]);
 
                             foreach ($filteredBuyers as $buyer) {
                                 $n = $this->Notifications->find()->where(['user_id' => $buyer->user_id, 'notification_type'=>'New Schedule'])->first();
@@ -909,7 +907,6 @@ class PurchaseOrdersController extends BuyerAppController
 
 
                             $visit_url = Router::url('/', true);
-                            if($this->Users->find()->select('status')->where(['username' => $vendorRecord->email])->first()['status'] == 1){
                             $mailer = new Mailer('default');
                             $mailer
                                 ->setTransport('smtp')
@@ -921,7 +918,6 @@ class PurchaseOrdersController extends BuyerAppController
                                 ->viewBuilder()
                                     ->setTemplate('delivery_schedule');
                             $mailer->deliver();
-                            }
                             $response['status'] = 1;
                             $response['message'] = "Schedule created successfully";
                         } 
@@ -979,7 +975,7 @@ class PurchaseOrdersController extends BuyerAppController
                 $filteredBuyers = $this->VendorTemps->find()
                             ->select(['VendorTemps.id','user_id'=> 'Users.id'])
                             ->innerJoin(['Users' => 'users'], ['Users.username = VendorTemps.email'])
-                            ->where(['VendorTemps.id' => $vendorRecord['id']]);
+                            ->where(['VendorTemps.id' => $vendorRecord['id'], 'Users.status' => 1]);
 
                             foreach ($filteredBuyers as $buyer) {
                                 $n = $this->Notifications->find()->where(['user_id' => $buyer->user_id, 'notification_type'=>'Schedule Updated'])->first();
@@ -1003,7 +999,6 @@ class PurchaseOrdersController extends BuyerAppController
                             $response = $query->fetchAll('assoc');
 
                             $visit_url = Router::url('/', true);
-                            if($this->Users->find()->select('status')->where(['username' => $vendorRecord->email])->first()['status'] == 1){
                             $mailer = new Mailer('default');
                             $mailer
                                 ->setTransport('smtp')
@@ -1021,7 +1016,6 @@ class PurchaseOrdersController extends BuyerAppController
                                 ->viewBuilder()
                                     ->setTemplate('m_delivery_schedule');
                             $mailer->deliver();
-                            }
 
                 $response['status'] = 'success';
                 $response['message'] = 'Delivery Date Update.';
@@ -1339,11 +1333,14 @@ class PurchaseOrdersController extends BuyerAppController
                     $this->loadModel('PoFooters');
                     $this->loadModel('Users');
                     $this->loadModel('PoItemSchedules');
+                    $this->loadModel('Materials');
                     
                     $tmp = [];
                     
                     for ($row = 2; $row <= $highestRow; ++$row) {
                         $vendorError = false;
+                        $materialError = false;
+                        $dateError = false;
                         $poError = false;
                         $poItemError = false;
                         $datas = [];
@@ -1351,10 +1348,10 @@ class PurchaseOrdersController extends BuyerAppController
                             $value = $worksheet->getCellByColumnAndRow($col, $row)->getValue();
                             if($value){
                                 if($col == 1) {
-                                    $tmp['sap_vendor_code'] = $value;
+                                    $tmp['sap_vendor_code'] = str_pad((string)$value, 10, "0", STR_PAD_LEFT);
                                     $datas['sap_vendor_code'] = $value;
 
-                                    if(!$this->VendorTemps->exists(['sap_vendor_code' => str_pad((string)$value, 10, "0", STR_PAD_LEFT)])) {
+                                    if(!$this->VendorTemps->exists(['sap_vendor_code' => $tmp['sap_vendor_code']])) {
                                         $vendorError = true;
                                     }
 
@@ -1386,12 +1383,19 @@ class PurchaseOrdersController extends BuyerAppController
                                     
                                 } else if($col == 4){
                                     $datas['material'] = $value;
+                                    if(!$this->Materials->exists(['sap_vendor_code' => $tmp['sap_vendor_code'], 'code'=>$datas['material']])) {
+                                        $materialError = true;
+                                    }
                                 } else if($col == 5){
                                     $tmp['actual_qty'] = $value;
                                     $datas['schedule_qty'] = $value;
                                 } else if($col == 6){
                                     $tmp['delivery_date'] = date('Y-m-d', strtotime(trim($value)));
                                     $datas['delivery_date'] = $value;
+                                    $current_date = date('Y-m-d');
+                                    if (strtotime(trim($value)) < strtotime($current_date)) {
+                                        $dateError = true;
+                                    }
                                 }
                             }
                         }
@@ -1405,7 +1409,13 @@ class PurchaseOrdersController extends BuyerAppController
                         } 
                         if($poItemError) {
                             $datas['error'] = 'Item Detail not found';
-                        } 
+                        }
+                        if($materialError) {
+                            $datas['error'] = 'Material not found';
+                        }
+                        if($dateError) {
+                            $datas['error'] = 'Past Date not allowed';
+                        }
 
                         if(empty($datas['error'])) {
                             $uploadData[] = $tmp; 
@@ -1437,7 +1447,6 @@ class PurchaseOrdersController extends BuyerAppController
                                 if ($this->PoItemSchedules->save($PoItemSchedule)) {
                                     $datas['error'] = "Schedule created";
                                     $visit_url = Router::url('/', true);
-                                    if($this->Users->find()->select('status')->where(['username' => $vendorRecord->email])->first()['status'] == 1){
                                     $mailer = new Mailer('default');
                                     $mailer
                                         ->setTransport('smtp')
@@ -1449,7 +1458,6 @@ class PurchaseOrdersController extends BuyerAppController
                                         ->viewBuilder()
                                             ->setTemplate('delivery_schedule');
                                     $mailer->deliver();
-                                    }
                                 } else { $datas['error'] = "Fail to create schedule"; }
                             } else { $datas['error'] = "Available Schedule Qty ".$avail_sched_qty; }
 

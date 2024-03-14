@@ -49,6 +49,19 @@ $(function () {
         buttons: [{ extend: 'copy' }, { extend: 'excelHtml5', text: 'Export', title:'' }]
     });
 
+    d3table = $("#example3").DataTable({
+        "paging": true,
+        "responsive": false,
+        "lengthChange": false,
+        "autoWidth": false,
+        "searching": true,
+        "ordering": true,
+        "destroy": true,
+        dom: 'Blfrtip',
+        buttons: [{ extend: 'copy' }, { extend: 'excelHtml5', text: 'Export', title:'' }]
+    });
+
+
     stable = $("#example2").DataTable({
         "paging": false,
         "responsive": false,
@@ -89,6 +102,10 @@ $(function () {
                         dtable.clear().draw();
                         dtable.rows.add(response.data[0]).draw();
                         dtable.columns.adjust().draw();
+
+                        d3table.clear().draw();
+                        d3table.rows.add(response.data[0]).draw();
+                        d3table.columns.adjust().draw();
 
                         stable.clear().draw();
                         stable.rows.add(response.data[1]).draw();

@@ -91,7 +91,7 @@ class MsgchatHeadersController extends AppController
                         $filteredBuyers = $this->Buyers->find()
                             ->select(['Buyers.id','user_id'=> 'Users.id'])
                             ->innerJoin(['Users' => 'users'], ['Users.username = Buyers.email'])
-                            ->where(['company_code_id' => $vendorTemp['company_code_id'], 'purchasing_organization_id' => $vendorTemp['purchasing_organization_id']]);
+                            ->where(['company_code_id' => $vendorTemp['company_code_id'], 'purchasing_organization_id' => $vendorTemp['purchasing_organization_id'], 'Users.status' => 1]);
 
                         foreach ($filteredBuyers as $buyer) {
                             $n = $this->Notifications->find()->where(['user_id' => $buyer->user_id, 'notification_type'=>'New Message'])->first();

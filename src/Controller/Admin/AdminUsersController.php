@@ -125,7 +125,6 @@ class AdminUsersController extends AdminAppController
                 
 
                 $visit_url = Router::url(['prefix' => false, 'controller' => 'users', 'action' => 'login', '_full' => true, 'escape' => true]);
-                if($this->Users->find()->select('status')->where(['username' => $data['username']])->first()['status'] == 1){
                 $mailer = new Mailer('default');
                 $mailer
                     ->setTransport('smtp')
@@ -138,7 +137,6 @@ class AdminUsersController extends AdminAppController
                     ->viewBuilder()
                         ->setTemplate('mail_template');
                 $mailer->deliver();
-                }
 
                 $flash = ['type'=>'success', 'msg'=>'The User has been saved'];
                 $this->set('flash', $flash);

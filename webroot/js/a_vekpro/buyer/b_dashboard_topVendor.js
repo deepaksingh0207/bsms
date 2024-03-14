@@ -15,11 +15,11 @@ root.setThemes([am5themes_Animated.new(root)]);
 var chart = root.container.children.push(am5percent.PieChart.new(root, { layout: root.verticalLayout }));
 var series = chart.series.push(am5percent.PieSeries.new(root, { valueField: "value", categoryField: "category" }));
 series.get("colors").set("colors", [
-    am5.color(0xF7941D),
-    am5.color(0xED1C24),
-    am5.color(0x28a745),
-    am5.color(0xF7681D),
-    am5.color(0xF7B81D)
+    am5.color(0xF4B678),
+    am5.color(0xEF9234),
+    am5.color(0xFFBF00),
+    am5.color(0xFBCEB1),
+    am5.color(0xFF7F50)
   ]);
 series.labels.template.set("fontSize", 12);
 refresh_topVendor(chartdiv_data)

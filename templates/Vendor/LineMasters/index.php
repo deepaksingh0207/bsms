@@ -10,9 +10,9 @@
         <div class="card">
             <div class="card-header lineMasters d-flex justify-content-between align-items-center">
                 <div class="col-lg-6 pl-0">
-                <h5 class="mb-0">
-                    <b><?= __('Line Masters') ?></b>
-                </h5></div>
+                
+                    <?= __('LINE MASTER') ?>
+                </div>
                 <div class="col-lg-6 d-flex justify-content-end pr-0"><?= $this->Html->link(__('New Line Master'), ['action' => 'add'], ['class' => 'btn bg-gradient-button']) ?></div>
             </div>
             <div class="card-body">

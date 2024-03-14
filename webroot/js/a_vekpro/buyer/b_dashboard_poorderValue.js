@@ -57,7 +57,7 @@ series3.columns.template.setAll({
 });
 
 // Make each column to be of a different color
-var customColors = ["#ED1C24", "#F7941D", "#28a745"];
+var customColors = ["#F7941D", "#F4BB44", "#FFE5B4"];
 
 series3.columns.template.adapters.add("fill", function (fill, target) {
   var columnIndex = series3.columns.indexOf(target);

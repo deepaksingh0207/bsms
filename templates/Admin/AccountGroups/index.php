@@ -52,10 +52,10 @@
 
 <script>
     $(document).ready(function () {
-    $("#tb_pg").DataTable({
-        pagination: true,
-        searching: false,
-        lengthChange: false
+        $("#tb_pg").DataTable({
+            pagination: true,
+            searching: false,
+            lengthChange: false
+        });
     });
-});
 </script>

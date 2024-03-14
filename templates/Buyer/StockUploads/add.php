@@ -18,7 +18,7 @@ use PhpOffice\PhpSpreadsheet\Calculation\Information\Value;
 <div class="row">
     <div class="col-12 d-none">
         <?= $this->Form->create($stockupload, ['id' => 'stockuploadForm']) ?>
-        <div class="card">
+        <div class="card mb-2">
             <div class="card-header pb-1 pt-2">
                 <div class="row">
                     <div class="col-lg-6 d-flex justify-content-start">
@@ -60,11 +60,11 @@ use PhpOffice\PhpSpreadsheet\Calculation\Information\Value;
         <?= $this->Form->end() ?>
     </div>
     <div class="col-12">
-        <div class="card">
+        <div class="card mb-2">
             <div class="card-header">
                 <div class="row col-lg-12 pr-0 d-flex justify-content-between align-items-center">
                     <div class="col-sm-6 col-lg-6 pl-0">
-                        <h5 class="mb-0"><b>UPLOAD STOCKS</b></h5>
+                        UPLOAD STOCKS
                     </div>
                     <div class="stock_fileupload col-sm-6 col-lg-6 pr-0">
                         <?= $this->Form->create(null, ['id' => 'formUpload', 'url' => ['controller' => '/stock-uploads', 'action' => 'upload']]) ?>
@@ -85,7 +85,7 @@ use PhpOffice\PhpSpreadsheet\Calculation\Information\Value;
                             </div>
                             <div class="pl-2 pr-1">
                                 <button class="btn bg-gradient-submit" id="id_import" type="button">
-                                    Submit
+                                    Upload
                                 </button>
                             </div>
 
@@ -95,7 +95,17 @@ use PhpOffice\PhpSpreadsheet\Calculation\Information\Value;
                 </div>
             </div>
 
-            <div class="card-body">
+            
+
+            
+
+        </div>
+    </div>
+</div>
+
+<div class="card mb-2">
+    <div class="card-header">SEARCH</div>
+    <div class="card-body">
                 <form method="post">
                     <?= $this->Html->meta('csrfToken', $this->request->getAttribute('csrfToken')); ?>
                     <div class="row">
@@ -111,20 +121,23 @@ use PhpOffice\PhpSpreadsheet\Calculation\Information\Value;
                         </div>
                         <div class="col-sm-12 col-md-3 col-lg-2">
                             <label for="">Material</label>
-                            <select class="form-control chosen" name="material_id" required id="id_material_id"></select>
+                            <select class="form-control chosen" name="material_id" required
+                                id="id_material_id"></select>
                         </div>
                         <div class="col-sm-12 col-md-3 col-lg-2">
                             <label for="">Opening Stock</label>
-                            <input class="form-control" type="text" required name="opening_stock" id="id_opening_stock">
+                            <input class="form-control numberonly" maxlength="10" type="text" required name="opening_stock" id="id_opening_stock">
                         </div>
                         <div class="col-sm-12 col-md-3 col-lg-2 mt-3 pt-2">
-                            <button type="button" class="btn bg-gradient-submit mt-2" id="id_mslsubmit">Submit</button>
+                            <button type="button" class="btn bg-gradient-submit mt-2" id="id_mslsubmit">Add</button>
                         </div>
                     </div>
                 </form>
             </div>
+</div>
 
-            <div class="card-footer" id="id_pohead">
+<div class="card mb-2">
+<div class="card-body" id="id_pohead">
                 <div class="table-responsive">
                     <table class="table table-hover" id="example1">
                         <thead>
@@ -181,9 +194,6 @@ use PhpOffice\PhpSpreadsheet\Calculation\Information\Value;
                     </table>
                 </div>
             </div>
-
-        </div>
-    </div>
 </div>
 
 <div class="modal fade" id="modal-sm" style="display: none;" aria-hidden="true">
@@ -299,7 +309,7 @@ use PhpOffice\PhpSpreadsheet\Calculation\Information\Value;
             if (r.status == 1) {
                 // Toast.fire({ icon: 'success', title: r.message });
                 console.log(r.data);
-                $('#id_sap_vendor_code').append($("<option></option>").text('Select Vendor'));
+                $('#id_sap_vendor_code').append($('<option value=""></option>').text('Select Vendor'));
                 $.each(r.data, function (key, value) {
                     $('#id_sap_vendor_code')
                         .append($("<option></option>")
@@ -363,28 +373,38 @@ use PhpOffice\PhpSpreadsheet\Calculation\Information\Value;
     });
 
     $(document).on("click", "#id_mslsubmit", function () {
-        $.ajax({
-            url: "<?php echo \Cake\Routing\Router::url(array('controller' => '/stock-uploads', 'action' => 'poststockupload')); ?>",
-            type: "post",
-            data: {
-                sap_vendor_code: $("#id_sap_vendor_code").val(),
-                vendor_factory_id: $("#id_vendor_factory_id").val(),
-                material_id: $("#id_material_id").val(),
-                opening_stock: $("#id_opening_stock").val(),
-            },
-            dataType: 'json',
-            headers: { 'X-CSRF-Token': $('meta[name="csrfToken"]').attr('content') },
-            success: function (r) {
-                if (r.status == 1) {
-                    Toast.fire({ icon: 'success', title: r.data });
-                    location.reload();
-                }
-                else { Toast.fire({ icon: 'error', title: r.data }); }
-            },
-            error: function () {
-                Toast.fire({ icon: 'error', title: 'An error occured, please try again.' });
-            },
-        });
+        if (!$("#id_sap_vendor_code").val()) {
+            Toast.fire({ icon: 'error', title: 'Vendor Mandatory' });
+        } else if (!$("#id_vendor_factory_id").val() ) {
+            Toast.fire({ icon: 'error', title: 'Factory Mandatory' });
+        } else if (!$("#id_material_id").val() ) {
+            Toast.fire({ icon: 'error', title: 'Material Mandatory' });
+        } else if (parseFloat($("#id_opening_stock").val()) >= parseFloat(0)) {
+            $.ajax({
+                url: "<?php echo \Cake\Routing\Router::url(array('controller' => '/stock-uploads', 'action' => 'poststockupload')); ?>",
+                type: "post",
+                data: {
+                    sap_vendor_code: $("#id_sap_vendor_code").val(),
+                    vendor_factory_id: $("#id_vendor_factory_id").val(),
+                    material_id: $("#id_material_id").val(),
+                    opening_stock: $("#id_opening_stock").val(),
+                },
+                dataType: 'json',
+                headers: { 'X-CSRF-Token': $('meta[name="csrfToken"]').attr('content') },
+                success: function (r) {
+                    if (r.status == 1) {
+                        Toast.fire({ icon: 'success', title: r.msg });
+                        location.reload();
+                    }
+                    else { Toast.fire({ icon: 'error', title: r.msg }); }
+                },
+                error: function () {
+                    Toast.fire({ icon: 'error', title: 'An error occured, please try again.' });
+                },
+            });
+        } else {
+            Toast.fire({ icon: 'error', title: 'Opening Stock Mandatory' });
+        }
     });
 
 

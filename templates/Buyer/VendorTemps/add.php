@@ -22,12 +22,13 @@
 <div class="row">
     <div class="col-12 add-vendor">
         <div class="card mb-2 card_box_shadow">
+            <div class="card-header">ADD VENDOR</div>
             <div class="card-body fm">
                 <?= $this->Form->create(null, ['id' => 'addvendorform']) ?>
                 <div class="row">
                     <div class="col-sm-12 col-md-3 col-lg-1 mb-3">
                         <div class="form-group">
-                        <?php echo $this->Form->control('title', array('class' => 'form-control', 'options' => $titles, 'required' => 'required', 'empty' => 'Select')); ?>
+                        <?php echo $this->Form->control('title', array('class' => 'form-control', 'maxlength' => '15', 'options' => $titles, 'required' => 'required', 'empty' => 'Select')); ?>
                         </div>
                     </div>
                     <div class="col-sm-12 col-md-4 col-lg-3 mb-3">
@@ -35,6 +36,7 @@
                             <?php
                             echo $this->Form->control('name', [
                                 'class' => 'form-control',
+                                'maxlength' => '200',
                                 'label' => 'Company Name',
                                 'placeholder' => 'Please Enter Full Company Name'
                             ]);
@@ -57,7 +59,7 @@
                     </div>
                     <div class="col-sm-12 col-md-4 col-lg-2 mb-3">
                         <div class="form-group">
-                            <?php echo $this->Form->control('email', array('class' => 'form-control rounded-0', 'placeholder' => 'please enter email id')); ?>
+                            <?php echo $this->Form->control('email', array('class' => 'form-control rounded-0', 'maxlength' => '100', 'placeholder' => 'please enter email id')); ?>
                         </div>
                     </div>
                     <!-- <div class="col-sm-12 col-md-3 col-lg-3 mb-3">

@@ -14,10 +14,10 @@
 
 <div class="vendorTemps index content">
     <!-- <?= $this->Html->link(__('New Vendor'), ['action' => 'add'], ['class' => 'new_vendor_btn button float-right']) ?> -->
-    <h3>
-        <?= __('Vendors') ?>
-    </h3>
-    <div class="table-responsive">
+    <div class="card">
+        <div class="card-header">VENDORS</div>
+        <div class="card-body">
+        <div class="table-responsive">
         <table class="table table-hover table-responsive dataTable no-footer" id="tb_pg" style="width: 100%;">
             <thead>
                 <tr>
@@ -90,6 +90,9 @@
             </tbody>
         </table>
     </div>
+        </div>
+    </div>
+    
     <!-- <div class="paginator">
     <p><?= $this->Paginator->counter(__('Page {{page}} of {{pages}}, showing {{current}} record(s) out of {{count}} total')) ?></p>
         <ul class="pagination">

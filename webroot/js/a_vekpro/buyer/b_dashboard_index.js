@@ -72,7 +72,7 @@ $(document).on("click", ".mydash", function () {
             yAxis4.data.setAll(tmp);
             series4.data.setAll(tmp);
 
-            series5.data.setAll(data[4]);
+            series5.data.setAll(data[1]);
         },
         complete: function () { $("#gif_loader").hide(); }
     });

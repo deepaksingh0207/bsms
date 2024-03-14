@@ -42,7 +42,8 @@
           </div>
           <!-- <div class="col-6"></div> -->
           <div class="col-1">
-            <a style="display:none;" href="vendor/purchase-orders/create-asn" id="id_backmodal" class="btn bg-gradient-cancel float-right">
+            <a style="display:none;" href="vendor/purchase-orders/create-asn" id="id_backmodal"
+              class="btn bg-gradient-cancel float-right">
               <i class="fas fa-angle-double-left"></i> BACK</a>
           </div>
           <div class="col-1 text-center">
@@ -78,7 +79,7 @@
         <div class="row dgf">
           <div class="col-sm-8  col-md-2">
             <div class="form-group">
-              <?php echo $this->Form->control('invoice_no', array('class' => 'form-control rounded-0', 'maxlength'=>'20', 'div' => 'form-group', 'required')); ?>
+              <?php echo $this->Form->control('invoice_no', array('class' => 'form-control rounded-0', 'maxlength'=>'15', 'div' => 'form-group', 'required')); ?>
             </div>
           </div>
 
@@ -90,30 +91,30 @@
 
           <div class="col-sm-8 col-md-2">
             <div class="form-group">
-              <?php echo $this->Form->control('invoice_value', array('type' => 'number', 'class' => 'form-control rounded-0', 'div' => 'form-group', 'required', 'readonly')); ?>
+              <?php echo $this->Form->control('invoice_value', array('type' => 'number', 'maxlength'=>'12', 'class' => 'form-control rounded-0', 'div' => 'form-group', 'required', 'readonly')); ?>
             </div>
           </div>
 
           <div class="col-sm-8 col-md-2">
             <div class="form-group">
-              <?php echo $this->Form->control('vehicle_no', array('class' => 'form-control rounded-0', 'div' => 'form-group', 'required')); ?>
+              <?php echo $this->Form->control('vehicle_no', array('class' => 'form-control  rounded-0', 'maxlength'=>'12', 'div' => 'form-group', 'required')); ?>
             </div>
           </div>
           <div class="col-sm-8 col-md-2">
             <div class="form-group">
-              <?php echo $this->Form->control('driver_name', array('class' => 'form-control rounded-0','type' => 'text','div' => 'form-group', 'required')); ?>
-            </div>
-          </div>
-
-          <div class="col-sm-8 col-md-2">
-            <div class="form-group">
-              <?php echo $this->Form->control('driver_contact', array('type' => 'tel', 'class' => 'form-control rounded-0', 'div' => 'form-group', 'required')); ?>
+              <?php echo $this->Form->control('driver_name', array('class' => 'form-control rounded-0', 'maxlength'=>'15','type' => 'text','div' => 'form-group', 'required')); ?>
             </div>
           </div>
 
           <div class="col-sm-8 col-md-2">
             <div class="form-group">
-              <?php echo $this->Form->control('transporter_name', array('type' => 'text', 'class' => 'form-control rounded-0', 'div' => 'form-group')); ?>
+              <?php echo $this->Form->control('driver_contact', array('type' => 'text', 'class' => 'form-control numberonly rounded-0', 'maxlength'=>'10', 'div' => 'form-group', 'required')); ?>
+            </div>
+          </div>
+
+          <div class="col-sm-8 col-md-2">
+            <div class="form-group">
+              <?php echo $this->Form->control('transporter_name', array('type' => 'text', 'class' => 'form-control rounded-0', 'maxlength'=>'30', 'div' => 'form-group')); ?>
             </div>
           </div>
 
@@ -122,7 +123,7 @@
             <div class="form-group">
               <label for="invoices">Upload Invoice</label>
               <input type="file" name="invoice" accept=".pdf" class="pt-1 rounded-0"
-                style="visibility: hidden;position:absolute;" div="form-group"  id="invoices">
+                style="visibility: hidden;position:absolute;" div="form-group" id="invoices">
               <button id="OpenImgUpload" type="button"
                 class="upload_invoice d-block btn bg-gradient-button mb-0 file-upld-btn">
                 Choose File
@@ -163,8 +164,8 @@
           </div>
         </div>
         <div class="col-sm-12 col-lg-6">
-                <div class="d-flex justify-content-start mt-4 align-items-center">
-                    <?php $files = json_decode($asnDetail->invoice_path, true);
+          <div class="d-flex justify-content-start mt-4 align-items-center">
+            <?php $files = json_decode($asnDetail->invoice_path, true);
                         if (!empty($files)) {
                             foreach ($files as $key => $file) {
                                 if(is_array($file)) {
@@ -179,8 +180,8 @@
                             }
                         }
                     ?>
-                </div>
-            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -446,18 +447,29 @@
 
     $("#asnForm").validate({
       rules: {
+        invoice_no: {
+          required: true,
+          maxlength: 15,
+          //pattern: /^\d{10}$/,
+        },
         vehicle_no: {
           required: true,
+          maxlength: 12,
           //validateVehicleNo: true
         },
         driver_name: {
           required: true,
+          maxlength: 15,
         },
         driver_contact: {
           required: true,
           number: true,
           maxlength: 10,
           minlength: 10
+          //pattern: /^\d{10}$/,
+        },
+        transporter_name: {
+          maxlength: 30,
         },
         invoices: {
           required: true
@@ -511,6 +523,8 @@
 
 
     $("#vehicle-no").on("keyup", function () {
+      var splpattern = /[^a-zA-Z0-9]/g;
+      $(this).val(($(this).val()).replace(splpattern, ''));
       const currentValue = $(this).val();
       const capitalizedValue = currentValue.slice(0, 2).toUpperCase() + currentValue.slice(2);
       $(this).val(capitalizedValue);
@@ -556,18 +570,18 @@
   });
 
   // for page leave popup
-  $(document).ready(function () { 
-    var previousUrl = null;
-    $('.nav-link').click(function () {
-      previousUrl = $(this).attr('href');
-      $("#modal-default").modal('show');
-      $("#leaveButton").click(function () {
-        if (previousUrl) {
-          window.location.href = previousUrl;
-        }
-      });
-      return false; // cancel the event
-    });
+  $(document).ready(function () {
+    // var previousUrl = null;
+    // $('.nav-link').click(function () {
+    //   previousUrl = $(this).attr('href');
+    //   // $("#modal-default").modal('show');
+    //   $("#leaveButton").click(function () {
+    //     if (previousUrl) {
+    //       window.location.href = previousUrl;
+    //     }
+    //   });
+    //   return false; // cancel the event
+    // });
 
     var currStock = parseFloat($("#current_stock").text());
     var minStock = parseFloat($("#minimum_stock").text());
