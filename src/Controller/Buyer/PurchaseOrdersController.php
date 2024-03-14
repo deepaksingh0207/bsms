@@ -261,15 +261,20 @@ class PurchaseOrdersController extends BuyerAppController
             $conn = ConnectionManager::get('default');
         }
 
-        $conn = ConnectionManager::get('default');
-        $material = $conn->execute("select
-        DATE_FORMAT(po_item_schedules.added_date, '%d-%m-%Y') as 'added_date', materials.type, materials.segment, materials.code, materials.description,
-        materials.pack_size, materials.pack_uom, po_footers.po_qty, po_item_schedules.received_qty, po_footers.po_qty - po_item_schedules.received_qty as 'pending_qty', vendor_temps.name, DATE_FORMAT(po_item_schedules.delivery_date, '%d-%m-%Y') as 'delivery_date', TIMESTAMPDIFF( DAY, po_item_schedules.added_date, po_item_schedules.delivery_date ) as 'no_of_days',
+        $conn = ConnectionManager::get('default');       
+        $query = $conn->execute("select
+        DATE_FORMAT(po_footers.added_date, '%d-%m-%Y') as 'item_added_date', DATE_FORMAT(po_item_schedules.added_date, '%d-%m-%Y') as 'sch_added_date', materials.type, materials.segment, materials.code, materials.description,
+        materials.pack_size, materials.pack_uom, po_footers.po_qty, po_item_schedules.received_qty, po_footers.po_qty - po_item_schedules.received_qty as 'pending_qty', vendor_temps.name, DATE_FORMAT(po_item_schedules.delivery_date, '%d-%m-%Y') as 'delivery_date', TIMESTAMPDIFF( DAY, po_footers.added_date, po_item_schedules.delivery_date ) as 'itm_no_of_days',
         case
-            when TIMESTAMPDIFF( DAY, po_item_schedules.added_date, po_item_schedules.delivery_date ) <= 0 then 'Within 7 days' else
+            when TIMESTAMPDIFF( DAY, po_footers.added_date, po_item_schedules.delivery_date ) < 8 then 'Within 7 days' else
+            case when TIMESTAMPDIFF( DAY, po_footers.added_date, po_item_schedules.delivery_date ) < 16 then '7 to 15 days' else 'Greater than 15 days'
+            end
+        end as 'itm_ageing', TIMESTAMPDIFF( DAY, po_item_schedules.added_date, po_item_schedules.delivery_date ) as 'sch_no_of_days',
+        case
+            when TIMESTAMPDIFF( DAY, po_item_schedules.added_date, po_item_schedules.delivery_date ) < 8 then 'Within 7 days' else
             case when TIMESTAMPDIFF( DAY, po_item_schedules.added_date, po_item_schedules.delivery_date ) < 16 then '7 to 15 days' else 'Greater than 15 days'
             end
-        end as 'ageing',
+        end as 'sch_ageing',
         case
             when asn_headers.status = 3 then 'Received' else
             case when asn_headers.status = 2 then 'In-Transit' else
@@ -288,12 +293,12 @@ class PurchaseOrdersController extends BuyerAppController
         left join vendor_temps on vendor_temps.sap_vendor_code = po_headers.sap_vendor_code
         left join asn_footers on asn_footers.po_schedule_id = po_item_schedules.id
         left join asn_headers on asn_footers.asn_header_id = asn_headers.id". $conditions);
-        $materialist = $material->fetchAll('assoc');
+        $ageing_schedule = $query->fetchAll('assoc');
 
-        $results = [];
-        foreach ($materialist as $mat) {
+        $sch_results = [];
+        foreach ($ageing_schedule as $mat) {
             $tmp = [];
-            $tmp[] = $mat['added_date'];
+            $tmp[] = $mat['sch_added_date'];
             $tmp[] = $mat['delivery_date'];
             $tmp[] = $mat['type'];
             $tmp[] = $mat['segment'];
@@ -305,10 +310,31 @@ class PurchaseOrdersController extends BuyerAppController
             $tmp[] = $mat['received_qty'];
             $tmp[] = $mat['pending_qty'];
             $tmp[] = $mat['name'];
-            $tmp[] = $mat['no_of_days'];
-            $tmp[] = $mat['ageing'];
+            $tmp[] = $mat['sch_no_of_days'];
+            $tmp[] = $mat['sch_ageing'];
             $tmp[] = $mat['status'];
-            $results[] = $tmp;
+            $sch_results[] = $tmp;
+        }
+
+        $itm_results = [];
+        foreach ($ageing_schedule as $mat) {
+            $tmp = [];
+            $tmp[] = $mat['sch_added_date'];
+            $tmp[] = $mat['delivery_date'];
+            $tmp[] = $mat['type'];
+            $tmp[] = $mat['segment'];
+            $tmp[] = $mat['code'];
+            $tmp[] = $mat['description'];
+            $tmp[] = $mat['pack_size'];
+            $tmp[] = $mat['pack_uom'];
+            $tmp[] = $mat['po_qty'];
+            $tmp[] = $mat['received_qty'];
+            $tmp[] = $mat['pending_qty'];
+            $tmp[] = $mat['name'];
+            $tmp[] = $mat['itm_no_of_days'];
+            $tmp[] = $mat['itm_ageing'];
+            $tmp[] = $mat['status'];
+            $itm_results[] = $tmp;
         }
 
         $summary = $conn->execute("select case
@@ -340,10 +366,12 @@ class PurchaseOrdersController extends BuyerAppController
         left join asn_footers on asn_footers.po_schedule_id = po_item_schedules.id
         left join asn_headers on asn_footers.asn_header_id = asn_headers.id". $conditions."
         group by status, type order by status, type");
-        $summaryist = $summary->fetchAll('assoc');
+        $summary_type = $summary->fetchAll('assoc');
 
-        $s_result = []; $tmparr = []; $x=0; $y=0; $z=0;
-        foreach ($summaryist as $mat) {
+        $summary_type = []; $summary_segment = []; $summary_packsize = [];
+        $tmparr = []; $x=0; $y=0; $z=0;
+
+        foreach ($summary_type as $mat) {
             if(!isset($tmparr[$mat['status']])){
                 $tmp = [];
                 $tmp[] = $mat['status'];
@@ -351,7 +379,7 @@ class PurchaseOrdersController extends BuyerAppController
                 $tmp[] = "";
                 $tmp[] = "";
                 $tmp[] = "";
-                $s_result[] = $tmp;                
+                $summary_type[] = $tmp;                
                 $tmparr[$mat['status']] = 5;
             }
             $tmp = [];
@@ -366,7 +394,7 @@ class PurchaseOrdersController extends BuyerAppController
             $c = !empty($mat['Greater than 15 days']) ? intval($mat['Greater than 15 days']) : 0;
             $z = $z + $c;
             $tmp[] = $a + $b + $c;
-            $s_result[] = $tmp;
+            $summary_type[] = $tmp;
         }
         $tmp = [];
         $tmp[] = "Grand Total";
@@ -374,9 +402,9 @@ class PurchaseOrdersController extends BuyerAppController
         $tmp[] = $y;
         $tmp[] = $z;
         $tmp[] = $x + $y + $z;
-        $s_result[] = $tmp;
+        $summary_type[] = $tmp;
 
-        $response = array('status'=>1, 'message'=>'success', 'data'=>array($results, $s_result));
+        $response = array('status'=>1, 'message'=>'success', 'data'=>array($sch_results, $summary_type, $itm_results));
         echo json_encode($response); exit;
     }
 

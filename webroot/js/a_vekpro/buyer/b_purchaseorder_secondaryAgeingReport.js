@@ -103,14 +103,14 @@ $(function () {
                         dtable.rows.add(response.data[0]).draw();
                         dtable.columns.adjust().draw();
 
-                        d3table.clear().draw();
-                        d3table.rows.add(response.data[0]).draw();
-                        d3table.columns.adjust().draw();
-
                         stable.clear().draw();
                         stable.rows.add(response.data[1]).draw();
                         stable.columns.adjust().draw();
-                    } else { dtable.clear().draw(); stable.clear().draw(); }
+
+                        d3table.clear().draw();
+                        d3table.rows.add(response.data[2]).draw();
+                        d3table.columns.adjust().draw();
+                    } else { dtable.clear().draw(); stable.clear().draw(); d3table.clear().draw(); }
                 },
                 complete: function () { $("#gif_loader").hide(); }
             });

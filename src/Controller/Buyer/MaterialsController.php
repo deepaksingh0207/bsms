@@ -282,8 +282,8 @@ class MaterialsController extends BuyerAppController
                             }
                         }
                         else if($col == 2) {
-                            $tmp['code'] = $value;
-                            $datas['material_code'] = $value;
+                            $tmp['code'] = trim($value);
+                            $datas['material_code'] = trim($value);
                         } else if($col == 3) {
                             $tmp['description'] = $value;
                             $datas['description'] = $value;
